@@ -1,9 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { FeathersVuex, makeAuthPlugin } from '../boot/feathers-client'
 
+const auth = makeAuthPlugin({ userService: 'users' })
 // import example from './module-example'
 
 Vue.use(Vuex)
+Vue.use(FeathersVuex)
+
+const requireModule = require.context(
+  // The path where the service modules live
+  './services',
+  // Whether to look in subfolders
+  false,
+  // Only include .js files (prevents duplicate imports`)
+  /\.js$/
+)
+const servicePlugins = requireModule
+  .keys()
+  .map(modulePath => requireModule(modulePath).default)
 
 /*
  * If not building with SSR mode, you can
@@ -19,7 +34,10 @@ export default function (/* { ssrContext } */) {
     modules: {
       // example
     },
-
+    state: {},
+    mutations: {},
+    actions: {},
+    plugins: [...servicePlugins, auth],
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING

@@ -1,7 +1,17 @@
 {
+
+  "editor.formatOnSave": false,
+  "javascript.format.enable": false,
+  "eslint.alwaysShowStatus": true,
+  "eslint.options": {
+    "extensions": [ ".html", ".js", ".vue", ".jsx" ]
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "vetur.validation.template": false,
   "vetur.format.enable": false,
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
-  
+  "eslint.validate": ["html", "javascript", "javascriptreact", "typescript", "vue"],
+  "prettier.singleQuote": true,
   "vetur.experimental.templateInterpolationService": true
 }

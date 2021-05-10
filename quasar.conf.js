@@ -67,7 +67,9 @@ module.exports = function (/* ctx */) {
       chainWebpack (chain) {
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
-      }
+      },
+
+      transpileDependencies: ['feathers-vuex']
     },
 
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
