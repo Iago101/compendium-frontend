@@ -1,29 +1,14 @@
 
 <template>
   <q-page>
-
-    <pre>{{ip}}</pre>
-
+    <!-- <pre>{{ip}}</pre> -->
     <hr>
-
     <!-- <pre>{{aux}}</pre>
-
     <input v-model="aux.title" v-if="aux">
-
     <button @click="submit"> teste </button> -->
-
     <hr>
-
-    <!-- <input v-model="email">
-    <input v-model="password">
-    <button @click="login"> logar </button> -->
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     <!-- <pre>{{gui}}</pre>
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     <pre>{{use}}</pre>         lista de users filtrada        -->
 
   </q-page>
@@ -31,15 +16,15 @@
 
 <script>
 // import feathersClient from '../boot/feathers-client'
-
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'PageIndex',
 
   async created () {
     // get localhost:3030/ideas-private
     // this.ip = await feathersClient.service('ideas-public').find()
-    this.ip = await this.$store.dispatch('ideas-public/find')
-    await this.$store.dispatch('ideas-public/find')
+    // this.ip = await this.list()
+    await this.list()
     // this.aux = JSON.parse(JSON.stringify(this.ip2))
     // this.$store.dispatch('ideas-public/get', [this.id])
     // this.$store.dispatch('guilds-public/find')
@@ -56,11 +41,22 @@ export default {
   },
 
   computed: {
+    ...mapGetters('auth', ['isAuthenticated', 'user']),
+    ...mapGetters('ideas-public', ['list', 'get']),
+    ...mapGetters('ideas-private', {
+      privateList: 'list',
+      privateGet: 'get'
+    }),
     ip () {
-      return this.$store.getters['ideas-public/list']
+      if (this.isAuthenticated) { return this.list }
+
+      return this.privatelist
+    },
+    ip2 () {
+      return this.$store.getters['ideas-private/list']
     },
     // ip2 () {
-    //   return this.$store.getters['ideas-public/get'](this.id)
+    //   return this.get(this.id)
     // },
 
     gui () {
@@ -73,12 +69,17 @@ export default {
   },
 
   methods: {
+    ...mapActions('auth', ['authenticate']),
+    ...mapActions('ideas-public', ['patch']),
+    ...mapActions('ideas-private', {
+
+    }),
     submit () {
-      this.$store.dispatch('ideas-public/patch', [this.ip2._id, { title: this.aux.title }])
+      this.patch([this.ip2._id, { title: this.aux.title }])
     },
 
     login () {
-      this.$store.dispatch('auth/authenticate', {
+      this.authenticate({
         email: this.email,
         password: this.password,
         strategy: 'local'
