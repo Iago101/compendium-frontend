@@ -1,17 +1,71 @@
 
 <template>
-  <q-page class="bg-purple-2">
-    <div class="row justify-center">
-      <div class="col-12 col-md-6">
+  <q-page class=" row bg-purple-2">
+      <div class="col-2">
+        menu lateral mto foda incoming
+      </div>
+    <div class="row justify-center col-10 q-mt-sm">
+      <div class="col-12">
         <div class="row q-col-gutter-md" v-if="!isAuthenticated">
-          <div class="col-6 col-sm-4"  v-for="idea in publicList" :key="idea._id">
-            <IdeaCard :idea="idea" >
+          <div class="col-6 col-sm-3"  v-for="idea in publicList" :key="idea._id">
+            <IdeaCard :idea="idea">
             </IdeaCard>
           </div>
         </div>
 
         <div class="row q-col-gutter-md" v-if="isAuthenticated">
-          <div class="col-6 col-sm-4"  v-for="idea in privateList" :key="idea._id">
+          <div class="col-6 col-sm-3">
+            <q-card
+                class="cursor-pointer bg-blue"
+                @click="ideasCreateDetails = true"
+              >
+              <IdeaForm v-model="ideasCreateDetails"/>
+
+                <q-card-section>
+                  <div class="row">
+                    <h6
+                      class="q-ma-none"
+                      style="
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 150px;
+                      ">
+                      Crie sua idéia
+                      <q-tooltip>
+                        Crie sua própria idéia
+                      </q-tooltip>
+                    </h6>
+                    <h6 class="text-center q-ml-auto q-ma-none">
+
+                    </h6>
+                  </div>
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-section class="row justify-center" style="height: 252px">
+                      <q-icon
+                      name="add"
+                      size="150px"
+                      class="q-my-auto"
+                      />
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-section>
+                  <div class="text-subtitle1 line-break:normal"
+                    style="
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      max-height: 90px;
+                  ">
+                    Compartilhe suas idéias e poste a sua criatividade!
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
+          <div class="col-6 col-sm-3"  v-for="idea in privateList" :key="idea._id">
             <IdeaCard :idea="idea" >
             </IdeaCard>
           </div>
@@ -27,7 +81,8 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'PageIndex',
   components: {
-    IdeaCard: () => import('../components/IdeaCard')
+    IdeaCard: () => import('../components/IdeaCard'),
+    IdeaForm: () => import('../components/IdeaForm.vue')
   },
 
   watch: {
@@ -62,7 +117,8 @@ export default {
   data () {
     return {
       id: '',
-      aux: null
+      aux: null,
+      ideasCreateDetails: null
     }
   },
 

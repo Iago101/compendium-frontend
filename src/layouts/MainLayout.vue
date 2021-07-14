@@ -44,7 +44,7 @@
             <q-card class="q-pa-sm bg-yellow">
               <q-input square outlined dense label="E-mail" v-model="email" class="bg-purple-2 "/>
 
-              <q-input square outlined dense label="Senha" v-model="password" class="bg-purple-2 q-mt-md"/>
+              <q-input square outlined dense label="Senha" type="password" v-model="password" class="bg-purple-2 q-mt-md"/>
 
               <q-btn @click="login()" color="yellow-9" class="q-mx-auto q-mt-md fit"> logar </q-btn>
               <q-btn @click="$router.push('/registration')" color="yellow-10" class="q-mx-auto q-mt-md fit"> Criar Conta </q-btn>

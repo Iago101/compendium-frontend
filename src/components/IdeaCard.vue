@@ -34,13 +34,13 @@
 
       <q-card-section  style="height: 252px">
         <div v-if="idea.type == 1">
-          <CityIdea/>
+          <!-- <CityIdea/> -->
         </div>
         <div v-if="idea.type == 2">
-          <ItemIdea/>
+          <!-- <ItemIdea/> -->
         </div>
         <div v-if="idea.type == 3">
-          <NPCIdea/>
+          <!-- <NPCIdea/> -->
         </div>
       </q-card-section>
 
@@ -72,17 +72,17 @@
       }">
         <q-card-section>
           <div class="row">
-            <q-btn
-              size="10px"
-              round
-              class="q-mr-md"
-              style="width:80px"
-              label="voltar"
-              color="red"
-              @click="ideasDetails=false"
-            />
+            <div class="row col-1">
+              <q-icon
+                class="fit"
+                size="70px"
+                name="arrow_back"
+                @click="ideasDetails=false"
+              />
+            </div>
             <h2 class="q-ma-none col-8">
-              {{idea.title}}
+              {{idea.title}} <br>
+              {{idea.type}} / tipo
             </h2>
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
@@ -91,13 +91,50 @@
             </h5>
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
-                <q-btn round color="red-4" label="save"/>
+                <q-btn
+                  round
+                  v-if="shouldRender() && this.idea.userId !== this.user._id"
+                  color="red-4"
+                  label="save"/>
               </div>
             </h5>
-            <h5 class="text-center q-ml-auto q-my-none">
+            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
+              <div >
+                <q-btn
+                  round
+                  v-if="shouldRender() && this.idea.userId === this.user._id"
+                  color="red-4"
+                  label="editar"
+                  @click="edit()"
+                />
+                <IdeaForm
+                  v-model="ideasCreateDetails"
+                  :ideaEdit='idea'
+                  editMode="true"
+                  class="col-6 col-sm-3"
+                />
+              </div>
+            </h5>
+            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
+              <div >
+                <q-btn
+                  @click="deleteConfirm()"
+                  round
+                  v-if="shouldRender() && this.idea.userId === this.user._id"
+                  color="red-4"
+                  label="excluir"/>
+              </div>
+            </h5>
+            <h5 class="text-center q-ml-auto q-my-auto">
               <div >
                 [ {{idea.creationPoints}} ]
-                <q-btn round class="right" color="green" icon="navigation" />
+                <q-btn
+                  round
+                  class="right "
+                  color="green"
+                  v-if="shouldRender() && this.idea.userId !== this.user._id"
+                  icon="navigation"
+                />
                 <br>
                 Creation Points
               </div>
@@ -114,7 +151,7 @@
           <q-separator vertical />
           <h3 class="text-h5 col-5" >
             component desc
-            <div v-if="idea.type == 1">
+            <!-- <div v-if="idea.type == 1">
               <CityIdea/>
             </div>
             <div v-if="idea.type == 2">
@@ -122,7 +159,7 @@
             </div>
             <div v-if="idea.type == 3">
               <NPCIdea/>
-            </div>
+            </div> -->
           </h3>
 
         </q-card-section>
@@ -141,30 +178,76 @@
           </h3>
         </q-card-section>
       </q-card>
-
     </q-dialog>
+      <q-dialog v-model="deleteDialog">
+          <q-card>
+            <q-card-section>
+              <div class="text-h6">Tem certeza? Essa ação não é desfeita nem com Wish de nono círculo</div>
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <q-btn flat label="cancelar" color="primary" v-close-popup />
+              <q-btn flat label="DELETAR" color="red" @click="deleteIdea()" v-close-popup />
+            </q-card-actions>
+          </q-card>
+      </q-dialog>
+
   </div>
+
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import feathersClient from '../boot/feathers-client'
 
 export default {
   name: 'IdeaCard',
   props: {
-    idea: null
+    idea: null,
+    value: Boolean
+
   },
 
   components: {
-
+    IdeaForm: () => import('../components/IdeaForm.vue')
   },
 
   data () {
     return {
-      ideasDetails: null
+      ideasDetails: null,
+      deleteDialog: false,
+      ideasCreateDetails: null,
+      ideaData: {
+        _id: null,
+        title: null,
+        type: null,
+        description: null,
+        privacy: null
+      }
     }
   },
 
   methods: {
+    deleteConfirm () {
+      this.deleteDialog = true
+    },
+
+    deleteIdea () {
+      feathersClient.service('ideas-private').remove(this.idea)
+    },
+
+    shouldRender () {
+      if (this.isAuthenticated) {
+        return true
+      }
+    },
+    edit () {
+      console.log('1')
+      this.ideasCreateDetails = true
+    }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated', 'user'])
   }
 }
 </script>
