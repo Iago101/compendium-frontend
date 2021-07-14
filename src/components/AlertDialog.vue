@@ -1,20 +1,17 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card>
-      <q-card-section>
-        <div class="text-h6">Atenção!</div>
+
+      <q-card-section class="q-pt-lg text-h5">
+        Aviso
       </q-card-section>
 
-      <q-card-section v-if="alertName" class="q-pt-none">
-        Insira um nome para poder salvar a idéia
-      </q-card-section>
-
-      <q-card-section class="q-pt-none">
-        {{nossoTitleCustom}}
+      <q-card-section class="q-pt-sm text-h5">
+        {{message}}
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="OK" color="primary" @click="onOkClick" />
+        <q-btn flat label="OK" color="primary" @click="onOKClick" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -23,7 +20,7 @@
 <script>
 export default {
   props: {
-    nossoTitleCustom: null
+    message: null
   },
 
   methods: {

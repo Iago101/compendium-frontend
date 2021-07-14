@@ -9,7 +9,6 @@
       }"
       @click="ideasDetails = true"
     >
-
       <q-card-section>
         <div class="row">
           <h6
@@ -31,7 +30,6 @@
       </q-card-section>
 
       <q-separator />
-
       <q-card-section  style="height: 252px">
         <div v-if="idea.type == 1">
           <!-- <CityIdea/> -->
@@ -45,7 +43,6 @@
       </q-card-section>
 
       <q-separator />
-
       <q-card-section>
         <div class="text-subtitle1 line-break:normal"
           style="
@@ -143,7 +140,6 @@
         </q-card-section>
 
         <q-separator />
-
         <q-card-section style="height: 400px" class="row">
            <div  class="col-6">
           imagem?
@@ -161,11 +157,9 @@
               <NPCIdea/>
             </div> -->
           </h3>
-
         </q-card-section>
 
         <q-separator />
-
         <q-card-section>
           <h3
             class="text-h5"
@@ -182,30 +176,25 @@
       <q-dialog v-model="deleteDialog">
           <q-card>
             <q-card-section>
-              <div class="text-h6">Tem certeza? Essa ação não é desfeita nem com Wish de nono círculo</div>
+              <div class="text-h6">Tem certeza? <br> Essa ação não é desfeita nem com Wish de nono círculo</div>
             </q-card-section>
-
             <q-card-actions align="right">
               <q-btn flat label="cancelar" color="primary" v-close-popup />
               <q-btn flat label="DELETAR" color="red" @click="deleteIdea()" v-close-popup />
             </q-card-actions>
           </q-card>
       </q-dialog>
-
   </div>
-
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import feathersClient from '../boot/feathers-client'
 
 export default {
   name: 'IdeaCard',
   props: {
     idea: null,
     value: Boolean
-
   },
 
   components: {
@@ -216,14 +205,7 @@ export default {
     return {
       ideasDetails: null,
       deleteDialog: false,
-      ideasCreateDetails: null,
-      ideaData: {
-        _id: null,
-        title: null,
-        type: null,
-        description: null,
-        privacy: null
-      }
+      ideasCreateDetails: null
     }
   },
 
@@ -233,7 +215,8 @@ export default {
     },
 
     deleteIdea () {
-      feathersClient.service('ideas-private').remove(this.idea)
+      this.$store.dispatch('ideas-private/remove', [this.idea._id])
+      this.$q.notify({ message: 'Idéia arremessada no Abismo', color: 'grey' })
     },
 
     shouldRender () {
@@ -242,7 +225,6 @@ export default {
       }
     },
     edit () {
-      console.log('1')
       this.ideasCreateDetails = true
     }
   },

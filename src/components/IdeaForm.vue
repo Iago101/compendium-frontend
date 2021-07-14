@@ -1,5 +1,4 @@
 <template>
-
     <q-dialog
       :value="value"
       @input="$emit('input', $event)"
@@ -18,15 +17,14 @@
                 size="70px"
                 name="arrow_back"
                 @click="$emit('input', false)"
-                v-if="editMode===false"
+                v-if="!ideaEdit"
               />
               <q-icon
                 class="fit"
                 size="70px"
                 name="cancel"
-                @click="$emit('input', false); clearForm"
-                v-if="editMode===true"
-
+                @click="clearForm"
+                v-if="ideaEdit"
               />
             </div>
             <h2 class="q-ma-none col-8">
@@ -36,22 +34,6 @@
               label="Nomeie a sua criação aqui"
               />
             </h2>
-            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
-              <q-btn v-if="editMode == false" @click="submit">
-                <q-icon
-                    name="save"
-                    size="70px"
-
-                />
-              </q-btn>
-                <q-btn v-if="editMode == true" @click="update()">
-                <q-icon
-                    name="update"
-                    size="70px"
-                />
-              </q-btn>
-            </h5>
-
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <q-btn-dropdown
               :label="ideaData.privacy"
@@ -79,7 +61,20 @@
                 </q-list>
               </q-btn-dropdown>
             </h5>
-
+            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
+              <q-btn v-if="!ideaEdit" @click="submit">
+                <q-icon
+                    name="save"
+                    size="70px"
+                />
+              </q-btn>
+                <q-btn v-if="ideaEdit" @click="update()">
+                <q-icon
+                    name="update"
+                    size="70px"
+                />
+              </q-btn>
+            </h5>
           </div>
         </q-card-section>
 
@@ -92,8 +87,8 @@
           <q-radio v-model="ideaData.type" val=4 label="Simples" />
           </div>
         </q-card-section>
-        <q-separator />
 
+        <q-separator />
         <q-card-section style="height: 400px" class="row">
            <div  class="col-6">
             imagem?
@@ -111,11 +106,9 @@
           <h3 v-if="ideaData.type==4" class="text-h5 col-5" >
             simples component
           </h3>
-
         </q-card-section>
 
         <q-separator />
-
         <q-card-section class="no-padding">
           <h3
             class="text-h5"
@@ -133,34 +126,13 @@
           </h3>
         </q-card-section>
       </q-card>
-
     </q-dialog>
-    <!--
-        <q-dialog v-model="alertCreate">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6">Idéia criada com sucesso!</div>
-            </q-card-section>
-
-            <q-card-section class="q-pt-none">
-              Idéia criada com sucesso!
-              Obrigado por participar da comunidade Compendium, agora sua idéia está postada!
-            </q-card-section>
-
-            <q-card-actions align="right">
-              <q-btn flat label="Vamos lá!" color="primary" @click="dialog=false" v-close-popup />
-            </q-card-actions>
-          </q-card>
-        </q-dialog> -->
 </template>
 
 <script>
-import feathersClient from '../boot/feathers-client'
-
 export default {
   name: 'IdeaForm',
   props: {
-    idea: null,
     value: Boolean,
     ideaEdit: null
   },
@@ -171,8 +143,6 @@ export default {
 
   data () {
     return {
-      editMode: false,
-      alert: false,
       ideaData: {
         title: '',
         type: 4,
@@ -185,19 +155,18 @@ export default {
   methods: {
     async submit () {
       this.error = false
-      if (this.ideaData.title === null) {
-        this.$alertDialog('Outra coisa', this)
-        this.alert = true
+      if (this.ideaData.title === '') {
+        this.$alertDialog('Insira um Título para a idéia', this)
         return
       }
       if (this.ideaData.description === '') {
-        this.alert = true
-        this.alertDesc = true
+        this.$alertDialog('Insira uma Descrição para a idéia', this)
         return
       }
       try {
-        await feathersClient.service('ideas-private').create(this.ideaData)
-        this.alertCreate = true
+        await this.$store.dispatch('ideas-private/create', [this.ideaData])
+        this.$q.notify({ message: 'Idéia criada com sucesso!', color: 'red' })
+        // redirect pra ideia simples
         this.clearForm()
       } catch (error) {
         console.error(error)
@@ -209,21 +178,19 @@ export default {
       this.ideaData.type = 4
       this.ideaData.description = ''
       this.ideaData.privacy = 'public'
+      this.$emit('input', false)
     },
 
     onShow () {
-      if (this.ideaEdit.title === null) {
+      if (!this.ideaEdit) {
         return
       }
-      this.editMode = true
       this.ideaData = JSON.parse(JSON.stringify(this.ideaEdit))
     },
 
     async update () {
-      this.error = false
       if (this.ideaData.title === '') {
-        this.$alertDialog('Outra coisa', this)
-        this.alert = true
+        // update
         return
       }
       if (this.ideaData.description === '') {
@@ -232,9 +199,10 @@ export default {
         return
       }
       try {
-        await feathersClient.service('ideas-private').patch(this.ideaData._id, this.ideaData, this.params)
+        await this.$store.dispatch('ideas-private/patch', [this.ideaData._id, this.ideaData, this.params])
         this.alertCreate = true
         this.clearForm()
+        this.$q.notify({ message: 'Idéia alterada com sucesso', color: 'red' })
         this.$emit('input', false)
       } catch (error) {
         console.error(error)
