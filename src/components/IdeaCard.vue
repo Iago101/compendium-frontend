@@ -92,7 +92,7 @@
               <div >
                 <q-btn
                   round
-                  v-if="shouldRender && this.idea.userId !== this.user._id"
+                  v-if="shouldRender && idea.userId !== this.user._id"
                   color="red-4"
                   label="save"/>
               </div>
@@ -101,14 +101,14 @@
               <div >
                 <q-btn
                   round
-                  v-if="shouldRender && this.idea.userId === this.user._id"
+                  v-if="shouldRender && idea.userId === this.user._id"
                   color="red-4"
                   label="editar"
-                  @click="edit()"
+                  @click="edit"
                 />
                 <IdeaForm
                   v-model="ideasCreateDetails"
-                  :ideaEdit='idea'
+                  :ideaEdit="idea"
                   class="col-6 col-sm-3"
                 />
               </div>
@@ -118,7 +118,7 @@
                 <q-btn
                   @click="deleteConfirm()"
                   round
-                  v-if="shouldRender && this.idea.userId === this.user._id"
+                  v-if="shouldRender && idea.userId === this.user._id"
                   color="red-4"
                   label="excluir"/>
               </div>
@@ -130,7 +130,7 @@
                   round
                   class="right "
                   color="green"
-                  v-if="shouldRender && this.idea.userId !== this.user._id"
+                  v-if="shouldRender && idea.userId !== this.user._id"
                   icon="navigation"
                 />
                 <br>
@@ -148,13 +148,13 @@
           <q-separator vertical />
           <h3 class="text-h5 col-5" >
             component desc
-            <!-- <div v-if="idea.type == '1'">
+            <!-- <div v-if="idea.type == 'npc'">
               <NPCIdea/>
             </div>
-            <div v-if="idea.type == '2'">
+            <div v-if="idea.type == 'item'">
               <ItemIdea/>
             </div>
-            <div v-if="idea.type == '3'">
+            <div v-if="idea.type == 'local'">
               <CityIdea/>
             </div> -->
           </h3>
@@ -224,9 +224,15 @@ export default {
       this.deleteDialog = true
     },
 
-    deleteIdea () {
-      this.$store.dispatch('ideas-private/remove', [this.idea._id])
-      this.$q.notify({ message: 'Idéia arremessada no Abismo', color: 'grey' })
+    async deleteIdea () {
+      this.error = false
+      try {
+        await this.$store.dispatch('ideas-private/remove', [this.idea._id])
+        this.$q.notify({ message: 'Idéia arremessada no Abismo', color: 'grey' })
+      } catch (error) {
+        console.error(error)
+        this.$q.notify({ message: 'Erro ao sacrificar idéia, tente novamente mais tarde', color: 'red' })
+      }
     },
 
     edit () {
