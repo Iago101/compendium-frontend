@@ -92,7 +92,7 @@
               <div >
                 <q-btn
                   round
-                  v-if="shouldRender && idea.userId !== this.user._id"
+                  v-if="shouldRender && idea.userId !== user._id"
                   color="red-4"
                   label="save"/>
               </div>
@@ -101,7 +101,7 @@
               <div >
                 <q-btn
                   round
-                  v-if="shouldRender && idea.userId === this.user._id"
+                  v-if="shouldRender && idea.userId === user._id"
                   color="red-4"
                   label="editar"
                   @click="edit"
@@ -118,7 +118,7 @@
                 <q-btn
                   @click="deleteConfirm()"
                   round
-                  v-if="shouldRender && idea.userId === this.user._id"
+                  v-if="shouldRender && idea.userId === user._id"
                   color="red-4"
                   label="excluir"/>
               </div>
@@ -130,7 +130,7 @@
                   round
                   class="right "
                   color="green"
-                  v-if="shouldRender && idea.userId !== this.user._id"
+                  v-if="shouldRender && idea.userId !== user._id"
                   icon="navigation"
                 />
                 <br>
