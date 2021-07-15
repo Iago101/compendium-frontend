@@ -11,9 +11,16 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@feathersjs/authentication-client": "^4.5.11",
+    "@feathersjs/feathers": "^4.5.11",
+    "@feathersjs/socketio-client": "^4.5.11",
     "@quasar/extras": "^1.0.0",
+    "@vue/composition-api": "^1.0.0-rc.8",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0"
+    "feathers-hooks-common": "^5.0.5",
+    "feathers-vuex": "^3.16.0",
+    "quasar": "^1.0.0",
+    "socket.io-client": "^2.0.0"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
@@ -44,17 +51,15 @@
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   },
-
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
- },
-
- "lint-staged": {
-  "src/**/*.{js,vue}": [
-    "eslint --fix",
-    "git add"
-  ]
-}
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }
