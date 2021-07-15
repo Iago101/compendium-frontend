@@ -3,9 +3,9 @@
     <q-card v-if="idea"
       class="cursor-pointer"
       :class="{
-        'bg-purple': idea.type===3,
-        'bg-yellow': idea.type===2,
-        'bg-grey': idea.type===1
+        'bg-purple': idea.type==='local',
+        'bg-yellow': idea.type==='item',
+        'bg-grey': idea.type==='npc'
       }"
       @click="ideasDetails = true"
     >
@@ -31,14 +31,14 @@
 
       <q-separator />
       <q-card-section  style="height: 252px">
-        <div v-if="idea.type == 1">
-          <!-- <CityIdea/> -->
+        <div v-if="idea.type == 'npc'">
+          <!-- <NPCIdea/> -->
         </div>
-        <div v-if="idea.type == 2">
+        <div v-if="idea.type == 'item'">
           <!-- <ItemIdea/> -->
         </div>
-        <div v-if="idea.type == 3">
-          <!-- <NPCIdea/> -->
+        <div v-if="idea.type == 'local'">
+          <!-- <CityIdea/> -->
         </div>
       </q-card-section>
 
@@ -63,9 +63,9 @@
     >
       <q-card
       :class="{
-        'bg-purple-2': idea.type===3,
-        'bg-yellow-2': idea.type===2,
-        'bg-grey-2': idea.type===1
+        'bg-purple-2': idea.type==='local',
+        'bg-yellow-2': idea.type==='item',
+        'bg-grey-2': idea.type==='npc'
       }">
         <q-card-section>
           <div class="row">
@@ -79,7 +79,9 @@
             </div>
             <h2 class="q-ma-none col-8">
               {{idea.title}} <br>
-              {{idea.type}} / tipo
+             <div class="text-h4">
+               {{ idea.type | capitalize }}
+             </div>
             </h2>
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
@@ -90,7 +92,7 @@
               <div >
                 <q-btn
                   round
-                  v-if="shouldRender() && this.idea.userId !== this.user._id"
+                  v-if="shouldRender && this.idea.userId !== this.user._id"
                   color="red-4"
                   label="save"/>
               </div>
@@ -99,7 +101,7 @@
               <div >
                 <q-btn
                   round
-                  v-if="shouldRender() && this.idea.userId === this.user._id"
+                  v-if="shouldRender && this.idea.userId === this.user._id"
                   color="red-4"
                   label="editar"
                   @click="edit()"
@@ -107,7 +109,6 @@
                 <IdeaForm
                   v-model="ideasCreateDetails"
                   :ideaEdit='idea'
-                  editMode="true"
                   class="col-6 col-sm-3"
                 />
               </div>
@@ -117,7 +118,7 @@
                 <q-btn
                   @click="deleteConfirm()"
                   round
-                  v-if="shouldRender() && this.idea.userId === this.user._id"
+                  v-if="shouldRender && this.idea.userId === this.user._id"
                   color="red-4"
                   label="excluir"/>
               </div>
@@ -129,7 +130,7 @@
                   round
                   class="right "
                   color="green"
-                  v-if="shouldRender() && this.idea.userId !== this.user._id"
+                  v-if="shouldRender && this.idea.userId !== this.user._id"
                   icon="navigation"
                 />
                 <br>
@@ -147,14 +148,14 @@
           <q-separator vertical />
           <h3 class="text-h5 col-5" >
             component desc
-            <!-- <div v-if="idea.type == 1">
-              <CityIdea/>
+            <!-- <div v-if="idea.type == '1'">
+              <NPCIdea/>
             </div>
-            <div v-if="idea.type == 2">
+            <div v-if="idea.type == '2'">
               <ItemIdea/>
             </div>
-            <div v-if="idea.type == 3">
-              <NPCIdea/>
+            <div v-if="idea.type == '3'">
+              <CityIdea/>
             </div> -->
           </h3>
         </q-card-section>
@@ -201,8 +202,17 @@ export default {
     IdeaForm: () => import('../components/IdeaForm.vue')
   },
 
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  },
+
   data () {
     return {
+      render: null,
       ideasDetails: null,
       deleteDialog: false,
       ideasCreateDetails: null
@@ -219,17 +229,18 @@ export default {
       this.$q.notify({ message: 'Idéia arremessada no Abismo', color: 'grey' })
     },
 
-    shouldRender () {
-      if (this.isAuthenticated) {
-        return true
-      }
-    },
     edit () {
       this.ideasCreateDetails = true
     }
   },
   computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'user'])
+    ...mapGetters('auth', ['isAuthenticated', 'user']),
+    shouldRender: function () {
+      if (this.isAuthenticated) {
+        return true
+      }
+      return false
+    }
   }
 }
 </script>

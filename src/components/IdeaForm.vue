@@ -81,10 +81,10 @@
         <q-separator />
         <q-card-section class="row justify-center text-h6">
           <div class="col-12 row justify-around">
-          <q-radio v-model="ideaData.type" val=1 label="NPC" />
-          <q-radio v-model="ideaData.type" val=2 label="Item Mágico" />
-          <q-radio v-model="ideaData.type" val=3 label="Local" />
-          <q-radio v-model="ideaData.type" val=4 label="Simples" />
+          <q-radio v-model="ideaData.type" val='npc' label="NPC" />
+          <q-radio v-model="ideaData.type" val='item' label="Item Mágico" />
+          <q-radio v-model="ideaData.type" val='local' label="Local" />
+          <q-radio v-model="ideaData.type" val='simple' label="Simples" />
           </div>
         </q-card-section>
 
@@ -94,16 +94,16 @@
             imagem?
           </div>
           <q-separator vertical />
-          <h3 v-if="ideaData.type==1" class="text-h5 col-5" >
+          <h3 v-if="ideaData.type=='npc'" class="text-h5 col-5" >
             ficha component
           </h3>
-          <h3 v-if="ideaData.type==2" class="text-h5 col-5" >
+          <h3 v-if="ideaData.type=='item'" class="text-h5 col-5" >
             item magico component
           </h3>
-          <h3 v-if="ideaData.type==3" class="text-h5 col-5" >
+          <h3 v-if="ideaData.type=='local'" class="text-h5 col-5" >
             local component
           </h3>
-          <h3 v-if="ideaData.type==4" class="text-h5 col-5" >
+          <h3 v-if="ideaData.type=='simple'" class="text-h5 col-5" >
             simples component
           </h3>
         </q-card-section>
@@ -137,15 +137,11 @@ export default {
     ideaEdit: null
   },
 
-  components: {
-
-  },
-
   data () {
     return {
       ideaData: {
         title: '',
-        type: 4,
+        type: 'simple',
         description: '',
         privacy: 'public'
       }
@@ -164,6 +160,7 @@ export default {
         return
       }
       try {
+        this.ideaData.title = this.capitalize(this.ideaData.title)
         await this.$store.dispatch('ideas-private/create', [this.ideaData])
         this.$q.notify({ message: 'Idéia criada com sucesso!', color: 'red' })
         // redirect pra ideia simples
@@ -175,10 +172,15 @@ export default {
 
     clearForm () {
       this.ideaData.title = ''
-      this.ideaData.type = 4
+      this.ideaData.type = 'simple'
       this.ideaData.description = ''
       this.ideaData.privacy = 'public'
       this.$emit('input', false)
+    },
+
+    capitalize (value) {
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
     },
 
     onShow () {
@@ -190,20 +192,17 @@ export default {
 
     async update () {
       if (this.ideaData.title === '') {
-        // update
+        this.$alertDialog('Insira um Título para a idéia', this)
         return
       }
       if (this.ideaData.description === '') {
-        this.alert = true
-        this.alertDesc = true
+        this.$alertDialog('Insira uma Descrição para a idéia', this)
         return
       }
       try {
         await this.$store.dispatch('ideas-private/patch', [this.ideaData._id, this.ideaData, this.params])
-        this.alertCreate = true
         this.clearForm()
         this.$q.notify({ message: 'Idéia alterada com sucesso', color: 'red' })
-        this.$emit('input', false)
       } catch (error) {
         console.error(error)
       }
