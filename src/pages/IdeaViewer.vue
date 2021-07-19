@@ -1,98 +1,23 @@
 <template>
-  <div>
-    <q-card v-if="idea"
-      class="cursor-pointer"
-      :class="{
-        'bg-purple': idea.type==='local',
-        'bg-yellow': idea.type==='item',
-        'bg-grey': idea.type==='npc'
-      }"
-      @click="ideasDetails = true"
-    >
-      <q-card-section>
-        <div class="row">
-          <h6
-            class="q-ma-none"
-            style="
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-width: 150px;
-            ">
-            {{idea.title}}
-            <q-tooltip>
-              {{idea.title}}
-            </q-tooltip>
-          </h6>
-          <h6 class="text-center q-ml-auto q-ma-none">
-            {{idea.creationPoints}}
-          </h6>
-        </div>
-      </q-card-section>
-
-      <q-separator />
-      <q-card-section  style="height: 252px">
-        <div v-if="idea.type == 'npc'">
-          <!-- <NPCIdea/> -->
-        </div>
-        <div v-if="idea.type == 'item'">
-          <!-- <ItemIdea/> -->
-        </div>
-        <div v-if="idea.type == 'local'">
-          <!-- <CityIdea/> -->
-        </div>
-      </q-card-section>
-
-      <q-separator />
-      <q-card-section>
-        <div class="text-subtitle1 line-break:normal"
-          style="
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 90px;
-        ">
-          {{idea.description}}
-        </div>
-      </q-card-section>
-    </q-card>
-
-    <q-dialog
-      v-model="ideasDetails"
-      maximized
-      transition-show="slide-up"
-      transition-hide="slide-down"
-    >
-      <q-card
-      :class="{
-        'bg-purple-2': idea.type==='local',
-        'bg-yellow-2': idea.type==='item',
-        'bg-grey-2': idea.type==='npc'
-      }">
+    <q-page>
+        <div
+        :class="{
+            'bg-purple-2': idea.type==='local',
+            'bg-yellow-2': idea.type==='item',
+            'bg-grey-2': idea.type==='npc'
+        }"
+        >
         <q-card-section>
           <div class="row">
-            <div class="row col-1">
-              <q-icon
-                class="fit"
-                size="70px"
-                name="arrow_back"
-                @click="ideasDetails=false"
-              />
-            </div>
             <h2 class="q-ma-none col-8">
               {{idea.title}} <br>
              <div class="text-h4">
                {{ idea.type | capitalize }}
              </div>
+             <div class="text-h5">
+             criador placeholder
+             </div>
             </h2>
-            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
-              <div >
-                <q-btn
-                  round
-                  color="red-4"
-                  label="view"
-                  @click="$router.push({name: 'viewer', params: {id: idea._id}})"
-                />
-              </div>
-            </h5>
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
                 <q-btn
@@ -147,38 +72,38 @@
 
         <q-separator />
         <q-card-section style="height: 400px" class="row">
-           <div  class="col-6">
-          imagem?
-          </div>
-          <q-separator vertical />
-          <h3 class="text-h5 col-5" >
-            component desc
-            <!-- <div v-if="idea.type == 'npc'">
-              <NPCIdea/>
+            <div  class="col-12">
+                imagem?
             </div>
-            <div v-if="idea.type == 'item'">
-              <ItemIdea/>
-            </div>
-            <div v-if="idea.type == 'local'">
-              <CityIdea/>
-            </div> -->
-          </h3>
+            <h3
+                class="text-h5">
+                {{idea.description}}
+            </h3>
+        </q-card-section>
+        <q-card-section>
+            <h3 class="text-h5 col-5" >
+                component desc
+                <!-- <div v-if="idea.type == 'npc'">
+                <NPCIdea/>
+                </div>
+                <div v-if="idea.type == 'item'">
+                <ItemIdea/>
+                </div>
+                <div v-if="idea.type == 'local'">
+                <CityIdea/>
+                </div> -->
+            </h3>
         </q-card-section>
 
-        <q-separator />
+        <q-separator/>
+
         <q-card-section>
-          <h3
-            class="text-h5"
-            style="
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-height: 90px;
-          ">
-          {{idea.description}}
-          </h3>
+            <h3 class="text-h5 col-5" >
+                comentarios placeholder
+            </h3>
         </q-card-section>
-      </q-card>
-    </q-dialog>
+      </div>
+<!--fazer um componente separado pra isso aqui  -->
       <q-dialog v-model="deleteDialog">
           <q-card>
             <q-card-section>
@@ -190,23 +115,26 @@
             </q-card-actions>
           </q-card>
       </q-dialog>
-  </div>
+    </q-page>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'IdeaCard',
-  props: {
-    idea: null,
-    value: Boolean
+  name: 'IdeaViewer',
+  data () {
+    return {
+      ideasDetails: null,
+      deleteDialog: false,
+      ideasCreateDetails: null,
+      idea: null
+    }
   },
 
   components: {
     IdeaForm: () => import('../components/IdeaForm.vue')
   },
-
+  // preciso por como plugin/global
   filters: {
     capitalize: function (value) {
       if (!value) return ''
@@ -215,15 +143,29 @@ export default {
     }
   },
 
-  data () {
-    return {
-      ideasDetails: null,
-      deleteDialog: false,
-      ideasCreateDetails: null
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated', 'user']),
+    ...mapGetters('ideas-public', {
+      publicGet: 'get'
+    }),
+    ...mapGetters('ideas-private', {
+      privateGet: 'get'
+    }),
+    shouldRender: function () {
+      if (this.isAuthenticated) {
+        return true
+      }
+      return false
     }
   },
 
   methods: {
+    ...mapActions('auth', ['authenticate']),
+    ...mapActions('ideas-private', ['find']),
+    ...mapActions('ideas-public', {
+      publicFind: 'find'
+    }),
+
     deleteConfirm () {
       this.deleteDialog = true
     },
@@ -233,6 +175,7 @@ export default {
       try {
         await this.$store.dispatch('ideas-private/remove', [this.idea._id])
         this.$q.notify({ message: 'Idéia arremessada no Abismo', color: 'grey' })
+        this.$router.push('/')
       } catch (error) {
         console.error(error)
         this.$q.notify({ message: 'Erro ao sacrificar idéia, tente novamente mais tarde', color: 'red' })
@@ -243,14 +186,24 @@ export default {
       this.ideasCreateDetails = true
     }
   },
-  computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'user']),
-    shouldRender: function () {
-      if (this.isAuthenticated) {
-        return true
-      }
-      return false
+
+  async created () {
+    console.log(1)
+    try {
+      await this.authenticate()
+    } catch (error) {
     }
+    console.log(2)
+
+    try {
+      if (this.isAuthenticated) {
+        this.idea = await this.$store.dispatch('ideas-private/get', [this.$route.params.id])
+      }
+      this.idea = await this.$store.dispatch('ideas-public/get', [this.$route.params.id])
+    } catch {
+    }
+    console.log(3)
   }
+
 }
 </script>
