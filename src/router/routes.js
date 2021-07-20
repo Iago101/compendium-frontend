@@ -4,7 +4,8 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/Index.vue') },
+      { path: '/idea/:id', name: 'viewer', component: () => import('pages/IdeaViewer.vue') }
     ]
   },
 
@@ -13,15 +14,6 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/RegisterUser.vue') }
-    ]
-  },
-
-  {
-    path: '/view/:id',
-    name: 'viewer',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/IdeaViewer.vue') }
     ]
   },
 
