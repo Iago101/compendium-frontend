@@ -4,7 +4,8 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/Index.vue') },
+      { path: '/idea/:id', name: 'viewer', component: () => import('pages/IdeaViewer.vue') }
     ]
   },
 
@@ -16,7 +17,14 @@ const routes = [
     ]
   },
 
-  // Always leave this as last one,
+  {
+    path: '/not-found',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Error404.vue') }
+    ]
+  },
+  // , leave this as last one,
   // but you can also remove it
   {
     path: '*',
