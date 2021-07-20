@@ -106,7 +106,6 @@ export default {
       await this.authenticate()
     } catch (error) {
     }
-    console.log(this.isAuthenticated)
 
     // this.aux = JSON.parse(JSON.stringify(this.ip2))
     // this.$store.dispatch('ideas-public/get', [this.id])
