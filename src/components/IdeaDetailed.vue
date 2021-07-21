@@ -67,11 +67,14 @@
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
                 <q-btn
-                  @click="deleteConfirm()"
+                  @click="deleteDialog = true"
                   round
                   v-if="shouldRender && idea.userId === user._id"
                   color="red-4"
                   label="excluir"/>
+                  <q-dialog v-model="deleteDialog">
+                    <DeleteConfirm @confirmed="deleteIdea"/>
+                  </q-dialog>
               </div>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
@@ -99,47 +102,36 @@
           <q-separator vertical />
           <h3 class="text-h5 col-5" >
             component desc
-            <!-- <div v-if="idea.type == 'npc'">
-              <NPCIdea/>
+            <div v-if="idea.type == 'npc'">
+              <!-- <NPCIdea/> -->
             </div>
             <div v-if="idea.type == 'item'">
               <ItemIdea/>
             </div>
             <div v-if="idea.type == 'local'">
               <CityIdea/>
-            </div> -->
+            </div>
           </h3>
         </q-card-section>
 
         <q-separator />
-        <q-card-section>
-          <h3
-            class="text-h5"
-            style="
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-height: 90px;
-          ">
-          {{idea.description}}
-          </h3>
+          <q-card-section>
+            <h3
+              class="text-h5"
+              style="
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-height: 90px;
+              ">
+              {{idea.description}}
+            </h3>
         </q-card-section>
-        <q-dialog v-model="deleteDialog">
-            <q-card>
-                <q-card-section>
-                <div class="text-h6">Tem certeza? <br> Essa ação não é desfeita nem com Wish de nono círculo</div>
-                </q-card-section>
-                <q-card-actions align="right">
-                <q-btn flat label="cancelar" color="primary" v-close-popup />
-                <q-btn flat label="DELETAR" color="red" @click="deleteIdea()" v-close-popup />
-                </q-card-actions>
-            </q-card>
-        </q-dialog>
-        </q-card>
-
+      </q-card>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import DeleteConfirm from './DeleteConfirm.vue'
 
 export default {
   name: 'IdeaDetailed',
@@ -151,7 +143,8 @@ export default {
   },
 
   components: {
-    IdeaForm: () => import('../components/IdeaForm.vue')
+    IdeaForm: () => import('../components/IdeaForm.vue'),
+    DeleteConfirm
   },
 
   props: {
@@ -179,10 +172,6 @@ export default {
   },
 
   methods: {
-    deleteConfirm () {
-      this.deleteDialog = true
-    },
-
     async deleteIdea () {
       this.error = false
       try {

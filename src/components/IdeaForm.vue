@@ -80,7 +80,7 @@
         <q-separator />
         <q-card-section class="row justify-center text-h6">
           <div class="col-12 row justify-around">
-          <q-radio v-model="ideaData.type" val='npc' label="NPC" />
+          <q-radio v-model="ideaData.type" val='npc' @click="ideaData = character" label="NPC" />
           <q-radio v-model="ideaData.type" val='item' label="Item Mágico" />
           <q-radio v-model="ideaData.type" val='local' label="Local" />
           <q-radio v-model="ideaData.type" val='simple' label="Simples" />
@@ -93,16 +93,25 @@
             imagem?
           </div>
           <q-separator vertical />
-          <h3 v-if="ideaData.type=='npc'" class="text-h5 col-5" >
-            ficha component
+          <h3 v-if="ideaData.type==='npc'" class="text-h5 col-5" >
+            <div>
+              <q-radio v-model="ideaData.character.system" val='dnd' label="DnD 5ed." />
+              <q-radio v-model="ideaData.character.system" val='teste' label="teste1" />
+              <div v-if="ideaData.character.system === 'dnd'">
+                  <DndCharacterSheet :record="ideaData.character.record" />
+              </div>
+              <div v-if="ideaData.character.system === 'teste'">
+                teste pora
+              </div>
+            </div>
           </h3>
-          <h3 v-if="ideaData.type=='item'" class="text-h5 col-5" >
+          <h3 v-if="ideaData.type==='item'" class="text-h5 col-5" >
             item magico component
           </h3>
-          <h3 v-if="ideaData.type=='local'" class="text-h5 col-5" >
+          <h3 v-if="ideaData.type==='local'" class="text-h5 col-5" >
             local component
           </h3>
-          <h3 v-if="ideaData.type=='simple'" class="text-h5 col-5" >
+          <h3 v-if="ideaData.type==='simple'" class="text-h5 col-5" >
             simples component
           </h3>
         </q-card-section>
@@ -129,7 +138,9 @@
 </template>
 
 <script>
+import DndCharacterSheet from './DndCharacterSheet.vue'
 export default {
+  components: { DndCharacterSheet },
   name: 'IdeaForm',
   props: {
     value: Boolean,
@@ -142,8 +153,13 @@ export default {
         title: '',
         type: 'simple',
         description: '',
-        privacy: 'public'
-      }
+        privacy: 'public',
+        character: {
+          record: Object,
+          system: null
+        }
+      },
+      sheet: null
     }
   },
 
