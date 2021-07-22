@@ -78,7 +78,7 @@
         </q-card-section>
 
         <q-separator />
-        <q-card-section class="row justify-center text-h6">
+        <q-card-section class="row text-h6">
           <div class="col-12 row justify-around">
           <q-radio v-model="ideaData.type" val='npc' @click="ideaData = character" label="NPC" />
           <q-radio v-model="ideaData.type" val='item' label="Item Mágico" />
@@ -93,27 +93,31 @@
             imagem?
           </div>
           <q-separator vertical />
-          <h3 v-if="ideaData.type==='npc'" class="text-h5 col-5" >
-            <div>
+          <div v-if="ideaData.type==='npc'" class="col-5 text-h5 row">
+            <div class="col-12 row justify-around">
               <q-radio v-model="ideaData.character.system" val='dnd' label="DnD 5ed." />
-              <q-radio v-model="ideaData.character.system" val='teste' label="teste1" />
+              <q-radio v-model="ideaData.character.system" val='sistema2' label="sistema2" />
+              <q-radio v-model="ideaData.character.system" val='sistema3' label="sistema3" />
+            </div>
+            <div class="col-12 fit">
               <div v-if="ideaData.character.system === 'dnd'">
-                  <DndCharacterSheet :record="ideaData.character.record" />
+                  <DndCharacterSheet @saveSheet="integrateSheet"/>
               </div>
-              <div v-if="ideaData.character.system === 'teste'">
-                teste pora
+
+              <div v-if="ideaData.character.system === 'sistema2'">
+                sistema2
               </div>
             </div>
-          </h3>
-          <h3 v-if="ideaData.type==='item'" class="text-h5 col-5" >
+          </div>
+          <div v-if="ideaData.type==='item'" class="text-h5 col-5" >
             item magico component
-          </h3>
-          <h3 v-if="ideaData.type==='local'" class="text-h5 col-5" >
+          </div>
+          <div v-if="ideaData.type==='local'" class="text-h5 col-5" >
             local component
-          </h3>
-          <h3 v-if="ideaData.type==='simple'" class="text-h5 col-5" >
+          </div>
+          <div v-if="ideaData.type==='simple'" class="text-h5 col-5" >
             simples component
-          </h3>
+          </div>
         </q-card-section>
 
         <q-separator />
@@ -158,8 +162,7 @@ export default {
           record: Object,
           system: null
         }
-      },
-      sheet: null
+      }
     }
   },
 
@@ -221,6 +224,10 @@ export default {
       } catch (error) {
         console.error(error)
       }
+    },
+
+    integrateSheet (value) {
+      this.ideaData.character.record = value
     }
   }
 }
