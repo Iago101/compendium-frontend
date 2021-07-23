@@ -101,7 +101,11 @@
             </div>
             <div class="col-12 fit">
               <div v-if="ideaData.character.system === 'dnd'">
-                  <DndCharacterSheet @saveSheet="integrateSheet"/>
+                  <DndCharacterSheet
+                    :sheet="ideaData.character.record"
+                    @destroySheet="ideaData.character.record = null"
+                    @createSheet="ideaData.character.record = $event"
+                  />
               </div>
 
               <div v-if="ideaData.character.system === 'sistema2'">
@@ -159,7 +163,7 @@ export default {
         description: '',
         privacy: 'public',
         character: {
-          record: Object,
+          record: null,
           system: null
         }
       }
