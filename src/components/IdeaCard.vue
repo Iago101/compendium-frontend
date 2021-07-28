@@ -14,7 +14,7 @@
       maximized
       transition-show="slide-up"
       transition-hide="slide-down">
-        <IdeaDetailed
+        <idea-detailed
           :idea="idea"
         />
     </q-dialog>
@@ -41,13 +41,13 @@
 
       <q-separator />
       <q-card-section  style="height: 252px">
-        <div v-if="idea.type == 'npc'">
-          <!-- <NPCIdea/> -->
+        <div v-if="idea.type === 'npc'">
+
         </div>
-        <div v-if="idea.type == 'item'">
+        <div v-if="idea.type === 'item'">
           <!-- <ItemIdea/> -->
         </div>
-        <div v-if="idea.type == 'local'">
+        <div v-if="idea.type === 'local'">
           <!-- <CityIdea/> -->
         </div>
       </q-card-section>
@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import IdeaDetailed from './IdeaDetailed.vue'
-
 export default {
   name: 'IdeaCard',
   props: {
@@ -79,7 +77,8 @@ export default {
   },
 
   components: {
-    IdeaDetailed
+    IdeaDetailed: () => import('./IdeaDetailed.vue')
+    // DndCharacterSheet: () => import('./DndCharacterSheet.vue')
   },
 
   data () {

@@ -57,7 +57,7 @@
                   label="editar"
                   @click="ideasCreateDetails = true"
                 />
-                <IdeaForm
+                <idea-form
                   v-model="ideasCreateDetails"
                   :ideaEdit="idea"
                   class="col-6 col-sm-3"
@@ -72,10 +72,8 @@
                   v-if="shouldRender && idea.userId === user._id"
                   color="red-4"
                   label="excluir"/>
-                  <q-dialog v-model="deleteDialog">
-                    <DeleteConfirm @confirmed="deleteIdea"/>
-                  </q-dialog>
               </div>
+                  <delete-confirm :deleteDialog="deleteDialog" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
               <div >
@@ -102,13 +100,13 @@
           <q-separator vertical />
           <h3 class="text-h5 col-5" >
             component desc
-            <div v-if="idea.type == 'npc'">
-              <!-- <NPCIdea/> -->
+            <div v-if="idea.type === 'npc'">
+              <dnd-character-sheet :sheet="idea.character.record" />
             </div>
-            <div v-if="idea.type == 'item'">
+            <div v-if="idea.type === 'item'">
               <ItemIdea/>
             </div>
-            <div v-if="idea.type == 'local'">
+            <div v-if="idea.type === 'local'">
               <CityIdea/>
             </div>
           </h3>
@@ -144,7 +142,8 @@ export default {
 
   components: {
     IdeaForm: () => import('../components/IdeaForm.vue'),
-    DeleteConfirm
+    DeleteConfirm,
+    DndCharacterSheet: () => import('./DndCharacterSheet.vue')
   },
 
   props: {

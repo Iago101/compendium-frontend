@@ -101,10 +101,16 @@
             </div>
             <div class="col-12 fit">
               <div v-if="ideaData.character.system === 'dnd'">
-                  <DndCharacterSheet
+                  <dnd-character-sheet
+                    v-if="!ideaEdit"
                     :sheet="ideaData.character.record"
-                    @destroySheet="ideaData.character.record = null"
-                    @createSheet="ideaData.character.record = $event"
+                    @destroy-sheet="ideaData.character.record = null"
+                    @create-sheet="ideaData.character.record = $event"
+                  />
+                  <dnd-character-sheet
+                    v-if="ideaEdit"
+                    :sheet="ideaData.character.record"
+                    @destroy-sheet="ideaData.character.record = null"
                   />
               </div>
 
@@ -146,9 +152,10 @@
 </template>
 
 <script>
-import DndCharacterSheet from './DndCharacterSheet.vue'
 export default {
-  components: { DndCharacterSheet },
+  components: {
+    DndCharacterSheet: () => import('./DndCharacterSheet.vue')
+  },
   name: 'IdeaForm',
   props: {
     value: Boolean,

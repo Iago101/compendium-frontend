@@ -1,9 +1,9 @@
 <template>
-  <div >
-    <q-btn label="editar ficha" @click="seeSheet=true" class="fit"/>
+  <div>
+    <q-btn label="Ver Ficha" @click="seeSheet=true"  class="fit"/>
 
-    <q-dialog v-model="seeSheet" full-height>
-      <q-card v-if="sheet" class="dnd-character-sheet row" style="width: 1200px; max-width: 80vw;">
+    <q-dialog v-model="seeSheet" @show="onShow" full-height>
+      <q-card v-if="sheet" class="dnd-character-sheet row" style="width: 1300px; max-width: 90vw;">
 
         <div class="col-12 row q-mt-md q-mb-xl">
           <div class="col-5 row justify-around">
@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div class="col-4 row justify-around">
+        <div class="col-12 col-sm-4 row justify-around">
           <div class="col-5 row bg-grey-6">
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Força
@@ -27,7 +27,7 @@
                 v-model.number="sheet.str"
                 dense
                 borderless
-                input-class="bigField"
+                input-class="big-field"
                 maxlength="2"
                 type="number"
                 class="col-8"
@@ -39,7 +39,7 @@
                 type="number"
                 round
                 size="lg"
-                input-class="bigField q-mb-none"
+                input-class="big-field q-mb-none"
                 class="col-7 q-mx-auto"
                />
             </div>
@@ -49,7 +49,7 @@
                 v-model.number="sheet.dex"
                 dense
                 borderless
-                input-class="bigField"
+                input-class="big-field"
                 maxlength="2"
                 type="number"
                 class="col-8"
@@ -61,7 +61,7 @@
                 type="number"
                 round
                 size="lg"
-                input-class="bigField q-mb-none"
+                input-class="big-field q-mb-none"
                 class="col-7 q-mx-auto"
                />
             </div>
@@ -71,7 +71,7 @@
                 v-model.number="sheet.con"
                 dense
                 borderless
-                input-class="bigField"
+                input-class="big-field"
                 maxlength="2"
                 type="number"
                 class="col-8"
@@ -83,7 +83,7 @@
                 type="number"
                 round
                 size="lg"
-                input-class="bigField q-mb-none"
+                input-class="big-field q-mb-none"
                 class="col-7 q-mx-auto"
                />
             </div>
@@ -93,7 +93,7 @@
                 v-model.number="sheet.int"
                 dense
                 borderless
-                input-class="bigField"
+                input-class="big-field"
                 maxlength="2"
                 type="number"
                 class="col-8"
@@ -105,7 +105,7 @@
                 type="number"
                 round
                 size="lg"
-                input-class="bigField q-mb-none"
+                input-class="big-field q-mb-none"
                 class="col-7 q-mx-auto"
                />
             </div>
@@ -115,7 +115,7 @@
                 v-model.number="sheet.wis"
                 dense
                 borderless
-                input-class="bigField"
+                input-class="big-field"
                 maxlength="2"
                 type="number"
                 class="col-8"
@@ -127,7 +127,7 @@
                 type="number"
                 round
                 size="lg"
-                input-class="bigField q-mb-none"
+                input-class="big-field q-mb-none"
                 class="col-7 q-mx-auto"
                />
             </div>
@@ -137,7 +137,7 @@
                 v-model.number="sheet.char"
                 dense
                 borderless
-                input-class="bigField"
+                input-class="big-field"
                 maxlength="2"
                 type="number"
                 class="col-8"
@@ -149,7 +149,7 @@
                 type="number"
                 round
                 size="lg"
-                input-class="bigField q-mb-none"
+                input-class="big-field q-mb-none"
                 class="col-7 q-mx-auto"
                />
             </div>
@@ -168,7 +168,7 @@
 
             <div class="border col-10 q-mt-sm row" style="height:60px">
               <div class="col-3">
-                 <q-input v-model.number="sheet.proef" borderless input-class="bigField" type="number" />
+                 <q-input v-model.number="sheet.proef" borderless input-class="big-field" type="number" />
               </div>
               <div class="col-8 text-center text-h6 q-my-auto"
               >
@@ -212,7 +212,7 @@
                 <q-input v-model.number="sheet.charSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Carisma</div>
               </div>
-              <div class="col-12 text-subtitle2 q-mt-md text-center"> Salvaguardas </div>
+              <div class="col-12 text-subtitle2 q-mt-md text-center"> <strong>Salvaguardas</strong> </div>
             </div>
 
             <div class="border col-12 q-mt-sm row" >
@@ -323,13 +323,13 @@
                 <q-input dense v-model.number="sheet.survivalSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Sobrevivência (Sab)</div>
               </div>
-              <div class="col-12 text-subtitle2 q-mt-md text-center"> Perícias </div>
+              <div class="col-12 text-subtitle2 q-mt-md text-center"> <strong>Perícias</strong> </div>
             </div>
 
           </div>
             <div class="border col-11 q-mt-md row" style="height:60px">
               <div class="col-3">
-                 <q-input v-model.number="sheet.passivePerception" type="number" class="justify-center" />
+                 <q-input v-model.number="sheet.passivePerception" borderless type="number" input-class="big-field" />
               </div>
               <div class="col-8 text-center text-h6 q-my-auto">
                 Percepção Passiva (Sab)
@@ -340,32 +340,180 @@
               <q-input
                 v-model="sheet.otherProef"
                 autogrow
-                hint="Idiomas e outras Proeficiências"
+                borderless
+
               />
+              <div class="col-12 text-subtitle2 q-mt-md text-center"> <strong>Idiomas e Outras Proeficiências</strong> </div>
             </div>
         </div>
 
-        <div class="col-4 row">
-          <div class="row col-12 bg-grey-6">
+        <div class="col-12 col-sm-4 row">
+          <div class="row bg-grey-6 justify-around">
             <div class="justify-around row col-12 text-center q-mt-sm" style="height: 90px">
-              <div class="col-3 row">
-                <q-input v-model.number="sheet.armorClass" class="border bg-white" hint="CA"/>
+              <div class="col-3 row border bg-white justify-center">
+                <q-input v-model.number="sheet.armorClass" type="number" borderless input-class="big-field"/>
+                <strong>C.A.</strong>
               </div>
-              <div class="col-3 row">
-                <q-input class="border bg-white" />
+              <div class="col-3 row border bg-white justify-center">
+                <q-input v-model.number="sheet.initiative" type="number" borderless input-class="big-field"/>
+                <strong>Iniciativa</strong>
               </div>
-              <div class="col-3 row">
-                <q-input class="border bg-white" />
+              <div class="col-3 row border bg-white justify-center">
+                <q-input v-model="sheet.movement" borderless input-class="big-field"/>
+                <strong>Deslocamento</strong>
               </div>
+            </div>
+
+            <div class="col-11 row border bg-white justify-center" style="height:200px">
+              <div class="col-12 row" style="height: 60px">
+                  <strong class="col-5 q-ml-md q-my-auto">
+                    Pontos de Vida Totais
+                  </strong>
+                  <q-input
+                    borderless
+                    dense
+                    outlined
+                    v-model.number="sheet.totalHP"
+                    type="number"
+                    class="q-my-auto col-6"
+                  />
+              </div>
+              <q-input
+                type="number"
+                v-model.number="sheet.currentHP"
+                borderless
+                input-class="big-field"
+              />
+              <strong>Pontos de Vida Atuais</strong>
+            </div>
+
+            <div class="col-11 row border bg-white justify-center" style="height:100px">
+              <q-input
+                 type="number"
+                 v-model.number="sheet.tempHP"
+                 borderless
+                 input-class="big-field"
+                />
+                <strong>Pontos de Vida Temporários</strong>
+            </div>
+
+            <div class="col-5 row border bg-white justify-center" style="height:150px">
+              <div class="col-12 row" style="height: 60px">
+                <strong class="col-4 q-ml-md q-my-auto">
+                  Total
+                </strong>
+                <q-input
+                 borderless
+                 dense
+                 outlined
+                 type="number"
+                 v-model.number="sheet.totalDie"
+                 class="q-my-auto col-6"
+                />
+              </div>
+              <q-input
+                type="number"
+                v-model.number="sheet.lifeDie"
+                borderless
+                input-class="big-field"
+              />
+                <strong>Dados de Vida</strong>
+            </div>
+
+            <div class="col-5 row border bg-white justify-center" style="height:150px">
+              <div class="col-12 row" style="height: 60px">
+                <strong class="col-4 q-ml-sm q-my-auto">Sucessos</strong>
+                <div class="col-7 q-my-auto">
+                  <q-checkbox v-model="sheet.deathSaveSucess1"  size="xs"/>
+                  <q-checkbox v-model="sheet.deathSaveSucess2" size="xs"/>
+                  <q-checkbox v-model="sheet.deathSaveSucess3" size="xs"/>
+                </div>
+              </div>
+              <div class="col-12 row" style="height: 60px">
+                <strong class="col-4 q-ml-sm q-my-auto">Falhas</strong>
+                <div class="col-7 q-my-auto">
+                  <q-checkbox v-model="sheet.deathSaveFail1" size="xs"/>
+                  <q-checkbox v-model="sheet.deathSaveFail2" size="xs"/>
+                  <q-checkbox v-model="sheet.deathSaveFail3" size="xs"/>
+                </div>
+              </div>
+                <strong>Testes Contra a Morte</strong>
+            </div>
+
+          </div>
+            <div class="row col-12 border bg-white justify-center">
+              <div class="text-center col-5">
+                Nome
+                <q-input v-model="sheet.attackName1" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackName2" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackName3" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackName4" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackName5" class="q-pa-sm" dense outlined />
+              </div>
+              <div class="text-center col-2">
+                Bonus
+                <q-input v-model="sheet.attackBonus1" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackBonus2" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackBonus3" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackBonus4" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackBonus5" class="q-pa-sm" dense outlined />
+              </div>
+              <div class="text-center col-5">
+                Dano / Tipo
+                <q-input v-model="sheet.attackType1" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackType2" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackType3" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackType4" class="q-pa-sm" dense outlined />
+                <q-input v-model="sheet.attackType5" class="q-pa-sm" dense outlined />
+              </div>
+
+              <strong class="q-mt-auto" >Ataques e Magias</strong>
+            </div>
+
+            <div class="row col-12 border bg-white justify-center">
+              <div class="text-center col-2">
+                <strong>P.C.</strong>
+                <q-input v-model="sheet.cooperCoins" class="q-pa-sm" dense outlined />
+                <strong>P.P.</strong>
+                <q-input v-model="sheet.silverCoins" class="q-pa-sm" dense outlined />
+                <strong>P.E.</strong>
+                <q-input v-model="sheet.electrumCoins" class="q-pa-sm" dense outlined />
+                <strong>P.O.</strong>
+                <q-input v-model="sheet.goldCoins" class="q-pa-sm" dense outlined />
+                <strong>P.L.</strong>
+                <q-input v-model="sheet.platinumCoins" class="q-pa-sm" dense outlined />
+              </div>
+              <textarea v-model="sheet.equipment" class="col-10">
+              </textarea>
+              <strong class="text-center col-12">Equipamento</strong>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-4 row justify-around">
+          <div class="col-12 bg-grey-6 q-py-md row justify-center" style="height: 600px">
+            <div class="col-11 bg-white row border" style="height:130px">
+              <textarea v-model="sheet.traits" borderless style="max-height:100px" class="col-12" />
+              <strong class="text-center q-mt-auto col-12"> Traços de Personalidade </strong>
+            </div>
+            <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
+              <textarea v-model="sheet.ideals" borderless style="max-height:100px" class="col-12" />
+              <strong class="text-center q-mt-auto col-12"> Ideais </strong>
+            </div>
+            <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
+              <textarea v-model="sheet.bonds" borderless style="max-height:100px" class="col-12" />
+              <strong class="text-center q-mt-auto col-12"> Ligações </strong>
+            </div>
+            <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
+              <textarea v-model="sheet.flaws" borderless style="max-height:100px" class="col-12" />
+              <strong class="text-center q-mt-auto col-12"> Defeitos</strong>
             </div>
           </div>
+
+          <div class="col-11 bg-white row border" >
+            <textarea v-model="sheet.abilities" borderless class="col-12" style="max-height:60vw; height:60vw;" />
+            <strong class="text-center q-mt-auto col-12"> Características e Habilidades</strong>
+          </div>
         </div>
-
-        <div class="col-4">
-        </div>
-
-        {{sheet}}
-
       </q-card>
     </q-dialog>
   </div>
@@ -442,12 +590,61 @@ const sheet = {
   religionSkill: 0,
   proefSurvival: false,
   survivalSkill: 0,
-  passivePerception: 10
+  passivePerception: 10,
+  armorClass: 10,
+  initiative: null,
+  movement: null,
+  totalHP: null,
+  currentHP: null,
+  tempHP: null,
+  lifeDie: null,
+  totalDie: null,
+  deathSaveSucess1: false,
+  deathSaveSucess2: false,
+  deathSaveSucess3: false,
+  deathSaveFail1: false,
+  deathSaveFail2: false,
+  deathSaveFail3: false,
+  attackName1: '',
+  attackName2: '',
+  attackName3: '',
+  attackName4: '',
+  attackName5: '',
+  attackBonus1: '',
+  attackBonus2: '',
+  attackBonus3: '',
+  attackBonus4: '',
+  attackBonus5: '',
+  attackType1: '',
+  attackType2: '',
+  attackType3: '',
+  attackType4: '',
+  attackType5: '',
+  cooperCoins: 0,
+  silverCoins: 0,
+  electrumCoins: 0,
+  goldCoins: 0,
+  platinumCoins: 0,
+  equipment: '',
+  traits: '',
+  ideals: '',
+  bonds: '',
+  flaws: ''
 }
 export default {
   data () {
     return {
       seeSheet: null
+    }
+  },
+
+  methods: {
+    onShow () {
+      if (!this.ideaEdit) {
+        return
+      }
+      this.ideaData.character.record = JSON.parse(JSON.stringify(this.ideaEdit.character.record))
+      console.log(1)
     }
   },
 
@@ -841,15 +1038,27 @@ export default {
       if (this.sheet.proefPersuasion === false) {
         this.sheet.persuasionSkill = this.sheet.charMod
       }
+    },
+    'sheet.deathSaveSucess1' () {
+      if (this.sheet.deathSaveSucess1 === false) {
+        this.sheet.deathSaveSucess2 = false
+        this.sheet.deathSaveSucess3 = false
+      }
+    },
+    'sheet.deathSaveFail1' () {
+      if (this.sheet.deathSaveFail1 === false) {
+        this.sheet.deathSaveFail2 = false
+        this.sheet.deathSaveFail3 = false
+      }
     }
   },
 
   created () {
-    this.$emit('createSheet', sheet)
+    this.$emit('create-sheet', sheet)
   },
 
   beforeDestroy () {
-    this.$emit('destroySheet')
+    this.$emit('destroy-sheet')
   }
 
 }
@@ -860,7 +1069,7 @@ export default {
     border: 2px solid black;
     border-radius: 10px;
   }
-  .bigField{
+  .big-field{
     text-align: center;
     font-size: 40px;
   }
