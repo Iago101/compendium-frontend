@@ -640,7 +640,6 @@ export default {
       if (this.creator === this.user._id) {
         this.visitor = false
       }
-      this.ideaData.character.record = JSON.parse(JSON.stringify(this.ideaEdit.character.record))
     }
   },
 
