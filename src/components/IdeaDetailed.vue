@@ -98,10 +98,9 @@
           imagem?
           </div>
           <q-separator vertical />
-          <h3 class="text-h5 col-5" >
-            component desc
+          <h3 class="text-h5  q-mx-auto col-5" >
             <div v-if="idea.type === 'npc'">
-              <dnd-character-sheet :sheet="idea.character.record" />
+              <dnd-character-sheet :creator="idea.userId" :visitor="true" :sheet="idea.character.record"/>
             </div>
             <div v-if="idea.type === 'item'">
               <ItemIdea/>

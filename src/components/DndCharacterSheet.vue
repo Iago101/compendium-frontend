@@ -3,19 +3,18 @@
     <q-btn label="Ver Ficha" @click="seeSheet=true"  class="fit"/>
 
     <q-dialog v-model="seeSheet" @show="onShow" full-height>
-      <q-card v-if="sheet" class="dnd-character-sheet row" style="width: 1300px; max-width: 90vw;">
-
+      <q-card v-if="sheet" class="dnd-character-sheet row " style="width: 1300px; max-width: 90vw;">
         <div class="col-12 row q-mt-md q-mb-xl">
           <div class="col-5 row justify-around">
-            <q-input hint="Nome do Personagem" class="col-10 q-my-auto" v-model="sheet.name"/>
+            <q-input :readonly="visitor===true" hint="Nome do Personagem" class="col-10 q-my-auto" v-model="sheet.name"/>
           </div>
           <div class="col-6 row">
-            <q-input hint="Classe & Nível" class="col-4" v-model="sheet.classLevel"/>
-            <q-input hint="Background" class="col-4" v-model="sheet.background"/>
-            <q-input hint="Nome do Jogador" class="col-4" v-model="sheet.playerName"/>
-            <q-input hint="Raça" class="col-4" v-model="sheet.race"/>
-            <q-input hint="Alinhamento" class="col-4" v-model="sheet.alignement"/>
-            <q-input hint="Experiência" class="col-4" v-model="sheet.xp"/>
+            <q-input :readonly="visitor===true" hint="Classe & Nível" class="col-4" v-model="sheet.classLevel"/>
+            <q-input :readonly="visitor===true" hint="Background" class="col-4" v-model="sheet.background"/>
+            <q-input :readonly="visitor===true" hint="Nome do Jogador" class="col-4" v-model="sheet.playerName"/>
+            <q-input :readonly="visitor===true" hint="Raça" class="col-4" v-model="sheet.race"/>
+            <q-input :readonly="visitor===true" hint="Alinhamento" class="col-4" v-model="sheet.alignement"/>
+            <q-input :readonly="visitor===true" hint="Experiência" class="col-4" v-model="sheet.xp"/>
           </div>
         </div>
 
@@ -23,7 +22,7 @@
           <div class="col-5 row bg-grey-6">
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Força
-              <q-input
+              <q-input :readonly="visitor===true"
                 v-model.number="sheet.str"
                 dense
                 borderless
@@ -32,7 +31,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input
+              <q-input :readonly="visitor===true"
                 outlined
                 v-model.number="sheet.strMod"
                 maxlength="1"
@@ -45,7 +44,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Destreza
-              <q-input
+              <q-input :readonly="visitor===true"
                 v-model.number="sheet.dex"
                 dense
                 borderless
@@ -54,7 +53,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input
+              <q-input :readonly="visitor===true"
                 outlined
                 v-model.number="sheet.dexMod"
                 maxlength="1"
@@ -67,7 +66,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Constituição
-              <q-input
+              <q-input :readonly="visitor===true"
                 v-model.number="sheet.con"
                 dense
                 borderless
@@ -76,7 +75,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input
+              <q-input :readonly="visitor===true"
                 outlined
                 v-model.number="sheet.conMod"
                 maxlength="1"
@@ -89,7 +88,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Inteligência
-              <q-input
+              <q-input :readonly="visitor===true"
                 v-model.number="sheet.int"
                 dense
                 borderless
@@ -98,7 +97,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input
+              <q-input :readonly="visitor===true"
                 outlined
                 v-model.number="sheet.intMod"
                 maxlength="1"
@@ -111,7 +110,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Sabedoria
-              <q-input
+              <q-input :readonly="visitor===true"
                 v-model.number="sheet.wis"
                 dense
                 borderless
@@ -120,7 +119,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input
+              <q-input :readonly="visitor===true"
                 outlined
                 v-model.number="sheet.wisMod"
                 maxlength="1"
@@ -133,7 +132,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Carisma
-              <q-input
+              <q-input :readonly="visitor===true"
                 v-model.number="sheet.char"
                 dense
                 borderless
@@ -142,7 +141,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input
+              <q-input :readonly="visitor===true"
                 outlined
                 v-model.number="sheet.charMod"
                 maxlength="1"
@@ -156,10 +155,9 @@
           </div>
 
           <div class="col-7 justify-center row">
-
             <div class="border col-10 q-mt-sm row" style="height:60px">
               <div class="col-3">
-                <q-checkbox v-model="sheet.inspiration" size="xl"/>
+                <q-checkbox :disable="visitor" v-model="sheet.inspiration" size="xl"/>
               </div>
               <div class="col-8 text-center text-h6 q-my-auto">
                 Inspiração
@@ -168,7 +166,7 @@
 
             <div class="border col-10 q-mt-sm row" style="height:60px">
               <div class="col-3">
-                 <q-input v-model.number="sheet.proef" borderless input-class="big-field" type="number" />
+                 <q-input :readonly="visitor===true" v-model.number="sheet.proef" borderless input-class="big-field" type="number" />
               </div>
               <div class="col-8 text-center text-h6 q-my-auto"
               >
@@ -178,38 +176,38 @@
 
             <div class="border col-11 q-mt-sm row" style="height:300px">
               <div class="col-12 row text-subtitle2 " style="height:40px">
-                <q-checkbox v-model="sheet.proefStr" value="false" class="col-2 q-my-auto" />
-                <q-input v-model.number="sheet.strSave" type="number" dense class="col-3"/>
+                <q-checkbox :disable="visitor"  v-model="sheet.proefStr" value="false" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" v-model.number="sheet.strSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Força</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
-                <q-checkbox v-model="sheet.proefDex" class="col-2 q-my-auto" />
-                <q-input v-model.number="sheet.dexSave" type="number" dense class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefDex" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" v-model.number="sheet.dexSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Destreza</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
-                <q-checkbox v-model="sheet.proefCon" class="col-2 q-my-auto" />
-                <q-input v-model.number="sheet.conSave" type="number" dense class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefCon" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" v-model.number="sheet.conSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Constituição</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
-                <q-checkbox v-model="sheet.proefInt" class="col-2 q-my-auto" />
-                <q-input v-model.number="sheet.intSave" type="number" dense class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefInt" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" v-model.number="sheet.intSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Inteligência</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
-                <q-checkbox v-model="sheet.proefWis" class="col-2 q-my-auto" />
-                <q-input v-model.number="sheet.wisSave" type="number" dense class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefWis" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" v-model.number="sheet.wisSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Sabedoria</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
-                <q-checkbox v-model="sheet.proefChar" class="col-2 q-my-auto" />
-                <q-input v-model.number="sheet.charSave" type="number" dense class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefChar" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" v-model.number="sheet.charSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Carisma</div>
               </div>
               <div class="col-12 text-subtitle2 q-mt-md text-center"> <strong>Salvaguardas</strong> </div>
@@ -217,133 +215,131 @@
 
             <div class="border col-12 q-mt-sm row" >
               <div class="col-12 row text-subtitle2 " >
-                <q-checkbox v-model="sheet.proefAcrobatics" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.acrobaticsSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefAcrobatics" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.acrobaticsSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Acrobacia (Des)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefArcana" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.arcanaSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefArcana" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.arcanaSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Arcanismo (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefAtletism" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.atletismSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefAtletism" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.atletismSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Atletismo (For)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefActing" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.actingSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefActing" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.actingSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Atuação (Car)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefBluff" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.bluffSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefBluff" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.bluffSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Blefar (Car)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefStealth" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.stealthSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefStealth" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.stealthSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Furtividade (Des)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefHistory" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.historySkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefHistory" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.historySkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">História (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefIntimidation" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.intimidationSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefIntimidation" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.intimidationSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Intimidação (Car)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefInsight" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.insightSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefInsight" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.insightSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Intuição (Sab)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefInvestigation" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.investigationSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefInvestigation" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.investigationSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Investigação (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefAnimalHandling" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.animalHandlingSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefAnimalHandling" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.animalHandlingSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Lidar com Animais (Sab)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefMedicine" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.medicineSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefMedicine" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.medicineSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Medicina (Sab)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefNature" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.natureSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefNature" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.natureSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Natureza (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefPerception" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.perceptionSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefPerception" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.perceptionSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Percepção (Sab)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefPersuasion" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.persuasionSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefPersuasion" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.persuasionSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Persuasão (Car)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefSleightOfHand" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.sleightOfHandSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefSleightOfHand" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.sleightOfHandSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Prestidigitação (Des)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefReligion" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.religionSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefReligion" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.religionSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Religião (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
-                <q-checkbox v-model="sheet.proefSurvival" class="col-2 q-my-auto" />
-                <q-input dense v-model.number="sheet.survivalSkill" type="number" class="col-3"/>
+                <q-checkbox :disable="visitor" v-model="sheet.proefSurvival" class="col-2 q-my-auto" />
+                <q-input :readonly="visitor===true" dense v-model.number="sheet.survivalSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Sobrevivência (Sab)</div>
               </div>
               <div class="col-12 text-subtitle2 q-mt-md text-center"> <strong>Perícias</strong> </div>
             </div>
-
           </div>
+
             <div class="border col-11 q-mt-md row" style="height:60px">
               <div class="col-3">
-                 <q-input v-model.number="sheet.passivePerception" borderless type="number" input-class="big-field" />
+                 <q-input :readonly="visitor===true" v-model.number="sheet.passivePerception" borderless type="number" input-class="big-field" />
               </div>
               <div class="col-8 text-center text-h6 q-my-auto">
                 Percepção Passiva (Sab)
               </div>
             </div>
 
-            <div class="border col-11 q-mt-md">
-              <q-input
+            <div class="border text-center col-11 q-mt-md">
+              <q-input :readonly="visitor===true"
                 v-model="sheet.otherProef"
                 autogrow
-                borderless
-
-              />
-              <div class="col-12 text-subtitle2 q-mt-md text-center"> <strong>Idiomas e Outras Proeficiências</strong> </div>
+                borderless/>
+              <strong class=" q-mt-auto col-12">Idiomas e Outras Proeficiências</strong>
             </div>
         </div>
 
@@ -351,15 +347,15 @@
           <div class="row bg-grey-6 justify-around">
             <div class="justify-around row col-12 text-center q-mt-sm" style="height: 90px">
               <div class="col-3 row border bg-white justify-center">
-                <q-input v-model.number="sheet.armorClass" type="number" borderless input-class="big-field"/>
+                <q-input :readonly="visitor===true" v-model.number="sheet.armorClass" type="number" borderless input-class="big-field"/>
                 <strong>C.A.</strong>
               </div>
               <div class="col-3 row border bg-white justify-center">
-                <q-input v-model.number="sheet.initiative" type="number" borderless input-class="big-field"/>
+                <q-input :readonly="visitor===true" v-model.number="sheet.initiative" type="number" borderless input-class="big-field"/>
                 <strong>Iniciativa</strong>
               </div>
               <div class="col-3 row border bg-white justify-center">
-                <q-input v-model="sheet.movement" borderless input-class="big-field"/>
+                <q-input :readonly="visitor===true" v-model="sheet.movement" borderless input-class="big-field"/>
                 <strong>Deslocamento</strong>
               </div>
             </div>
@@ -369,7 +365,7 @@
                   <strong class="col-5 q-ml-md q-my-auto">
                     Pontos de Vida Totais
                   </strong>
-                  <q-input
+                  <q-input :readonly="visitor===true"
                     borderless
                     dense
                     outlined
@@ -378,7 +374,7 @@
                     class="q-my-auto col-6"
                   />
               </div>
-              <q-input
+              <q-input :readonly="visitor===true"
                 type="number"
                 v-model.number="sheet.currentHP"
                 borderless
@@ -388,7 +384,7 @@
             </div>
 
             <div class="col-11 row border bg-white justify-center" style="height:100px">
-              <q-input
+              <q-input :readonly="visitor===true"
                  type="number"
                  v-model.number="sheet.tempHP"
                  borderless
@@ -402,7 +398,7 @@
                 <strong class="col-4 q-ml-md q-my-auto">
                   Total
                 </strong>
-                <q-input
+                <q-input :readonly="visitor===true"
                  borderless
                  dense
                  outlined
@@ -411,7 +407,7 @@
                  class="q-my-auto col-6"
                 />
               </div>
-              <q-input
+              <q-input :readonly="visitor===true"
                 type="number"
                 v-model.number="sheet.lifeDie"
                 borderless
@@ -424,17 +420,17 @@
               <div class="col-12 row" style="height: 60px">
                 <strong class="col-4 q-ml-sm q-my-auto">Sucessos</strong>
                 <div class="col-7 q-my-auto">
-                  <q-checkbox v-model="sheet.deathSaveSucess1"  size="xs"/>
-                  <q-checkbox v-model="sheet.deathSaveSucess2" size="xs"/>
-                  <q-checkbox v-model="sheet.deathSaveSucess3" size="xs"/>
+                  <q-checkbox :disable="visitor" v-model="sheet.deathSaveSucess1"  size="xs"/>
+                  <q-checkbox :disable="visitor" v-model="sheet.deathSaveSucess2" size="xs"/>
+                  <q-checkbox :disable="visitor" v-model="sheet.deathSaveSucess3" size="xs"/>
                 </div>
               </div>
               <div class="col-12 row" style="height: 60px">
                 <strong class="col-4 q-ml-sm q-my-auto">Falhas</strong>
                 <div class="col-7 q-my-auto">
-                  <q-checkbox v-model="sheet.deathSaveFail1" size="xs"/>
-                  <q-checkbox v-model="sheet.deathSaveFail2" size="xs"/>
-                  <q-checkbox v-model="sheet.deathSaveFail3" size="xs"/>
+                  <q-checkbox :disable="visitor" v-model="sheet.deathSaveFail1" size="xs"/>
+                  <q-checkbox :disable="visitor" v-model="sheet.deathSaveFail2" size="xs"/>
+                  <q-checkbox :disable="visitor" v-model="sheet.deathSaveFail3" size="xs"/>
                 </div>
               </div>
                 <strong>Testes Contra a Morte</strong>
@@ -444,27 +440,27 @@
             <div class="row col-12 border bg-white justify-center">
               <div class="text-center col-5">
                 Nome
-                <q-input v-model="sheet.attackName1" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackName2" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackName3" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackName4" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackName5" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackName1" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackName2" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackName3" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackName4" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackName5" class="q-pa-sm" dense outlined />
               </div>
               <div class="text-center col-2">
                 Bonus
-                <q-input v-model="sheet.attackBonus1" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackBonus2" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackBonus3" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackBonus4" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackBonus5" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackBonus1" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackBonus2" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackBonus3" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackBonus4" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackBonus5" class="q-pa-sm" dense outlined />
               </div>
               <div class="text-center col-5">
                 Dano / Tipo
-                <q-input v-model="sheet.attackType1" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackType2" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackType3" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackType4" class="q-pa-sm" dense outlined />
-                <q-input v-model="sheet.attackType5" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackType1" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackType2" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackType3" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackType4" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.attackType5" class="q-pa-sm" dense outlined />
               </div>
 
               <strong class="q-mt-auto" >Ataques e Magias</strong>
@@ -473,44 +469,44 @@
             <div class="row col-12 border bg-white justify-center">
               <div class="text-center col-2">
                 <strong>P.C.</strong>
-                <q-input v-model="sheet.cooperCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.cooperCoins" class="q-pa-sm" dense outlined />
                 <strong>P.P.</strong>
-                <q-input v-model="sheet.silverCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.silverCoins" class="q-pa-sm" dense outlined />
                 <strong>P.E.</strong>
-                <q-input v-model="sheet.electrumCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.electrumCoins" class="q-pa-sm" dense outlined />
                 <strong>P.O.</strong>
-                <q-input v-model="sheet.goldCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.goldCoins" class="q-pa-sm" dense outlined />
                 <strong>P.L.</strong>
-                <q-input v-model="sheet.platinumCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor===true" v-model="sheet.platinumCoins" class="q-pa-sm" dense outlined />
               </div>
-              <textarea v-model="sheet.equipment" class="col-10">
+              <textarea :readonly="visitor===true" v-model="sheet.equipment" class="col-10">
               </textarea>
-              <strong class="text-center col-12">Equipamento</strong>
+              <strong class="text-center q-mt-auto col-12">Equipamento</strong>
             </div>
         </div>
 
         <div class="col-12 col-sm-4 row justify-around">
           <div class="col-12 bg-grey-6 q-py-md row justify-center" style="height: 600px">
             <div class="col-11 bg-white row border" style="height:130px">
-              <textarea v-model="sheet.traits" borderless style="max-height:100px" class="col-12" />
+              <textarea :readonly="visitor===true" v-model="sheet.traits" borderless style="max-height:100px" class="col-12" />
               <strong class="text-center q-mt-auto col-12"> Traços de Personalidade </strong>
             </div>
             <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
-              <textarea v-model="sheet.ideals" borderless style="max-height:100px" class="col-12" />
+              <textarea :readonly="visitor===true" v-model="sheet.ideals" borderless style="max-height:100px" class="col-12" />
               <strong class="text-center q-mt-auto col-12"> Ideais </strong>
             </div>
             <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
-              <textarea v-model="sheet.bonds" borderless style="max-height:100px" class="col-12" />
+              <textarea :readonly="visitor===true" v-model="sheet.bonds" borderless style="max-height:100px" class="col-12" />
               <strong class="text-center q-mt-auto col-12"> Ligações </strong>
             </div>
             <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
-              <textarea v-model="sheet.flaws" borderless style="max-height:100px" class="col-12" />
+              <textarea :readonly="visitor===true" v-model="sheet.flaws" borderless style="max-height:100px" class="col-12" />
               <strong class="text-center q-mt-auto col-12"> Defeitos</strong>
             </div>
           </div>
 
           <div class="col-11 bg-white row border" >
-            <textarea v-model="sheet.abilities" borderless class="col-12" style="max-height:60vw; height:60vw;" />
+            <textarea :readonly="visitor===true" v-model="sheet.abilities" borderless class="col-12" style="max-height:60vw; height:60vw;" />
             <strong class="text-center q-mt-auto col-12"> Características e Habilidades</strong>
           </div>
         </div>
@@ -520,6 +516,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 const sheet = {
   name: '',
   classLevel: '',
@@ -640,16 +637,21 @@ export default {
 
   methods: {
     onShow () {
-      if (!this.ideaEdit) {
-        return
+      if (this.creator === this.user._id) {
+        this.visitor = false
       }
       this.ideaData.character.record = JSON.parse(JSON.stringify(this.ideaEdit.character.record))
-      console.log(1)
     }
   },
 
+  computed: {
+    ...mapGetters('auth', ['user'])
+  },
+
   props: {
-    sheet: null
+    sheet: null,
+    creator: null,
+    visitor: null
   },
 
   watch: {

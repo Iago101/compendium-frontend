@@ -110,6 +110,7 @@
                   <dnd-character-sheet
                     v-if="ideaEdit"
                     :sheet="ideaData.character.record"
+                    :visitor="false"
                     @destroy-sheet="ideaData.character.record = null"
                   />
               </div>
