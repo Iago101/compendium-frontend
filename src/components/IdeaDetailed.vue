@@ -93,7 +93,7 @@
         </q-card-section>
 
         <q-separator />
-        <q-card-section style="height: 400px" class="row">
+        <q-card-section style="height: auto" class="row">
            <div  class="col-6">
           imagem?
           </div>
@@ -103,7 +103,7 @@
               <dnd-character-sheet :creator="idea.userId" :visitor="true" :sheet="idea.character.record"/>
             </div>
             <div v-if="idea.type === 'item'">
-              <ItemIdea/>
+              <item-sheet :visitor="true" :sheet="idea.item"/>
             </div>
             <div v-if="idea.type === 'local'">
               <CityIdea/>
@@ -142,7 +142,8 @@ export default {
   components: {
     IdeaForm: () => import('../components/IdeaForm.vue'),
     DeleteConfirm,
-    DndCharacterSheet: () => import('./DndCharacterSheet.vue')
+    DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
+    ItemSheet: () => import('./ItemSheet.vue')
   },
 
   props: {
