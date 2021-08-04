@@ -1,5 +1,6 @@
 <template>
     <q-card
+      class="idea-detailed"
       :class="{
         'bg-purple-2': idea.type==='local',
         'bg-yellow-2': idea.type==='item',
@@ -67,13 +68,13 @@
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
                 <q-btn
-                  @click="deleteDialog = true"
+                  @click="openConfirmation = true"
                   round
                   v-if="shouldRender && idea.userId === user._id"
                   color="red-4"
                   label="excluir"/>
               </div>
-                  <delete-confirm :deleteDialog="deleteDialog" @confirmed="deleteIdea"/>
+                  <delete-confirm :openConfirmation="openConfirmation" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
               <div >
@@ -113,35 +114,30 @@
 
         <q-separator />
           <q-card-section>
-            <h3
-              class="text-h5"
-              style="
-                overflow: hidden;
-                text-overflow: ellipsis;
-                max-height: 90px;
-              ">
+            <div
+              class="limited-text-area"
+              >
               {{idea.description}}
-            </h3>
+            </div>
         </q-card-section>
       </q-card>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import DeleteConfirm from './DeleteConfirm.vue'
 
 export default {
   name: 'IdeaDetailed',
   data () {
     return {
-      deleteDialog: false,
+      openConfirmation: false,
       ideasCreateDetails: null
     }
   },
 
   components: {
     IdeaForm: () => import('../components/IdeaForm.vue'),
-    DeleteConfirm,
+    DeleteConfirm: () => import('./DeleteConfirm.vue'),
     DndCharacterSheet: () => import('./DndCharacterSheet.vue')
   },
 
@@ -183,3 +179,13 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.idea-detailed{
+  .limited-text-area{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 90px;
+    font-size: 40px;
+  }
+}
+</style>
