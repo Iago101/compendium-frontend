@@ -45,7 +45,7 @@
 
         </div>
         <div v-if="idea.type === 'item'">
-          <!-- <ItemIdea/> -->
+          <!-- <item-sheet :visitor="true" :sheet="idea.item"/> -->
         </div>
         <div v-if="idea.type === 'local'">
           <!-- <CityIdea/> -->
@@ -78,7 +78,7 @@ export default {
 
   components: {
     IdeaDetailed: () => import('./IdeaDetailed.vue')
-    // DndCharacterSheet: () => import('./DndCharacterSheet.vue')
+    // ItemSheet: () => import('./ItemSheet.vue')
   },
 
   data () {

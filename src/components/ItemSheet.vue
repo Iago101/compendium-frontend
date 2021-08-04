@@ -1,27 +1,27 @@
 <template>
     <div class="row item-sheet">
-        <div class="row col-12 border" >
+        <div class="row col-12 border" v-if="checkIfHave(sheet.doesDamage)">
             <strong class="col-12 text-center">Dano</strong>
             <q-checkbox v-if="visitor!==true" v-model="sheet.doesDamage" class="col-2" size="xl"/>
             <q-input :readonly="visitor===true" v-if="sheet.doesDamage===true" v-model="sheet.damage" class="col-10 q-mx-auto big-field"/>
         </div>
-        <div class="row col-12 border" >
+        <div class="row col-12 border" v-if="checkIfHave(sheet.hasCharges)" >
             <strong class="col-12 text-center">Cargas</strong>
             <q-checkbox v-if="visitor!==true" v-model="sheet.hasCharges" class="col-2" size="xl"/>
             <q-input :readonly="visitor===true" v-if="sheet.hasCharges===true" v-model.number="sheet.charges" type="number" input-class="big-field" class="q-mx-auto col-2"/>
             <q-input :readonly="visitor===true" v-if="sheet.hasCharges===true" v-model="sheet.perWhen" class="col-8 big-text q-mx-auto q-mx-auto"/>
         </div>
-        <div class="row col-12 border" >
+        <div class="row col-12 border" v-if="checkIfHave(sheet.hasOrigin)">
             <strong class="col-12 text-center">Origem</strong>
             <q-checkbox v-if="visitor!==true" v-model="sheet.hasOrigin" class="col-2" size="xl"/>
             <textarea :readonly="visitor===true" v-if="sheet.hasOrigin===true" v-model="sheet.origin" class="col-9 minor-text q-mx-auto"/>
         </div>
-        <div class="row col-12 border" >
+        <div class="row col-12 border" v-if="checkIfHave(sheet.hasUtilization)">
             <strong class="col-12 text-center">Utilização</strong>
             <q-checkbox v-if="visitor!==true" v-model="sheet.hasUtilization" class="col-2" size="xl"/>
             <textarea :readonly="visitor===true" v-if="sheet.hasUtilization===true" v-model="sheet.utilization" class="col-9 minor-text q-mx-auto"/>
         </div>
-        <div class="row col-12 border" >
+        <div class="row col-12 border" v-if="checkIfHave(sheet.hasRules)">
             <strong class="col-12 text-center">Regras</strong>
             <q-checkbox v-if="visitor!==true" v-model="sheet.hasRules" class="col-2" size="xl"/>
             <textarea :readonly="visitor===true" v-if="sheet.hasRules===true" v-model="sheet.rules" class="col-9 minor-text q-mx-auto"/>
@@ -43,6 +43,25 @@ const sheet = {
   rules: ''
 }
 export default {
+
+  data () {
+    return {
+      field: true
+    }
+  },
+
+  methods: {
+    checkIfHave (field) {
+      if (field === true) {
+        return true
+      }
+      if (this.visitor === false) {
+        return true
+      }
+      return false
+    }
+  },
+
   props: {
     sheet: null,
     visitor: null

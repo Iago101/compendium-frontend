@@ -123,6 +123,7 @@
           <div v-if="ideaData.type==='item'" class="text-h5  q-mx-auto col-5" >
             <item-sheet
               v-if="!ideaEdit"
+              :visitor="false"
               :sheet="ideaData.item"
               @destroy-item-sheet="ideaData.item = null"
               @create-item-sheet="ideaData.item = $event"
