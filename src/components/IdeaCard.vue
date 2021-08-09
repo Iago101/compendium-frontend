@@ -78,7 +78,6 @@ export default {
 
   components: {
     IdeaDetailed: () => import('./IdeaDetailed.vue')
-    // ItemSheet: () => import('./ItemSheet.vue')
   },
 
   data () {
