@@ -1,6 +1,5 @@
 <template>
     <q-card
-      class="idea-detailed"
       :class="{
         'bg-purple-2': idea.type==='local',
         'bg-yellow-2': idea.type==='item',
@@ -68,13 +67,13 @@
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
                 <q-btn
-                  @click="openConfirmation = true"
+                  @click="deleteDialog = true"
                   round
                   v-if="shouldRender && idea.userId === user._id"
                   color="red-4"
                   label="excluir"/>
               </div>
-                  <delete-confirm :openConfirmation="openConfirmation" @confirmed="deleteIdea"/>
+                  <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
               <div >
@@ -94,7 +93,7 @@
         </q-card-section>
 
         <q-separator />
-        <q-card-section style="height: 400px" class="row">
+        <q-card-section style="height: auto" class="row">
            <div  class="col-6">
           imagem?
           </div>
@@ -104,7 +103,7 @@
               <dnd-character-sheet :creator="idea.userId" :visitor="true" :sheet="idea.character.record"/>
             </div>
             <div v-if="idea.type === 'item'">
-              <ItemIdea/>
+              <item-sheet :visitor="true" :sheet="idea.item"/>
             </div>
             <div v-if="idea.type === 'local'">
               <CityIdea/>
@@ -114,11 +113,15 @@
 
         <q-separator />
           <q-card-section>
-            <div
-              class="limited-text-area"
-              >
+            <h3
+              class="text-h5"
+              style="
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-height: 90px;
+              ">
               {{idea.description}}
-            </div>
+            </h3>
         </q-card-section>
       </q-card>
 </template>
@@ -130,14 +133,14 @@ export default {
   name: 'IdeaDetailed',
   data () {
     return {
-      openConfirmation: false,
+      deleteDialog: false,
       ideasCreateDetails: null
     }
   },
 
   components: {
     IdeaForm: () => import('../components/IdeaForm.vue'),
-    DeleteConfirm: () => import('./DeleteConfirm.vue'),
+    DeleteConfirm: () => import('../components/DeleteConfirm.vue'),
     DndCharacterSheet: () => import('./DndCharacterSheet.vue')
   },
 
@@ -179,13 +182,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.idea-detailed{
-  .limited-text-area{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-height: 90px;
-    font-size: 40px;
-  }
-}
-</style>

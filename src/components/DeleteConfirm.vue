@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="openConfirmation">
+  <q-dialog v-model="dialog">
     <q-card>
         <q-card-section>
             <div class="text-h6">Tem certeza? <br> Essa ação não é desfeita nem com Wish de nono círculo</div>
@@ -22,7 +22,7 @@ export default {
   },
 
   props: {
-    openConfirmation: null
+    dialog: Boolean
   }
 }
 </script>

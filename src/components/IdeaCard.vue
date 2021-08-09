@@ -78,7 +78,6 @@ export default {
 
   components: {
     IdeaDetailed: () => import('./IdeaDetailed.vue')
-    // DndCharacterSheet: () => import('./DndCharacterSheet.vue')
   },
 
   data () {
