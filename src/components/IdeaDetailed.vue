@@ -93,17 +93,17 @@
         </q-card-section>
 
         <q-separator />
-        <q-card-section style="height: auto" class="row">
+        <q-card-section class="row">
            <div  class="col-6">
           imagem?
           </div>
           <q-separator vertical />
           <h3 class="text-h5  q-mx-auto col-5" >
             <div v-if="idea.type === 'npc'">
-              <dnd-character-sheet :creator="idea.userId" :visitor="true" :sheet="idea.character.record"/>
+              <dnd-character-sheet :creator="idea.userId" visitor :sheet="idea.character.record"/>
             </div>
             <div v-if="idea.type === 'item'">
-              <item-sheet :visitor="true" :sheet="idea.item"/>
+              <item-sheet visitor :sheet="idea.item"/>
             </div>
             <div v-if="idea.type === 'local'">
               <CityIdea/>
