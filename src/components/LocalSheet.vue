@@ -1,5 +1,5 @@
 <template>
-    <div class="row item-sheet">
+    <div class="row local-sheet">
         <div class="row col-12 border">
             <strong class="col-12 text-center">População</strong>
             <q-input :readonly="visitor" v-model="sheet.population" class="col-6 q-mx-auto big-field"/>
@@ -81,7 +81,7 @@ export default {
 }
 </script>
 <style lang="sass">
-.item-sheet
+.local-sheet
   .border
     border: 2px solid black
     border-radius: 10px

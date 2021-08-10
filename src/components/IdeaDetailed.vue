@@ -139,8 +139,8 @@ export default {
   },
 
   components: {
-    IdeaForm: () => import('../components/IdeaForm.vue'),
-    DeleteConfirm: () => import('../components/DeleteConfirm.vue'),
+    IdeaForm: () => import('./IdeaForm.vue'),
+    DeleteConfirm: () => import('./DeleteConfirm.vue'),
     DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
     LocalSheet: () => import('./LocalSheet.vue')

@@ -135,7 +135,7 @@
               @destroy-item-sheet="ideaData.item = null"
               />
           </div>
-          <div v-if="ideaData.type==='local'" class="text-h5 col-5" >
+          <div v-if="ideaData.type==='local'" class="text-h5 q-mx-auto  col-5" >
             <local-sheet
               :sheet="ideaData.local"
               v-if="!ideaEdit"
