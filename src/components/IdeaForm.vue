@@ -135,8 +135,18 @@
               @destroy-item-sheet="ideaData.item = null"
               />
           </div>
-          <div v-if="ideaData.type==='local'" class="text-h5 col-5" >
-            local component
+          <div v-if="ideaData.type==='local'" class="text-h5 q-mx-auto  col-5" >
+            <local-sheet
+              :sheet="ideaData.local"
+              v-if="!ideaEdit"
+              @destroy-local-sheet="ideaData.local = null"
+              @create-local-sheet="ideaData.local = $event"
+            />
+            <local-sheet
+              :sheet="ideaData.local"
+              v-if="ideaEdit"
+              @destroy-local-sheet="ideaData.local = null"
+            />
           </div>
           <div v-if="ideaData.type==='simple'" class="text-h5 col-5" >
             simples component
@@ -168,7 +178,8 @@
 export default {
   components: {
     DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
-    ItemSheet: () => import('./ItemSheet.vue')
+    ItemSheet: () => import('./ItemSheet.vue'),
+    LocalSheet: () => import('./LocalSheet.vue')
   },
   name: 'IdeaForm',
   props: {
@@ -187,7 +198,8 @@ export default {
           record: null,
           system: null
         },
-        item: null
+        item: null,
+        local: null
       }
     }
   },

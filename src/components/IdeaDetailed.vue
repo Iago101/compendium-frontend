@@ -106,7 +106,7 @@
               <item-sheet visitor :sheet="idea.item"/>
             </div>
             <div v-if="idea.type === 'local'">
-              <CityIdea/>
+              <local-sheet visitor :sheet="idea.local"/>
             </div>
           </h3>
         </q-card-section>
@@ -139,10 +139,11 @@ export default {
   },
 
   components: {
-    IdeaForm: () => import('../components/IdeaForm.vue'),
-    DndCharacterSheet: () => import('./DndCharacterSheet.vue')
-    DeleteConfirm: () => import('../components/DeleteConfirm.vue'),
-    ItemSheet: () => import('./ItemSheet.vue')
+    LocalSheet: () => import('./LocalSheet.vue')
+    ItemSheet: () => import('./ItemSheet.vue'),
+    DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
+    DeleteConfirm: () => import('./DeleteConfirm.vue'),
+    IdeaForm: () => import('./IdeaForm.vue'),
   },
 
   props: {
