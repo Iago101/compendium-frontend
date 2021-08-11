@@ -6,15 +6,15 @@
       <q-card v-if="sheet" class="dnd-character-sheet row " style="width: 1300px; max-width: 90vw;">
         <div class="col-12 row q-mt-md q-mb-xl">
           <div class="col-5 row justify-around">
-            <q-input :readonly="visitor===true" hint="Nome do Personagem" class="col-10 q-my-auto" v-model="sheet.name"/>
+            <q-input :readonly="visitor" hint="Nome do Personagem" class="col-10 q-my-auto" v-model="sheet.name"/>
           </div>
           <div class="col-6 row">
-            <q-input :readonly="visitor===true" hint="Classe & Nível" class="col-4" v-model="sheet.classLevel"/>
-            <q-input :readonly="visitor===true" hint="Background" class="col-4" v-model="sheet.background"/>
-            <q-input :readonly="visitor===true" hint="Nome do Jogador" class="col-4" v-model="sheet.playerName"/>
-            <q-input :readonly="visitor===true" hint="Raça" class="col-4" v-model="sheet.race"/>
-            <q-input :readonly="visitor===true" hint="Alinhamento" class="col-4" v-model="sheet.alignement"/>
-            <q-input :readonly="visitor===true" hint="Experiência" class="col-4" v-model="sheet.xp"/>
+            <q-input :readonly="visitor" hint="Classe & Nível" class="col-4" v-model="sheet.classLevel"/>
+            <q-input :readonly="visitor" hint="Background" class="col-4" v-model="sheet.background"/>
+            <q-input :readonly="visitor" hint="Nome do Jogador" class="col-4" v-model="sheet.playerName"/>
+            <q-input :readonly="visitor" hint="Raça" class="col-4" v-model="sheet.race"/>
+            <q-input :readonly="visitor" hint="Alinhamento" class="col-4" v-model="sheet.alignement"/>
+            <q-input :readonly="visitor" hint="Experiência" class="col-4" v-model="sheet.xp"/>
           </div>
         </div>
 
@@ -22,7 +22,7 @@
           <div class="col-5 row bg-grey-6">
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Força
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 v-model.number="sheet.str"
                 dense
                 borderless
@@ -31,7 +31,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 outlined
                 v-model.number="sheet.strMod"
                 maxlength="1"
@@ -44,7 +44,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Destreza
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 v-model.number="sheet.dex"
                 dense
                 borderless
@@ -53,7 +53,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 outlined
                 v-model.number="sheet.dexMod"
                 maxlength="1"
@@ -66,7 +66,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Constituição
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 v-model.number="sheet.con"
                 dense
                 borderless
@@ -75,7 +75,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 outlined
                 v-model.number="sheet.conMod"
                 maxlength="1"
@@ -88,7 +88,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Inteligência
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 v-model.number="sheet.int"
                 dense
                 borderless
@@ -97,7 +97,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 outlined
                 v-model.number="sheet.intMod"
                 maxlength="1"
@@ -110,7 +110,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Sabedoria
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 v-model.number="sheet.wis"
                 dense
                 borderless
@@ -119,7 +119,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 outlined
                 v-model.number="sheet.wisMod"
                 maxlength="1"
@@ -132,7 +132,7 @@
             </div>
             <div class="bg-white col-10 q-my-sm row text-h6 q-mx-auto justify-center border">
               Carisma
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 v-model.number="sheet.char"
                 dense
                 borderless
@@ -141,7 +141,7 @@
                 type="number"
                 class="col-8"
               />
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 outlined
                 v-model.number="sheet.charMod"
                 maxlength="1"
@@ -166,7 +166,7 @@
 
             <div class="border col-10 q-mt-sm row" style="height:60px">
               <div class="col-3">
-                 <q-input :readonly="visitor===true" v-model.number="sheet.proef" borderless input-class="big-field" type="number" />
+                 <q-input :readonly="visitor" v-model.number="sheet.proef" borderless input-class="big-field" type="number" />
               </div>
               <div class="col-8 text-center text-h6 q-my-auto"
               >
@@ -177,37 +177,37 @@
             <div class="border col-11 q-mt-sm row" style="height:300px">
               <div class="col-12 row text-subtitle2 " style="height:40px">
                 <q-checkbox :disable="visitor"  v-model="sheet.proefStr" value="false" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" v-model.number="sheet.strSave" type="number" dense class="col-3"/>
+                <q-input :readonly="visitor" v-model.number="sheet.strSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Força</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
                 <q-checkbox :disable="visitor" v-model="sheet.proefDex" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" v-model.number="sheet.dexSave" type="number" dense class="col-3"/>
+                <q-input :readonly="visitor" v-model.number="sheet.dexSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Destreza</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
                 <q-checkbox :disable="visitor" v-model="sheet.proefCon" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" v-model.number="sheet.conSave" type="number" dense class="col-3"/>
+                <q-input :readonly="visitor" v-model.number="sheet.conSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Constituição</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
                 <q-checkbox :disable="visitor" v-model="sheet.proefInt" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" v-model.number="sheet.intSave" type="number" dense class="col-3"/>
+                <q-input :readonly="visitor" v-model.number="sheet.intSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Inteligência</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
                 <q-checkbox :disable="visitor" v-model="sheet.proefWis" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" v-model.number="sheet.wisSave" type="number" dense class="col-3"/>
+                <q-input :readonly="visitor" v-model.number="sheet.wisSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Sabedoria</div>
               </div>
 
               <div class="col-12 row text-subtitle2 " style="height:40px">
                 <q-checkbox :disable="visitor" v-model="sheet.proefChar" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" v-model.number="sheet.charSave" type="number" dense class="col-3"/>
+                <q-input :readonly="visitor" v-model.number="sheet.charSave" type="number" dense class="col-3"/>
                 <div class="q-mt-auto">Carisma</div>
               </div>
               <div class="col-12 text-subtitle2 q-mt-md text-center"> <strong>Salvaguardas</strong> </div>
@@ -216,109 +216,109 @@
             <div class="border col-12 q-mt-sm row" >
               <div class="col-12 row text-subtitle2 " >
                 <q-checkbox :disable="visitor" v-model="sheet.proefAcrobatics" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.acrobaticsSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.acrobaticsSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Acrobacia (Des)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefArcana" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.arcanaSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.arcanaSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Arcanismo (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefAtletism" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.atletismSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.atletismSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Atletismo (For)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefActing" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.actingSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.actingSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Atuação (Car)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefBluff" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.bluffSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.bluffSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Blefar (Car)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefStealth" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.stealthSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.stealthSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Furtividade (Des)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefHistory" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.historySkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.historySkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">História (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefIntimidation" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.intimidationSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.intimidationSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Intimidação (Car)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefInsight" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.insightSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.insightSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Intuição (Sab)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefInvestigation" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.investigationSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.investigationSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Investigação (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefAnimalHandling" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.animalHandlingSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.animalHandlingSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Lidar com Animais (Sab)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefMedicine" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.medicineSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.medicineSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Medicina (Sab)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefNature" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.natureSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.natureSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Natureza (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefPerception" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.perceptionSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.perceptionSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Percepção (Sab)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefPersuasion" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.persuasionSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.persuasionSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Persuasão (Car)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefSleightOfHand" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.sleightOfHandSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.sleightOfHandSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Prestidigitação (Des)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefReligion" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.religionSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.religionSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Religião (Int)</div>
               </div>
 
               <div class="col-12 row text-subtitle2 ">
                 <q-checkbox :disable="visitor" v-model="sheet.proefSurvival" class="col-2 q-my-auto" />
-                <q-input :readonly="visitor===true" dense v-model.number="sheet.survivalSkill" type="number" class="col-3"/>
+                <q-input :readonly="visitor" dense v-model.number="sheet.survivalSkill" type="number" class="col-3"/>
                 <div class="q-mt-auto">Sobrevivência (Sab)</div>
               </div>
               <div class="col-12 text-subtitle2 q-mt-md text-center"> <strong>Perícias</strong> </div>
@@ -327,7 +327,7 @@
 
             <div class="border col-11 q-mt-md row" style="height:60px">
               <div class="col-3">
-                 <q-input :readonly="visitor===true" v-model.number="sheet.passivePerception" borderless type="number" input-class="big-field" />
+                 <q-input :readonly="visitor" v-model.number="sheet.passivePerception" borderless type="number" input-class="big-field" />
               </div>
               <div class="col-8 text-center text-h6 q-my-auto">
                 Percepção Passiva (Sab)
@@ -335,7 +335,7 @@
             </div>
 
             <div class="border text-center col-11 q-mt-md">
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 v-model="sheet.otherProef"
                 autogrow
                 borderless/>
@@ -347,15 +347,15 @@
           <div class="row bg-grey-6 justify-around">
             <div class="justify-around row col-12 text-center q-mt-sm" style="height: 90px">
               <div class="col-3 row border bg-white justify-center">
-                <q-input :readonly="visitor===true" v-model.number="sheet.armorClass" type="number" borderless input-class="big-field"/>
+                <q-input :readonly="visitor" v-model.number="sheet.armorClass" type="number" borderless input-class="big-field"/>
                 <strong>C.A.</strong>
               </div>
               <div class="col-3 row border bg-white justify-center">
-                <q-input :readonly="visitor===true" v-model.number="sheet.initiative" type="number" borderless input-class="big-field"/>
+                <q-input :readonly="visitor" v-model.number="sheet.initiative" type="number" borderless input-class="big-field"/>
                 <strong>Iniciativa</strong>
               </div>
               <div class="col-3 row border bg-white justify-center">
-                <q-input :readonly="visitor===true" v-model="sheet.movement" borderless input-class="big-field"/>
+                <q-input :readonly="visitor" v-model="sheet.movement" borderless input-class="big-field"/>
                 <strong>Deslocamento</strong>
               </div>
             </div>
@@ -365,7 +365,7 @@
                   <strong class="col-5 q-ml-md q-my-auto">
                     Pontos de Vida Totais
                   </strong>
-                  <q-input :readonly="visitor===true"
+                  <q-input :readonly="visitor"
                     borderless
                     dense
                     outlined
@@ -374,7 +374,7 @@
                     class="q-my-auto col-6"
                   />
               </div>
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 type="number"
                 v-model.number="sheet.currentHP"
                 borderless
@@ -384,7 +384,7 @@
             </div>
 
             <div class="col-11 row border bg-white justify-center" style="height:100px">
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                  type="number"
                  v-model.number="sheet.tempHP"
                  borderless
@@ -398,7 +398,7 @@
                 <strong class="col-4 q-ml-md q-my-auto">
                   Total
                 </strong>
-                <q-input :readonly="visitor===true"
+                <q-input :readonly="visitor"
                  borderless
                  dense
                  outlined
@@ -407,7 +407,7 @@
                  class="q-my-auto col-6"
                 />
               </div>
-              <q-input :readonly="visitor===true"
+              <q-input :readonly="visitor"
                 type="number"
                 v-model.number="sheet.lifeDie"
                 borderless
@@ -440,27 +440,27 @@
             <div class="row col-12 border bg-white justify-center">
               <div class="text-center col-5">
                 Nome
-                <q-input :readonly="visitor===true" v-model="sheet.attackName1" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackName2" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackName3" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackName4" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackName5" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackName1" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackName2" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackName3" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackName4" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackName5" class="q-pa-sm" dense outlined />
               </div>
               <div class="text-center col-2">
                 Bonus
-                <q-input :readonly="visitor===true" v-model="sheet.attackBonus1" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackBonus2" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackBonus3" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackBonus4" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackBonus5" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackBonus1" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackBonus2" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackBonus3" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackBonus4" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackBonus5" class="q-pa-sm" dense outlined />
               </div>
               <div class="text-center col-5">
                 Dano / Tipo
-                <q-input :readonly="visitor===true" v-model="sheet.attackType1" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackType2" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackType3" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackType4" class="q-pa-sm" dense outlined />
-                <q-input :readonly="visitor===true" v-model="sheet.attackType5" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackType1" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackType2" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackType3" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackType4" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.attackType5" class="q-pa-sm" dense outlined />
               </div>
 
               <strong class="q-mt-auto" >Ataques e Magias</strong>
@@ -469,17 +469,17 @@
             <div class="row col-12 border bg-white justify-center">
               <div class="text-center col-2">
                 <strong>P.C.</strong>
-                <q-input :readonly="visitor===true" v-model="sheet.cooperCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.cooperCoins" class="q-pa-sm" dense outlined />
                 <strong>P.P.</strong>
-                <q-input :readonly="visitor===true" v-model="sheet.silverCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.silverCoins" class="q-pa-sm" dense outlined />
                 <strong>P.E.</strong>
-                <q-input :readonly="visitor===true" v-model="sheet.electrumCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.electrumCoins" class="q-pa-sm" dense outlined />
                 <strong>P.O.</strong>
-                <q-input :readonly="visitor===true" v-model="sheet.goldCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.goldCoins" class="q-pa-sm" dense outlined />
                 <strong>P.L.</strong>
-                <q-input :readonly="visitor===true" v-model="sheet.platinumCoins" class="q-pa-sm" dense outlined />
+                <q-input :readonly="visitor" v-model="sheet.platinumCoins" class="q-pa-sm" dense outlined />
               </div>
-              <textarea :readonly="visitor===true" v-model="sheet.equipment" class="col-10">
+              <textarea :readonly="visitor" v-model="sheet.equipment" class="col-10">
               </textarea>
               <strong class="text-center q-mt-auto col-12">Equipamento</strong>
             </div>
@@ -488,25 +488,25 @@
         <div class="col-12 col-sm-4 row justify-around">
           <div class="col-12 bg-grey-6 q-py-md row justify-center" style="height: 600px">
             <div class="col-11 bg-white row border" style="height:130px">
-              <textarea :readonly="visitor===true" v-model="sheet.traits" borderless style="max-height:100px" class="col-12" />
+              <textarea :readonly="visitor" v-model="sheet.traits" borderless style="max-height:100px" class="col-12" />
               <strong class="text-center q-mt-auto col-12"> Traços de Personalidade </strong>
             </div>
             <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
-              <textarea :readonly="visitor===true" v-model="sheet.ideals" borderless style="max-height:100px" class="col-12" />
+              <textarea :readonly="visitor" v-model="sheet.ideals" borderless style="max-height:100px" class="col-12" />
               <strong class="text-center q-mt-auto col-12"> Ideais </strong>
             </div>
             <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
-              <textarea :readonly="visitor===true" v-model="sheet.bonds" borderless style="max-height:100px" class="col-12" />
+              <textarea :readonly="visitor" v-model="sheet.bonds" borderless style="max-height:100px" class="col-12" />
               <strong class="text-center q-mt-auto col-12"> Ligações </strong>
             </div>
             <div class="col-11 q-mt-sm bg-white row border" style="height:130px">
-              <textarea :readonly="visitor===true" v-model="sheet.flaws" borderless style="max-height:100px" class="col-12" />
+              <textarea :readonly="visitor" v-model="sheet.flaws" borderless style="max-height:100px" class="col-12" />
               <strong class="text-center q-mt-auto col-12"> Defeitos</strong>
             </div>
           </div>
 
           <div class="col-11 bg-white row border" >
-            <textarea :readonly="visitor===true" v-model="sheet.abilities" borderless class="col-12" style="max-height:60vw; height:60vw;" />
+            <textarea :readonly="visitor" v-model="sheet.abilities" borderless class="col-12" style="max-height:60vw; height:60vw;" />
             <strong class="text-center q-mt-auto col-12"> Características e Habilidades</strong>
           </div>
         </div>
@@ -650,7 +650,7 @@ export default {
   props: {
     sheet: null,
     creator: null,
-    visitor: null
+    visitor: Boolean
   },
 
   watch: {
@@ -658,33 +658,33 @@ export default {
       this.sheet.strMod = Math.floor((this.sheet.str - 10) / 2)
     },
     'sheet.strMod' () {
-      if (this.sheet.proefAtletism === true) {
+      if (this.sheet.proefAtletism) {
         this.sheet.atletismSkill = this.sheet.strMod + this.sheet.proef
       }
-      if (this.sheet.proefAtletism === false) {
+      if (!this.sheet.proefAtletism) {
         this.sheet.atletismSkill = this.sheet.strMod
       }
 
-      if (this.sheet.proefStr === true) {
+      if (this.sheet.proefStr) {
         this.sheet.strSave = this.sheet.strMod + this.sheet.proef
       }
-      if (this.sheet.proefStr === false) {
+      if (!this.sheet.proefStr) {
         this.sheet.strSave = this.sheet.strMod
       }
     },
     'sheet.proefStr' () {
-      if (this.sheet.proefStr === true) {
+      if (this.sheet.proefStr) {
         this.sheet.strSave = this.sheet.strSave + this.sheet.proef
       }
-      if (this.sheet.proefStr === false) {
+      if (!this.sheet.proefStr) {
         this.sheet.strSave = this.sheet.strMod
       }
     },
     'sheet.proefAtletism' () {
-      if (this.sheet.proefAtletism === true) {
+      if (this.sheet.proefAtletism) {
         this.sheet.atletismSkill = this.sheet.atletismSkill + this.sheet.proef
       }
-      if (this.sheet.proefAtletism === false) {
+      if (!this.sheet.proefAtletism) {
         this.sheet.atletismSkill = this.sheet.strMod
       }
     },
@@ -692,63 +692,63 @@ export default {
       this.sheet.dexMod = Math.floor((this.sheet.dex - 10) / 2)
     },
     'sheet.dexMod' () {
-      if (this.sheet.proefAcrobatics === true) {
+      if (this.sheet.proefAcrobatics) {
         this.sheet.acrobaticsSkill = this.sheet.dexMod + this.sheet.proef
       }
-      if (this.sheet.proefAcrobatics === false) {
+      if (!this.sheet.proefAcrobatics) {
         this.sheet.acrobaticsSkill = this.sheet.dexMod
       }
 
-      if (this.sheet.proefStealth === true) {
+      if (this.sheet.proefStealth) {
         this.sheet.stealthSkill = this.sheet.dexMod + this.sheet.proef
       }
-      if (this.sheet.proefStealth === false) {
+      if (!this.sheet.proefStealth) {
         this.sheet.stealthSkill = this.sheet.dexMod
       }
 
-      if (this.sheet.proefSleightOfHand === true) {
+      if (this.sheet.proefSleightOfHand) {
         this.sheet.sleightOfHandSkill = this.sheet.dexMod + this.sheet.proef
       }
-      if (this.sheet.proefSleightOfHand === false) {
+      if (!this.sheet.proefSleightOfHand) {
         this.sheet.sleightOfHandSkill = this.sheet.dexMod
       }
 
-      if (this.sheet.proefDex === true) {
+      if (this.sheet.proefDex) {
         this.sheet.dexSave = this.sheet.dexMod + this.sheet.proef
       }
-      if (this.sheet.proefDex === false) {
+      if (!this.sheet.proefDex) {
         this.sheet.dexSave = this.sheet.dexMod
       }
     },
     'sheet.proefDex' () {
-      if (this.sheet.proefDex === true) {
+      if (this.sheet.proefDex) {
         this.sheet.dexSave = this.sheet.dexSave + this.sheet.proef
       }
-      if (this.sheet.proefDex === false) {
+      if (!this.sheet.proefDex) {
         this.sheet.dexSave = this.sheet.dexMod
       }
     },
     'sheet.proefAcrobatics' () {
-      if (this.sheet.proefAcrobatics === true) {
+      if (this.sheet.proefAcrobatics) {
         this.sheet.acrobaticsSkill = this.sheet.acrobaticsSkill + this.sheet.proef
       }
-      if (this.sheet.proefAcrobatics === false) {
+      if (!this.sheet.proefAcrobatics) {
         this.sheet.acrobaticsSkill = this.sheet.dexMod
       }
     },
     'sheet.proefStealth' () {
-      if (this.sheet.proefStealth === true) {
+      if (this.sheet.proefStealth) {
         this.sheet.stealthSkill = this.sheet.stealthSkill + this.sheet.proef
       }
-      if (this.sheet.proefStealth === false) {
+      if (!this.sheet.proefStealth) {
         this.sheet.stealthSkill = this.sheet.dexMod
       }
     },
     'sheet.proefSleightOfHand' () {
-      if (this.sheet.proefSleightOfHand === true) {
+      if (this.sheet.proefSleightOfHand) {
         this.sheet.sleightOfHandSkill = this.sheet.sleightOfHandSkill + this.sheet.proef
       }
-      if (this.sheet.proefSleightOfHand === false) {
+      if (!this.sheet.proefSleightOfHand) {
         this.sheet.sleightOfHandSkill = this.sheet.dexMod
       }
     },
@@ -756,18 +756,18 @@ export default {
       this.sheet.conMod = Math.floor((this.sheet.con - 10) / 2)
     },
     'sheet.conMod' () {
-      if (this.sheet.proefCon === true) {
+      if (this.sheet.proefCon) {
         this.sheet.conSave = this.sheet.conMod + this.sheet.proef
       }
-      if (this.sheet.proefCon === false) {
+      if (!this.sheet.proefCon) {
         this.sheet.conSave = this.sheet.conMod
       }
     },
     'sheet.proefCon' () {
-      if (this.sheet.proefCon === true) {
+      if (this.sheet.proefCon) {
         this.sheet.conSave = this.sheet.conSave + this.sheet.proef
       }
-      if (this.sheet.proefCon === false) {
+      if (!this.sheet.proefCon) {
         this.sheet.conSave = this.sheet.conMod
       }
     },
@@ -775,93 +775,93 @@ export default {
       this.sheet.intMod = Math.floor((this.sheet.int - 10) / 2)
     },
     'sheet.intMod' () {
-      if (this.sheet.proefArcana === true) {
+      if (this.sheet.proefArcana) {
         this.sheet.arcanaSkill = this.sheet.intMod + this.sheet.proef
       }
-      if (this.sheet.proefArcana === false) {
+      if (!this.sheet.proefArcana) {
         this.sheet.arcanaSkill = this.sheet.intMod
       }
 
-      if (this.sheet.proefHistory === true) {
+      if (this.sheet.proefHistory) {
         this.sheet.historySkill = this.sheet.intMod + this.sheet.proef
       }
-      if (this.sheet.proefHistory === false) {
+      if (!this.sheet.proefHistory) {
         this.sheet.historySkill = this.sheet.intMod
       }
 
-      if (this.sheet.proefInvestigation === true) {
+      if (this.sheet.proefInvestigation) {
         this.sheet.investigationSkill = this.sheet.intMod + this.sheet.proef
       }
-      if (this.sheet.proefInvestigation === false) {
+      if (!this.sheet.proefInvestigation) {
         this.sheet.investigationSkill = this.sheet.intMod
       }
 
-      if (this.sheet.proefNature === true) {
+      if (this.sheet.proefNature) {
         this.sheet.natureSkill = this.sheet.intMod + this.sheet.proef
       }
-      if (this.sheet.proefNature === false) {
+      if (!this.sheet.proefNature) {
         this.sheet.natureSkill = this.sheet.intMod
       }
 
-      if (this.sheet.proefReligion === true) {
+      if (this.sheet.proefReligion) {
         this.sheet.religionSkill = this.sheet.intMod + this.sheet.proef
       }
-      if (this.sheet.proefReligion === false) {
+      if (!this.sheet.proefReligion) {
         this.sheet.religionSkill = this.sheet.intMod
       }
 
-      if (this.sheet.proefInt === true) {
+      if (this.sheet.proefInt) {
         this.sheet.intSave = this.sheet.intMod + this.sheet.proef
       }
-      if (this.sheet.proefInt === false) {
+      if (!this.sheet.proefInt) {
         this.sheet.intSave = this.sheet.intMod
       }
     },
     'sheet.proefInt' () {
-      if (this.sheet.proefInt === true) {
+      if (this.sheet.proefInt) {
         this.sheet.intSave = this.sheet.intSave + this.sheet.proef
       }
-      if (this.sheet.proefInt === false) {
+      if (!this.sheet.proefInt) {
         this.sheet.intSave = this.sheet.intMod
       }
     },
     'sheet.proefArcana' () {
-      if (this.sheet.proefArcana === true) {
+      if (this.sheet.proefArcana) {
         this.sheet.arcanaSkill = this.sheet.arcanaSkill + this.sheet.proef
       }
-      if (this.sheet.proefArcana === false) {
+      if (!this.sheet.proefArcana) {
         this.sheet.arcanaSkill = this.sheet.intMod
       }
     },
     'sheet.proefHistory' () {
-      if (this.sheet.proefHistory === true) {
+      if (this.sheet.proefHistory) {
         this.sheet.historySkill = this.sheet.historySkill + this.sheet.proef
       }
-      if (this.sheet.proefHistory === false) {
+      if (!this.sheet.proefHistory) {
         this.sheet.historySkill = this.sheet.intMod
       }
     },
     'sheet.proefInvestigation' () {
-      if (this.sheet.proefInvestigation === true) {
+      if (this.sheet.proefInvestigation) {
         this.sheet.investigationSkill = this.sheet.investigationSkill + this.sheet.proef
       }
-      if (this.sheet.proefInvestigation === false) {
+      if (!this.sheet.proefInvestigation) {
         this.sheet.investigationSkill = this.sheet.intMod
       }
     },
     'sheet.proefNature' () {
-      if (this.sheet.proefNature === true) {
+      if (this.sheet.proefNature) {
         this.sheet.natureSkill = this.sheet.natureSkill + this.sheet.proef
       }
-      if (this.sheet.proefNature === false) {
+      if (!this.sheet.proefNature) {
         this.sheet.natureSkill = this.sheet.intMod
       }
     },
     'sheet.proefReligion' () {
-      if (this.sheet.proefReligion === true) {
+      if (this.sheet.proefReligion) {
         this.sheet.religionSkill = this.sheet.religionSkill + this.sheet.proef
       }
-      if (this.sheet.proefReligion === false) {
+      if (!this.sheet.proefReligion) {
         this.sheet.religionSkill = this.sheet.intMod
       }
     },
@@ -871,93 +871,93 @@ export default {
     'sheet.wisMod' () {
       this.sheet.passivePerception = 10 + this.sheet.wisMod
 
-      if (this.sheet.proefInsight === true) {
+      if (this.sheet.proefInsight) {
         this.sheet.insightSkill = this.sheet.wisMod + this.sheet.proef
       }
-      if (this.sheet.proefInsight === false) {
+      if (!this.sheet.proefInsight) {
         this.sheet.insightSkill = this.sheet.wisMod
       }
 
-      if (this.sheet.proefAnimalHandling === true) {
+      if (this.sheet.proefAnimalHandling) {
         this.sheet.animalHandlingSkill = this.sheet.wisMod + this.sheet.proef
       }
-      if (this.sheet.proefAnimalHandling === false) {
+      if (!this.sheet.proefAnimalHandling) {
         this.sheet.animalHandlingSkill = this.sheet.wisMod
       }
 
-      if (this.sheet.proefMedicine === true) {
+      if (this.sheet.proefMedicine) {
         this.sheet.medicineSkill = this.sheet.wisMod + this.sheet.proef
       }
-      if (this.sheet.proefMedicine === false) {
+      if (!this.sheet.proefMedicine) {
         this.sheet.medicineSkill = this.sheet.wisMod
       }
 
-      if (this.sheet.proefPerception === true) {
+      if (this.sheet.proefPerception) {
         this.sheet.perceptionSkill = this.sheet.wisMod + this.sheet.proef
       }
-      if (this.sheet.proefPerception === false) {
+      if (!this.sheet.proefPerception) {
         this.sheet.perceptionSkill = this.sheet.wisMod
       }
 
-      if (this.sheet.proefSurvival === true) {
+      if (this.sheet.proefSurvival) {
         this.sheet.survivalSkill = this.sheet.wisMod + this.sheet.proef
       }
-      if (this.sheet.proefSurvival === false) {
+      if (!this.sheet.proefSurvival) {
         this.sheet.survivalSkill = this.sheet.wisMod
       }
 
-      if (this.sheet.proefWis === true) {
+      if (this.sheet.proefWis) {
         this.sheet.wisSave = this.sheet.wisMod + this.sheet.proef
       }
-      if (this.sheet.proefWis === false) {
+      if (!this.sheet.proefWis) {
         this.sheet.wisSave = this.sheet.wisMod
       }
     },
     'sheet.proefWis' () {
-      if (this.sheet.proefWis === true) {
+      if (this.sheet.proefWis) {
         this.sheet.wisSave = this.sheet.wisSave + this.sheet.proef
       }
-      if (this.sheet.proefWis === false) {
+      if (!this.sheet.proefWis) {
         this.sheet.wisSave = this.sheet.wisMod
       }
     },
     'sheet.proefInsight' () {
-      if (this.sheet.proefInsight === true) {
+      if (this.sheet.proefInsight) {
         this.sheet.insightSkill = this.sheet.insightSkill + this.sheet.proef
       }
-      if (this.sheet.proefInsight === false) {
+      if (!this.sheet.proefInsight) {
         this.sheet.insightSkill = this.sheet.wisMod
       }
     },
     'sheet.proefAnimalHandling' () {
-      if (this.sheet.proefAnimalHandling === true) {
+      if (this.sheet.proefAnimalHandling) {
         this.sheet.animalHandlingSkill = this.sheet.animalHandlingSkill + this.sheet.proef
       }
-      if (this.sheet.proefAnimalHandling === false) {
+      if (!this.sheet.proefAnimalHandling) {
         this.sheet.animalHandlingSkill = this.sheet.wisMod
       }
     },
     'sheet.proefMedicine' () {
-      if (this.sheet.proefMedicine === true) {
+      if (this.sheet.proefMedicine) {
         this.sheet.medicineSkill = this.sheet.medicineSkill + this.sheet.proef
       }
-      if (this.sheet.proefMedicine === false) {
+      if (!this.sheet.proefMedicine) {
         this.sheet.medicineSkill = this.sheet.wisMod
       }
     },
     'sheet.proefPerception' () {
-      if (this.sheet.proefPerception === true) {
+      if (this.sheet.proefPerception) {
         this.sheet.perceptionSkill = this.sheet.perceptionSkill + this.sheet.proef
       }
-      if (this.sheet.proefPerception === false) {
+      if (!this.sheet.proefPerception) {
         this.sheet.perceptionSkill = this.sheet.wisMod
       }
     },
     'sheet.proefSurvival' () {
-      if (this.sheet.proefSurvival === true) {
+      if (this.sheet.proefSurvival) {
         this.sheet.survivalSkill = this.sheet.survivalSkill + this.sheet.proef
       }
-      if (this.sheet.proefSurvival === false) {
+      if (!this.sheet.proefSurvival) {
         this.sheet.survivalSkill = this.sheet.wisMod
       }
     },
@@ -965,89 +965,89 @@ export default {
       this.sheet.charMod = Math.floor((this.sheet.char - 10) / 2)
     },
     'sheet.charMod' () {
-      if (this.sheet.proefActing === true) {
+      if (this.sheet.proefActing) {
         this.sheet.actingSkill = this.sheet.charMod + this.sheet.proef
       }
-      if (this.sheet.proefActing === false) {
+      if (!this.sheet.proefActing) {
         this.sheet.actingSkill = this.sheet.charMod
       }
 
-      if (this.sheet.proefBluff === true) {
+      if (this.sheet.proefBluff) {
         this.sheet.bluffSkill = this.sheet.charMod + this.sheet.proef
       }
-      if (this.sheet.proefBluff === false) {
+      if (!this.sheet.proefBluff) {
         this.sheet.bluffSkill = this.sheet.charMod
       }
 
-      if (this.sheet.proefIntimidation === true) {
+      if (this.sheet.proefIntimidation) {
         this.sheet.intimidationSkill = this.sheet.charMod + this.sheet.proef
       }
-      if (this.sheet.proefIntimidation === false) {
+      if (!this.sheet.proefIntimidation) {
         this.sheet.intimidationSkill = this.sheet.charMod
       }
 
-      if (this.sheet.proefPersuasion === true) {
+      if (this.sheet.proefPersuasion) {
         this.sheet.persuasionSkill = this.sheet.charMod + this.sheet.proef
       }
-      if (this.sheet.proefPersuasion === false) {
+      if (!this.sheet.proefPersuasion) {
         this.sheet.persuasionSkill = this.sheet.charMod
       }
 
-      if (this.sheet.proefChar === true) {
+      if (this.sheet.proefChar) {
         this.sheet.charSave = this.sheet.charMod + this.sheet.proef
       }
-      if (this.sheet.proefChar === false) {
+      if (!this.sheet.proefChar) {
         this.sheet.charSave = this.sheet.charMod
       }
     },
     'sheet.proefChar' () {
-      if (this.sheet.proefChar === true) {
+      if (this.sheet.proefChar) {
         this.sheet.charSave = this.sheet.charSave + this.sheet.proef
       }
-      if (this.sheet.proefChar === false) {
+      if (!this.sheet.proefChar) {
         this.sheet.charSave = this.sheet.charMod
       }
     },
     'sheet.proefActing' () {
-      if (this.sheet.proefActing === true) {
+      if (this.sheet.proefActing) {
         this.sheet.actingSkill = this.sheet.actingSkill + this.sheet.proef
       }
-      if (this.sheet.proefActing === false) {
+      if (!this.sheet.proefActing) {
         this.sheet.actingSkill = this.sheet.charMod
       }
     },
     'sheet.proefBluff' () {
-      if (this.sheet.proefBluff === true) {
+      if (this.sheet.proefBluff) {
         this.sheet.bluffSkill = this.sheet.bluffSkill + this.sheet.proef
       }
-      if (this.sheet.proefBluff === false) {
+      if (!this.sheet.proefBluff) {
         this.sheet.bluffSkill = this.sheet.charMod
       }
     },
     'sheet.proefIntimidation' () {
-      if (this.sheet.proefIntimidation === true) {
+      if (this.sheet.proefIntimidation) {
         this.sheet.intimidationSkill = this.sheet.intimidationSkill + this.sheet.proef
       }
-      if (this.sheet.proefIntimidation === false) {
+      if (!this.sheet.proefIntimidation) {
         this.sheet.intimidationSkill = this.sheet.charMod
       }
     },
     'sheet.proefPersuasion' () {
-      if (this.sheet.proefPersuasion === true) {
+      if (this.sheet.proefPersuasion) {
         this.sheet.persuasionSkill = this.sheet.persuasionSkill + this.sheet.proef
       }
-      if (this.sheet.proefPersuasion === false) {
+      if (!this.sheet.proefPersuasion) {
         this.sheet.persuasionSkill = this.sheet.charMod
       }
     },
     'sheet.deathSaveSucess1' () {
-      if (this.sheet.deathSaveSucess1 === false) {
+      if (!this.sheet.deathSaveSucess1) {
         this.sheet.deathSaveSucess2 = false
         this.sheet.deathSaveSucess3 = false
       }
     },
     'sheet.deathSaveFail1' () {
-      if (this.sheet.deathSaveFail1 === false) {
+      if (!this.sheet.deathSaveFail1) {
         this.sheet.deathSaveFail2 = false
         this.sheet.deathSaveFail3 = false
       }
@@ -1064,15 +1064,14 @@ export default {
 
 }
 </script>
-<style lang="scss">
-.dnd-character-sheet{
-  .border{
-    border: 2px solid black;
-    border-radius: 10px;
-  }
-  .big-field{
-    text-align: center;
-    font-size: 40px;
-  }
-}
+<style lang="sass">
+.dnd-character-sheet
+  .border
+    border: 2px solid black
+    border-radius: 10px
+
+  .big-field
+    text-align: center
+    font-size: 40px
+
 </style>
