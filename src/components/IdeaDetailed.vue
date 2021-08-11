@@ -73,7 +73,7 @@
                   color="red-4"
                   label="excluir"/>
               </div>
-                  <delete-confirm :deleteDialog="deleteDialog" @confirmed="deleteIdea"/>
+                  <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
               <div >
@@ -139,11 +139,11 @@ export default {
   },
 
   components: {
-    IdeaForm: () => import('./IdeaForm.vue'),
-    DeleteConfirm: () => import('./DeleteConfirm.vue'),
-    DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
-    ItemSheet: () => import('./ItemSheet.vue'),
     LocalSheet: () => import('./LocalSheet.vue')
+    ItemSheet: () => import('./ItemSheet.vue'),
+    DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
+    DeleteConfirm: () => import('./DeleteConfirm.vue'),
+    IdeaForm: () => import('./IdeaForm.vue'),
   },
 
   props: {
