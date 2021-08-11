@@ -76,15 +76,18 @@
                   <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
-              <div >
-                [ {{idea.creationPoints}} ]
+              <div :key="componentKey">
+                [ {{idea.creationPoints}} ]<!--  watch aqui? -->
                 <q-btn
+                :key="componentKey"
                   round
                   class="right "
                   color="green"
                   v-if="shouldRender && idea.userId !== user._id"
                   icon="navigation"
+                  @click="upvote"
                 />
+                <!-- SOCORROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
                 <br>
                 Creation Points
               </div>
@@ -134,16 +137,17 @@ export default {
   data () {
     return {
       deleteDialog: false,
-      ideasCreateDetails: null
+      ideasCreateDetails: null,
+      componentKey: 0
     }
   },
 
   components: {
-    LocalSheet: () => import('./LocalSheet.vue')
+    LocalSheet: () => import('./LocalSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
     DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
-    IdeaForm: () => import('./IdeaForm.vue'),
+    IdeaForm: () => import('./IdeaForm.vue')
   },
 
   props: {
@@ -159,6 +163,12 @@ export default {
       return value.charAt(0).toUpperCase() + value.slice(1)
     }
   },
+
+  // watch: {
+  //   'componentKey' () {
+  //     this.idea.creationPoints
+  //   }
+  // },
 
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
@@ -179,6 +189,18 @@ export default {
       } catch (error) {
         console.error(error)
         this.$q.notify({ message: 'Erro ao sacrificar idéia, tente novamente mais tarde', color: 'red' })
+      }
+    },
+
+    async upvote () {
+      this.error = false
+      try {
+        await this.$store.dispatch('ideas-interaction/patch', [this.idea._id, this.idea, this.params])
+        this.$q.notify({ message: 'Voto quantificado', color: 'green' })
+        this.componentKey += 1
+        console.log(1)
+      } catch (error) {
+        console.error(error)
       }
     }
   }
