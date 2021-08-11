@@ -45,7 +45,7 @@
 
         </div>
         <div v-if="idea.type === 'item'">
-          <!-- <ItemIdea/> -->
+          <!-- <item-sheet :visitor="true" :sheet="idea.item"/> -->
         </div>
         <div v-if="idea.type === 'local'">
           <!-- <CityIdea/> -->

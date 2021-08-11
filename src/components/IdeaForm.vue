@@ -88,12 +88,12 @@
         </q-card-section>
 
         <q-separator />
-        <q-card-section style="height: 400px" class="row">
+        <q-card-section style="height: auto" class="row">
            <div  class="col-6">
             imagem?
           </div>
           <q-separator vertical />
-          <div v-if="ideaData.type==='npc'" class="col-5 text-h5 row">
+          <div v-if="ideaData.type==='npc'" class="col-5 text-h5 row  q-mx-auto">
             <div class="col-12 row justify-around">
               <q-radio v-model="ideaData.character.system" val='dnd' label="DnD 5ed." />
               <q-radio v-model="ideaData.character.system" val='sistema2' label="sistema2" />
@@ -120,8 +120,20 @@
               </div>
             </div>
           </div>
-          <div v-if="ideaData.type==='item'" class="text-h5 col-5" >
-            item magico component
+          <div v-if="ideaData.type==='item'" class="text-h5  q-mx-auto col-5" >
+            <item-sheet
+              v-if="!ideaEdit"
+              :visitor="false"
+              :sheet="ideaData.item"
+              @destroy-item-sheet="ideaData.item = null"
+              @create-item-sheet="ideaData.item = $event"
+            />
+            <item-sheet
+              v-if="ideaEdit"
+              :sheet="ideaData.item"
+              :visitor="false"
+              @destroy-item-sheet="ideaData.item = null"
+              />
           </div>
           <div v-if="ideaData.type==='local'" class="text-h5 col-5" >
             local component
@@ -155,7 +167,8 @@
 <script>
 export default {
   components: {
-    DndCharacterSheet: () => import('./DndCharacterSheet.vue')
+    DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
+    ItemSheet: () => import('./ItemSheet.vue')
   },
   name: 'IdeaForm',
   props: {
@@ -173,7 +186,8 @@ export default {
         character: {
           record: null,
           system: null
-        }
+        },
+        item: null
       }
     }
   },
@@ -236,10 +250,6 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    },
-
-    integrateSheet (value) {
-      this.ideaData.character.record = value
     }
   }
 }
