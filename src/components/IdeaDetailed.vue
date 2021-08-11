@@ -57,7 +57,7 @@
                   label="editar"
                   @click="ideasCreateDetails = true"
                 />
-                <IdeaForm
+                <idea-form
                   v-model="ideasCreateDetails"
                   :ideaEdit="idea"
                   class="col-6 col-sm-3"
@@ -67,12 +67,13 @@
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
                 <q-btn
-                  @click="deleteConfirm()"
+                  @click="deleteDialog = true"
                   round
                   v-if="shouldRender && idea.userId === user._id"
                   color="red-4"
                   label="excluir"/>
               </div>
+                  <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
               <div >
@@ -92,50 +93,37 @@
         </q-card-section>
 
         <q-separator />
-        <q-card-section style="height: 400px" class="row">
+        <q-card-section style="height: auto" class="row">
            <div  class="col-6">
           imagem?
           </div>
           <q-separator vertical />
-          <h3 class="text-h5 col-5" >
-            component desc
-            <!-- <div v-if="idea.type == 'npc'">
-              <NPCIdea/>
+          <h3 class="text-h5  q-mx-auto col-5" >
+            <div v-if="idea.type === 'npc'">
+              <dnd-character-sheet :creator="idea.userId" :visitor="true" :sheet="idea.character.record"/>
             </div>
-            <div v-if="idea.type == 'item'">
-              <ItemIdea/>
+            <div v-if="idea.type === 'item'">
+              <item-sheet :visitor="true" :sheet="idea.item"/>
             </div>
-            <div v-if="idea.type == 'local'">
+            <div v-if="idea.type === 'local'">
               <CityIdea/>
-            </div> -->
+            </div>
           </h3>
         </q-card-section>
 
         <q-separator />
-        <q-card-section>
-          <h3
-            class="text-h5"
-            style="
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-height: 90px;
-          ">
-          {{idea.description}}
-          </h3>
+          <q-card-section>
+            <h3
+              class="text-h5"
+              style="
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-height: 90px;
+              ">
+              {{idea.description}}
+            </h3>
         </q-card-section>
-        <q-dialog v-model="deleteDialog">
-            <q-card>
-                <q-card-section>
-                <div class="text-h6">Tem certeza? <br> Essa ação não é desfeita nem com Wish de nono círculo</div>
-                </q-card-section>
-                <q-card-actions align="right">
-                <q-btn flat label="cancelar" color="primary" v-close-popup />
-                <q-btn flat label="DELETAR" color="red" @click="deleteIdea()" v-close-popup />
-                </q-card-actions>
-            </q-card>
-        </q-dialog>
-        </q-card>
-
+      </q-card>
 </template>
 
 <script>
@@ -151,7 +139,9 @@ export default {
   },
 
   components: {
-    IdeaForm: () => import('../components/IdeaForm.vue')
+    IdeaForm: () => import('../components/IdeaForm.vue'),
+    DeleteConfirm: () => import('../components/DeleteConfirm.vue'),
+    DndCharacterSheet: () => import('./DndCharacterSheet.vue')
   },
 
   props: {
@@ -179,10 +169,6 @@ export default {
   },
 
   methods: {
-    deleteConfirm () {
-      this.deleteDialog = true
-    },
-
     async deleteIdea () {
       this.error = false
       try {

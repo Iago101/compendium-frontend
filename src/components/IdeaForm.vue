@@ -78,9 +78,9 @@
         </q-card-section>
 
         <q-separator />
-        <q-card-section class="row justify-center text-h6">
+        <q-card-section class="row text-h6">
           <div class="col-12 row justify-around">
-          <q-radio v-model="ideaData.type" val='npc' label="NPC" />
+          <q-radio v-model="ideaData.type" val='npc' @click="ideaData = character" label="NPC" />
           <q-radio v-model="ideaData.type" val='item' label="Item Mágico" />
           <q-radio v-model="ideaData.type" val='local' label="Local" />
           <q-radio v-model="ideaData.type" val='simple' label="Simples" />
@@ -93,18 +93,42 @@
             imagem?
           </div>
           <q-separator vertical />
-          <h3 v-if="ideaData.type=='npc'" class="text-h5 col-5" >
-            ficha component
-          </h3>
-          <h3 v-if="ideaData.type=='item'" class="text-h5 col-5" >
+          <div v-if="ideaData.type==='npc'" class="col-5 text-h5 row">
+            <div class="col-12 row justify-around">
+              <q-radio v-model="ideaData.character.system" val='dnd' label="DnD 5ed." />
+              <q-radio v-model="ideaData.character.system" val='sistema2' label="sistema2" />
+              <q-radio v-model="ideaData.character.system" val='sistema3' label="sistema3" />
+            </div>
+            <div class="col-12 fit">
+              <div v-if="ideaData.character.system === 'dnd'">
+                  <dnd-character-sheet
+                    v-if="!ideaEdit"
+                    :sheet="ideaData.character.record"
+                    @destroy-sheet="ideaData.character.record = null"
+                    @create-sheet="ideaData.character.record = $event"
+                  />
+                  <dnd-character-sheet
+                    v-if="ideaEdit"
+                    :sheet="ideaData.character.record"
+                    :visitor="false"
+                    @destroy-sheet="ideaData.character.record = null"
+                  />
+              </div>
+
+              <div v-if="ideaData.character.system === 'sistema2'">
+                sistema2
+              </div>
+            </div>
+          </div>
+          <div v-if="ideaData.type==='item'" class="text-h5 col-5" >
             item magico component
-          </h3>
-          <h3 v-if="ideaData.type=='local'" class="text-h5 col-5" >
+          </div>
+          <div v-if="ideaData.type==='local'" class="text-h5 col-5" >
             local component
-          </h3>
-          <h3 v-if="ideaData.type=='simple'" class="text-h5 col-5" >
+          </div>
+          <div v-if="ideaData.type==='simple'" class="text-h5 col-5" >
             simples component
-          </h3>
+          </div>
         </q-card-section>
 
         <q-separator />
@@ -130,6 +154,9 @@
 
 <script>
 export default {
+  components: {
+    DndCharacterSheet: () => import('./DndCharacterSheet.vue')
+  },
   name: 'IdeaForm',
   props: {
     value: Boolean,
@@ -142,7 +169,11 @@ export default {
         title: '',
         type: 'simple',
         description: '',
-        privacy: 'public'
+        privacy: 'public',
+        character: {
+          record: null,
+          system: null
+        }
       }
     }
   },
@@ -205,6 +236,10 @@ export default {
       } catch (error) {
         console.error(error)
       }
+    },
+
+    integrateSheet (value) {
+      this.ideaData.character.record = value
     }
   }
 }
