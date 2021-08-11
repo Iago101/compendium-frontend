@@ -40,16 +40,12 @@
       </q-card-section>
 
       <q-separator />
-      <q-card-section  style="height: 252px">
-        <div v-if="idea.type === 'npc'">
-
-        </div>
-        <div v-if="idea.type === 'item'">
-          <!-- <item-sheet :visitor="true" :sheet="idea.item"/> -->
-        </div>
-        <div v-if="idea.type === 'local'">
-          <!-- <CityIdea/> -->
-        </div>
+      <q-card-section style="height: 252px" class="no-padding ">
+        <q-img
+            :src=idea.image
+            contain
+            class="q-my-auto"
+          />
       </q-card-section>
 
       <q-separator />
