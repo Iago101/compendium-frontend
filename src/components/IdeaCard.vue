@@ -40,11 +40,14 @@
       </q-card-section>
 
       <q-separator />
-      <q-card-section style="height: 252px" class="no-padding ">
+      <q-card-section v-if="!idea.image" style="height: 252px"  class="no-padding">
+      </q-card-section>
+
+      <q-card-section v-if="idea.image"  class="no-padding">
         <q-img
             :src=idea.image
-            contain
-            class="q-my-auto"
+            scale-down
+            style="max-height: 252px"
           />
       </q-card-section>
 

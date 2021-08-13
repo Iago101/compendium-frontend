@@ -97,7 +97,7 @@
            <div  class="col-6">
           <q-img
             :src=idea.image
-            style="max-height: 50vh"
+            style="max-height: 55vh"
             contain
           />
           <!-- componente para ver melhor a imagem? -->
