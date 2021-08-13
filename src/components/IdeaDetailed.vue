@@ -139,11 +139,11 @@ export default {
   },
 
   components: {
-    LocalSheet: () => import('./LocalSheet.vue')
+    LocalSheet: () => import('./LocalSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
     DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
-    IdeaForm: () => import('./IdeaForm.vue'),
+    IdeaForm: () => import('./IdeaForm.vue')
   },
 
   props: {

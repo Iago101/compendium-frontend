@@ -1,0 +1,64 @@
+<template>
+  <div>
+    <q-card
+      class="cursor-pointer bg-yellow"
+      @click="folderDetails = true"
+    >
+    <q-dialog
+      v-model="folderDetails"
+      maximized
+      transition-show="slide-up"
+      transition-hide="slide-down">
+        <folder-detailed
+        />
+    </q-dialog>
+
+      <q-card-section>
+        <div>
+          <h4
+            class="q-ma-none text-center"
+            >
+            {{folder.name}}
+            <q-tooltip>
+              {{folder.name}}
+            </q-tooltip>
+          </h4>
+        </div>
+      </q-card-section>
+
+      <q-separator />
+      <q-card-section  style="height: 252px">
+          //preview
+      </q-card-section>
+
+      <q-separator v-if="folder.description" />
+      <q-card-section>
+        <div v-if="folder.description" class="text-subtitle1 line-break:normal"
+          style="
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 90px;
+          ">
+          {{folder.description}}
+        </div>
+      </q-card-section>
+    </q-card>
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'FolderCard',
+
+  props: {
+    folder: null
+  },
+
+  data () {
+    return {
+      folderDetails: false
+    }
+  }
+}
+</script>

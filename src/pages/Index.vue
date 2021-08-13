@@ -11,6 +11,9 @@
             <IdeaCard :idea="idea">
             </IdeaCard>
           </div>
+          <div class="col-6 col-sm-3"  v-for="folder in publicFolderList" :key="folder._id">
+            <folder-card :folder="folder"/>
+          </div>
         </div>
 
         <div class="row q-col-gutter-md" v-if="isAuthenticated">
@@ -65,6 +68,11 @@
                 </q-card-section>
               </q-card>
             </div>
+
+          <div class="col-6 col-sm-3"  v-for="folder in privateFolderList" :key="folder._id">
+            <folder-card :folder="folder" />
+          </div>
+
           <div class="col-6 col-sm-3"  v-for="idea in privateList" :key="idea._id">
             <IdeaCard :idea="idea" >
             </IdeaCard>
@@ -82,7 +90,8 @@ export default {
   name: 'PageIndex',
   components: {
     IdeaCard: () => import('../components/IdeaCard'),
-    IdeaForm: () => import('../components/IdeaForm.vue')
+    IdeaForm: () => import('../components/IdeaForm.vue'),
+    FolderCard: () => import('../components/FolderCard')
   },
 
   watch: {
@@ -91,8 +100,10 @@ export default {
       handler () {
         if (this.isAuthenticated) {
           this.find()
+          this.privateFolderFind()
         } else {
           this.publicFind()
+          this.publicFolderFind()
         }
       }
     }
@@ -130,26 +141,15 @@ export default {
     ...mapGetters('ideas-private', {
       privateList: 'list',
       privateGet: 'get'
+    }),
+    ...mapGetters('folders-public', {
+      publicFolderList: 'list',
+      publicFolderGet: 'get'
+    }),
+    ...mapGetters('folders-private', {
+      privateFolderList: 'list',
+      privateFolderGet: 'get'
     })
-    // ip () {
-    //   if (this.isAuthenticated) { return this.list }
-
-    //   return this.privatelist
-    // },
-    // ip2 () {
-    //   return this.$store.getters['ideas-private/list']
-    // },
-    // ip2 () {
-    //   return this.get(this.id)
-    // },
-
-    // gui () {
-    //   return this.$store.getters['guilds-public/list']
-    // },
-
-    // use () {
-    //   return this.$store.getters['users-public/list']
-    // }
   },
 
   methods: {
@@ -158,9 +158,12 @@ export default {
     ...mapActions('ideas-public', {
       publicFind: 'find'
     }),
-    submit () {
-      this.patch([this.ip2._id, { title: this.aux.title }])
-    }
+    ...mapActions('folders-private', {
+      privateFolderFind: 'find'
+    }),
+    ...mapActions('folders-public', {
+      publicFolderFind: 'find'
+    })
   }
 }
 </script>
