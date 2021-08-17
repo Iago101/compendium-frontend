@@ -8,8 +8,8 @@
       <div class="col-12">
         <div class="row q-col-gutter-md" v-if="!isAuthenticated">
           <div class="col-6 col-sm-3"  v-for="idea in publicList" :key="idea._id">
-            <IdeaCard :idea="idea">
-            </IdeaCard>
+            <idea-card :idea="idea">
+            </idea-card>
           </div>
           <div class="col-6 col-sm-3"  v-for="folder in publicFolderList" :key="folder._id">
             <folder-card :folder="folder"/>
@@ -74,8 +74,8 @@
           </div>
 
           <div class="col-6 col-sm-3"  v-for="idea in privateList" :key="idea._id">
-            <IdeaCard :idea="idea" >
-            </IdeaCard>
+            <idea-card :idea="idea" >
+            </idea-card>
           </div>
         </div>
       </div>
@@ -110,18 +110,10 @@ export default {
   },
 
   async created () {
-    // get localhost:3030/ideas-private
-    // this.ip = await feathersClient.service('ideas-public').find()
-    // this.ip = await this.list()
     try {
       await this.authenticate()
     } catch (error) {
     }
-
-    // this.aux = JSON.parse(JSON.stringify(this.ip2))
-    // this.$store.dispatch('ideas-public/get', [this.id])
-    // this.$store.dispatch('guilds-public/find')
-    // this.$store.dispatch('users-public/find')
   },
 
   data () {
