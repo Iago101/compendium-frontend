@@ -6,10 +6,11 @@
     >
     <q-dialog
       v-model="folderDetails"
-      maximized
       transition-show="slide-up"
-      transition-hide="slide-down">
-        <folder-detailed
+      transition-hide="slide-down"
+      maximized
+    >
+        <folder-detailed :folder="folder"
         />
     </q-dialog>
 
@@ -53,6 +54,10 @@ export default {
 
   props: {
     folder: null
+  },
+
+  components: {
+    FolderDetailed: () => import('./FolderDetailed.vue')
   },
 
   data () {
