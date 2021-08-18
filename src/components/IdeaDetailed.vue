@@ -77,7 +77,7 @@
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
               <div :key="componentKey">
-                [ {{idea.creationPoints}} ]<!--  watch aqui? -->
+                [ {{idea.creationPoints}} ]
                 <q-btn
                 :key="componentKey"
                   round
@@ -87,7 +87,6 @@
                   icon="navigation"
                   @click="upvote"
                 />
-                <!-- SOCORROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
                 <br>
                 Creation Points
               </div>
@@ -137,8 +136,7 @@ export default {
   data () {
     return {
       deleteDialog: false,
-      ideasCreateDetails: null,
-      componentKey: 0
+      ideasCreateDetails: null
     }
   },
 
@@ -163,12 +161,6 @@ export default {
       return value.charAt(0).toUpperCase() + value.slice(1)
     }
   },
-
-  // watch: {
-  //   'componentKey' () {
-  //     this.idea.creationPoints
-  //   }
-  // },
 
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
@@ -197,8 +189,6 @@ export default {
       try {
         await this.$store.dispatch('ideas-interaction/patch', [this.idea._id, this.idea, this.params])
         this.$q.notify({ message: 'Voto quantificado', color: 'green' })
-        this.componentKey += 1
-        console.log(1)
       } catch (error) {
         console.error(error)
       }
