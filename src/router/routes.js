@@ -5,7 +5,8 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: '/idea/:id', name: 'viewer', component: () => import('pages/IdeaViewer.vue') }
+      { path: '/idea/:id', name: 'viewer', component: () => import('pages/IdeaViewer.vue') },
+      { path: '/folder/:id', name: 'folderViewer', component: () => import('pages/FolderViewer.vue') }
     ]
   },
 

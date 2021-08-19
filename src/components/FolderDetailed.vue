@@ -5,7 +5,7 @@
       >
         <q-card-section>
           <div class="row">
-            <div class="row col-1">
+            <div class="row col-1" v-if="viewMode!==true">
               <q-btn
                 flat
                 class="fit q-pr-md"
@@ -27,7 +27,7 @@
                   round
                   color="red-4"
                   label="view"
-                  @click="$router.push({name: 'viewer', params: {id: idea._id}})"
+                  @click="$router.push({name: 'folderViewer', params: {id: folder._id}})"
                 />
               </div>
             </h5>
@@ -50,8 +50,8 @@
 
         <q-separator />
 
-        <q-card-section class="row">
-            <div class="col-6 col-sm-3"  v-for="idea in publicList && idea.folderId === folder._id" :key="idea._id">
+        <q-card-section class="row justify-around q-mt-md">
+            <div class="col-6 col-sm-3" v-for="idea in ideas.data" :key="idea._id">
                 <idea-card :idea="idea" >
                 </idea-card>
             </div>
@@ -72,21 +72,36 @@ export default {
   props: {
     value: Boolean,
     folder: null,
-    idea: null
+    idea: null,
+    viewMode: null
+  },
+
+  components: {
+    IdeaCard: () => import('../components/IdeaCard')
   },
 
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
     ...mapGetters('ideas-public', {
-      publicList: 'list',
+      publicFind: 'find',
       publicGet: 'get'
-    })
+    }),
+    ideas () {
+      return this.publicFind({ query: { folderId: this.folder._id } })
+    }
   },
 
   methods: {
     ...mapActions('ideas-public', {
-      publicFind: 'find'
-    })
+      publicFindAction: 'find'
+    }),
+    async load () {
+      this.publicFindAction({ query: { folderId: this.folder._id } })
+    }
+  },
+
+  created () {
+    this.load()
   }
 }
 </script>
