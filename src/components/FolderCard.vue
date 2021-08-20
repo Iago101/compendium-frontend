@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="folder">
     <q-card
       class="cursor-pointer bg-yellow"
       @click="folderDetails = true"
@@ -34,11 +34,9 @@
 
       <q-separator v-if="folder.description" />
       <q-card-section>
-        <div v-if="folder.description" class="text-subtitle1 line-break:normal"
+        <div v-if="folder.description" class="text-subtitle1"
           style="
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 90px;
+            .text
           ">
           {{folder.description}}
         </div>

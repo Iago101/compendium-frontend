@@ -2,10 +2,11 @@
     <q-card
       class="bg-yellow-2"
       @input="$emit('input', $event)"
+      v-if="folder"
       >
         <q-card-section>
           <div class="row">
-            <div class="row col-1" v-if="viewMode!==true">
+            <div class="row col-1" v-if="!viewmode">
               <q-btn
                 flat
                 class="fit q-pr-md"
@@ -21,7 +22,7 @@
              criador placeholder
              </div>
             </h2>
-            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
+            <h5 v-if="!viewmode" class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div>
                 <q-btn
                   round
@@ -40,9 +41,7 @@
             <h3
               class="text-h5"
               style="
-                overflow: hidden;
-                text-overflow: ellipsis;
-                max-height: 90px;
+                .text
               ">
               {{folder.description}}
             </h3>
@@ -73,7 +72,7 @@ export default {
     value: Boolean,
     folder: null,
     idea: null,
-    viewMode: null
+    viewmode: Boolean
   },
 
   components: {
@@ -86,7 +85,15 @@ export default {
       publicFind: 'find',
       publicGet: 'get'
     }),
+    ...mapGetters('ideas-private', {
+      privateFind: 'find',
+      privateGet: 'get'
+    }),
+
     ideas () {
+      if (this.isAuthenticated) {
+        return this.privateFind({ query: { folderId: this.folder._id } })
+      }
       return this.publicFind({ query: { folderId: this.folder._id } })
     }
   },
@@ -95,8 +102,19 @@ export default {
     ...mapActions('ideas-public', {
       publicFindAction: 'find'
     }),
+    ...mapActions('ideas-private', {
+      privateFindAction: 'find'
+    }),
+
     async load () {
-      this.publicFindAction({ query: { folderId: this.folder._id } })
+      try {
+        if (this.isAuthenticated) {
+          this.privateFindAction({ query: { folderId: this.folder._id } })
+          return
+        }
+        this.publicFindAction({ query: { folderId: this.folder._id } })
+      } catch {
+      }
     }
   },
 

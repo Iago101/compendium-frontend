@@ -1,7 +1,7 @@
 <template>
     <q-page>
-      <div>
-        <idea-detailed :idea="idea" :viewMode="true" />
+      <div style="height: 100vh">
+        <idea-detailed :idea="idea" viewmode class="full-height"/>
       </div>
     </q-page>
 </template>
@@ -41,13 +41,9 @@ export default {
 
   async created () {
     try {
-      await this.authenticate()
-    } catch (error) {
-    }
-
-    try {
       if (this.isAuthenticated) {
         this.idea = await this.$store.dispatch('ideas-private/get', [this.$route.params.id])
+        return
       }
       this.idea = await this.$store.dispatch('ideas-public/get', [this.$route.params.id])
     } catch {

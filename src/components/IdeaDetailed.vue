@@ -9,7 +9,7 @@
       >
         <q-card-section>
           <div class="row">
-            <div class="row col-1"  v-if="viewMode!==true">
+            <div class="row col-1"  v-if="!viewmode">
               <q-btn
                 flat
                 class="fit q-pr-md"
@@ -31,7 +31,7 @@
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
                 <q-btn
-                  v-if="viewMode!==true"
+                  v-if="!viewmode"
                   round
                   color="red-4"
                   label="view"
@@ -149,7 +149,7 @@ export default {
   props: {
     value: Boolean,
     idea: null,
-    viewMode: null
+    viewmode: Boolean
   },
 
   filters: {

@@ -1,7 +1,7 @@
 <template>
     <q-page>
-      <div>
-        <folder-detailed :folder="folder" :viewMode="true" />
+      <div style="height: 100vh">
+        <folder-detailed :folder="folder" viewmode class="full-height"/>
       </div>
     </q-page>
 </template>
@@ -41,13 +41,9 @@ export default {
 
   async created () {
     try {
-      await this.authenticate()
-    } catch (error) {
-    }
-
-    try {
       if (this.isAuthenticated) {
         this.folder = await this.$store.dispatch('folders-private/get', [this.$route.params.id])
+        return
       }
       this.folder = await this.$store.dispatch('folders-public/get', [this.$route.params.id])
     } catch {

@@ -42,19 +42,16 @@
       <q-separator />
       <q-card-section  style="height: 252px">
         <div v-if="idea.type === 'npc'">
-
         </div>
         <div v-if="idea.type === 'item'">
-          <!-- <item-sheet :visitor="true" :sheet="idea.item"/> -->
         </div>
         <div v-if="idea.type === 'local'">
-          <!-- <CityIdea/> -->
         </div>
       </q-card-section>
 
       <q-separator />
       <q-card-section>
-        <div class="text-subtitle1 line-break:normal"
+        <div class="text-subtitle1"
           style="
             overflow: hidden;
             text-overflow: ellipsis;

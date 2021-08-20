@@ -57,7 +57,7 @@
                 <q-separator />
 
                 <q-card-section>
-                  <div class="text-subtitle1 line-break:normal"
+                  <div class="text-subtitle1"
                     style="
                       overflow: hidden;
                       text-overflow: ellipsis;

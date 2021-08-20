@@ -86,11 +86,6 @@
                 </q-item-section>
               </q-item>
             </q-list>
-              <!-- <div class="row no-wrap q-pa-md">
-                <div class="column">
-                  teste
-                </div>
-              </div> -->
             </q-btn-dropdown>
 
         </div>
@@ -105,15 +100,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-// import EssentialLink from 'components/EssentialLink.vue'
 
 export default {
   name: 'MainLayout',
-  // components: { EssentialLink },
   data () {
     return {
-      // leftDrawerOpen: false,
-      // essentialLinks: linksData
       loginScreen: false,
       email: null,
       password: null
