@@ -13,13 +13,13 @@
               <q-btn
                 flat
                 class="fit q-pr-md"
-                size="50px"
+                size="40px"
                 name="arrow_back"
                 v-close-popup
                 icon="arrow_back"
               />
             </div>
-            <h2 class="q-ma-none col-8">
+            <h2 class="q-ma-none col-10 col-sm-7">
               {{idea.title}} <br>
              <div class="text-h4">
                {{ idea.type | capitalize }}
@@ -28,7 +28,7 @@
              criador placeholder
              </div>
             </h2>
-            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
+            <h5 class="text-center q-my-auto q-mx-auto">
               <div >
                 <q-btn
                   v-if="viewMode!==true"
@@ -39,7 +39,7 @@
                 />
               </div>
             </h5>
-            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
+            <h5 class="text-center q-my-auto q-mx-auto">
               <div >
                 <q-btn
                   round
@@ -48,7 +48,7 @@
                   label="save"/>
               </div>
             </h5>
-            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
+            <h5 class="text-center q-my-auto q-mx-auto">
               <div >
                 <q-btn
                   round
@@ -64,7 +64,7 @@
                 />
               </div>
             </h5>
-            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
+            <h5 class="text-center q-my-auto q-mx-auto">
               <div >
                 <q-btn
                   @click="deleteDialog = true"
@@ -95,7 +95,11 @@
         <q-separator />
         <q-card-section class="row">
            <div  class="col-6">
-          imagem?
+          <q-img
+            :src=idea.image
+            style="max-height: 55vh"
+            contain
+          />
           </div>
           <q-separator vertical />
           <h3 class="text-h5  q-mx-auto col-5" >
@@ -139,11 +143,11 @@ export default {
   },
 
   components: {
-    LocalSheet: () => import('./LocalSheet.vue')
+    LocalSheet: () => import('./LocalSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
     DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
-    IdeaForm: () => import('./IdeaForm.vue'),
+    IdeaForm: () => import('./IdeaForm.vue')
   },
 
   props: {
