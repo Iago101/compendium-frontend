@@ -28,7 +28,21 @@
              criador placeholder
              </div>
             </h2>
-            <h5 class="text-center q-my-auto q-mx-auto">
+            <div class="text-center q-ml-sm q-my-auto q-mx-auto" v-if="isAuthenticated">
+              <div >
+                {{idea.folderId}}
+                <q-input
+                  v-model="folderId"
+                />
+                <q-btn
+                  round
+                  color="red-4"
+                  label="folder"
+                  @click="setFolder"
+                />
+              </div>
+            </div>
+            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
                 <q-btn
                   v-if="viewMode!==true"
@@ -138,7 +152,9 @@ export default {
   data () {
     return {
       deleteDialog: false,
-      ideasCreateDetails: null
+      ideasCreateDetails: null,
+      ideaData: null,
+      folderId: null
     }
   },
 
@@ -183,6 +199,19 @@ export default {
       } catch (error) {
         console.error(error)
         this.$q.notify({ message: 'Erro ao sacrificar idéia, tente novamente mais tarde', color: 'red' })
+      }
+    },
+
+    async setFolder () {
+      this.ideaData = this.idea
+      this.ideaData.folderId = this.folderId
+      this.error = false
+      try {
+        await this.$store.dispatch('ideas-private/patch', [this.ideaData._id, this.ideaData, this.params])
+        this.$q.notify({ message: 'Idéia anexada a pasta', color: 'green' })
+      } catch (error) {
+        console.error(error)
+        this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
       }
     }
   }
