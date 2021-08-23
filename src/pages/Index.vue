@@ -2,7 +2,7 @@
 <template>
   <q-page class=" row bg-purple-2">
       <div class="col-2">
-        menu lateral mto foda incoming
+        <navigation-menu />
       </div>
     <div class="row justify-center col-10 q-mt-sm">
       <div class="col-12">
@@ -10,9 +10,6 @@
           <div class="col-6 col-sm-3"  v-for="idea in publicList" :key="idea._id">
             <idea-card :idea="idea">
             </idea-card>
-          </div>
-          <div class="col-6 col-sm-3"  v-for="folder in publicFolderList" :key="folder._id">
-            <folder-card :folder="folder"/>
           </div>
         </div>
 
@@ -69,10 +66,6 @@
               </q-card>
             </div>
 
-          <div class="col-6 col-sm-3"  v-for="folder in privateFolderList" :key="folder._id">
-            <folder-card :folder="folder" />
-          </div>
-
           <div class="col-6 col-sm-3"  v-for="idea in privateList" :key="idea._id">
             <idea-card :idea="idea" >
             </idea-card>
@@ -91,7 +84,7 @@ export default {
   components: {
     IdeaCard: () => import('../components/IdeaCard'),
     IdeaForm: () => import('../components/IdeaForm.vue'),
-    FolderCard: () => import('../components/FolderCard')
+    NavigationMenu: () => import('../components/NavigationMenu.vue')
   },
 
   watch: {
@@ -100,10 +93,8 @@ export default {
       handler () {
         if (this.isAuthenticated) {
           this.find()
-          this.privateFolderFind()
         } else {
           this.publicFind()
-          this.publicFolderFind()
         }
       }
     }
@@ -133,14 +124,6 @@ export default {
     ...mapGetters('ideas-private', {
       privateList: 'list',
       privateGet: 'get'
-    }),
-    ...mapGetters('folders-public', {
-      publicFolderList: 'list',
-      publicFolderGet: 'get'
-    }),
-    ...mapGetters('folders-private', {
-      privateFolderList: 'list',
-      privateFolderGet: 'get'
     })
   },
 
@@ -149,12 +132,6 @@ export default {
     ...mapActions('ideas-private', ['patch', 'find']),
     ...mapActions('ideas-public', {
       publicFind: 'find'
-    }),
-    ...mapActions('folders-private', {
-      privateFolderFind: 'find'
-    }),
-    ...mapActions('folders-public', {
-      publicFolderFind: 'find'
     })
   }
 }
