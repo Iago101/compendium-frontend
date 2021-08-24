@@ -89,8 +89,20 @@
 
         <q-separator />
         <q-card-section style="height: auto" class="row">
-           <div  class="col-6">
-            imagem?
+           <div class="col-6">
+             <h3 class="q-ma-none"> Imagem </h3>
+            <div v-if="ideaData.image" >
+              <q-btn round color="red float-right" @click="ideaData.image=''" icon="delete" />
+              <q-img
+                :src="ideaData.image"
+                style="max-height: 50vh"
+                contain
+              />
+            </div>
+            <div class="q-mt-md col-6">
+              URL da imagem:
+              <q-input v-model="ideaData.image"/>
+            </div>
           </div>
           <q-separator vertical />
           <div v-if="ideaData.type==='npc'" class="col-5 text-h5 row  q-mx-auto">
@@ -199,7 +211,8 @@ export default {
           system: null
         },
         item: null,
-        local: null
+        local: null,
+        image: null
       }
     }
   },
