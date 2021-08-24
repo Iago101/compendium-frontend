@@ -39,10 +39,8 @@
 
           <q-card-section v-if="folder.description">
             <h3
-              class="text-h5"
-              style="
-                .text
-              ">
+              class="text-h5 .text"
+            >
               {{folder.description}}
             </h3>
         </q-card-section>
