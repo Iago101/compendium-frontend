@@ -139,7 +139,7 @@ export default {
   components: {
     LocalSheet: () => import('./LocalSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
-    DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
+    DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
     IdeaForm: () => import('./IdeaForm.vue')
   },

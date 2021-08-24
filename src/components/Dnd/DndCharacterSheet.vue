@@ -1,5 +1,125 @@
+<template>
+  <dnd-sheet-core :creator="creator" visitor :sheet="sheet"/>
+</template>
+
 <script>
+const sheet = {
+  name: '',
+  classLevel: '',
+  background: '',
+  playerName: '',
+  race: '',
+  alignement: '',
+  xp: 0,
+  inspiration: false,
+  str: 10,
+  strMod: 0,
+  dex: 10,
+  dexMod: 0,
+  con: 10,
+  conMod: 0,
+  int: 10,
+  intMod: 0,
+  wis: 10,
+  wisMod: 0,
+  char: 10,
+  charMod: 0,
+  proef: 0,
+  proefStr: false,
+  strSave: 0,
+  proefDex: false,
+  dexSave: 0,
+  proefCon: false,
+  conSave: 0,
+  proefInt: false,
+  intSave: 0,
+  proefWis: false,
+  wisSave: 0,
+  proefChar: false,
+  charSave: 0,
+  proefAcrobatics: false,
+  acrobaticsSkill: 0,
+  proefArcana: false,
+  arcanaSkill: 0,
+  proefAtletism: false,
+  atletismSkill: 0,
+  proefActing: false,
+  actingSkill: 0,
+  proefBluff: false,
+  bluffSkill: 0,
+  proefStealth: false,
+  stealthSkill: 0,
+  proefHistory: false,
+  historySkill: 0,
+  proefIntimidation: false,
+  intimidationSkill: 0,
+  proefInsight: false,
+  insightSkill: 0,
+  proefInvestigation: false,
+  investigationSkill: 0,
+  proefAnimalHandling: false,
+  animalHandlingSkill: 0,
+  proefMedicine: false,
+  medicineSkill: 0,
+  proefNature: false,
+  natureSkill: 0,
+  proefPerception: false,
+  perceptionSkill: 0,
+  proefPersuasion: false,
+  persuasionSkill: 0,
+  proefSleightOfHand: false,
+  sleightOfHandSkill: 0,
+  proefReligion: false,
+  religionSkill: 0,
+  proefSurvival: false,
+  survivalSkill: 0,
+  passivePerception: 10,
+  armorClass: 10,
+  initiative: null,
+  movement: null,
+  totalHP: null,
+  currentHP: null,
+  tempHP: null,
+  lifeDie: null,
+  totalDie: null,
+  deathSaveSucess1: false,
+  deathSaveSucess2: false,
+  deathSaveSucess3: false,
+  deathSaveFail1: false,
+  deathSaveFail2: false,
+  deathSaveFail3: false,
+  attackName1: '',
+  attackName2: '',
+  attackName3: '',
+  attackName4: '',
+  attackName5: '',
+  attackBonus1: '',
+  attackBonus2: '',
+  attackBonus3: '',
+  attackBonus4: '',
+  attackBonus5: '',
+  attackType1: '',
+  attackType2: '',
+  attackType3: '',
+  attackType4: '',
+  attackType5: '',
+  cooperCoins: 0,
+  silverCoins: 0,
+  electrumCoins: 0,
+  goldCoins: 0,
+  platinumCoins: 0,
+  equipment: '',
+  traits: '',
+  ideals: '',
+  bonds: '',
+  flaws: ''
+}
 export default {
+
+  components: {
+    DndSheetCore: () => import('./DndSheetCore.vue')
+  },
+
   watch: {
     'sheet.str' () {
       this.sheet.strMod = Math.floor((this.sheet.str - 10) / 2)
@@ -399,6 +519,21 @@ export default {
         this.sheet.deathSaveFail3 = false
       }
     }
+  },
+
+  props: {
+    sheet: null,
+    creator: null,
+    visitor: Boolean
+  },
+
+  created () {
+    this.$emit('create-sheet', sheet)
+  },
+
+  beforeDestroy () {
+    this.$emit('destroy-sheet')
   }
+
 }
 </script>
