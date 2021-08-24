@@ -14,7 +14,7 @@
         </div>
 
         <div class="row q-col-gutter-md" v-if="isAuthenticated">
-          <div class="col-6 col-sm-3">
+          <div class="col-6 col-sm-2">
             <q-card
                 class="cursor-pointer bg-blue"
                 @click="ideasCreateDetails = true"
@@ -43,10 +43,10 @@
 
                 <q-separator />
 
-                <q-card-section class="row justify-center" style="height: 252px">
+                <q-card-section class="row justify-center" style="height: 150px">
                       <q-icon
                       name="add"
-                      size="150px"
+                      size="100px"
                       class="q-my-auto"
                       />
                 </q-card-section>

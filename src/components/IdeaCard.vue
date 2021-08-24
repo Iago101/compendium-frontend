@@ -40,13 +40,15 @@
       </q-card-section>
 
       <q-separator />
-      <q-card-section  style="height: 252px">
-        <div v-if="idea.type === 'npc'">
-        </div>
-        <div v-if="idea.type === 'item'">
-        </div>
-        <div v-if="idea.type === 'local'">
-        </div>
+      <q-card-section v-if="!idea.image" style="height: 200px"  class="no-padding">
+      </q-card-section>
+
+      <q-card-section v-if="idea.image"  class="no-padding">
+        <q-img
+            :src=idea.image
+            scale-down
+            style="max-height: 200px"
+          />
       </q-card-section>
 
       <q-separator />
