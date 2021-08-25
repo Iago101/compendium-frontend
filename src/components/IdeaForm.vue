@@ -51,7 +51,6 @@
                     </q-item-section>
                   </q-item>
 
-                  <!-- v-if se tiver guida -->
                   <q-item clickable v-close-popup @click="ideaData.privacy='guild'">
                     <q-item-section>
                       <q-item-label>Guilda apenas</q-item-label>
@@ -232,7 +231,6 @@ export default {
         this.ideaData.title = this.capitalize(this.ideaData.title)
         await this.$store.dispatch('ideas-private/create', [this.ideaData])
         this.$q.notify({ message: 'Idéia criada com sucesso!', color: 'red' })
-        // redirect pra ideia simples
         this.clearForm()
       } catch (error) {
         console.error(error)

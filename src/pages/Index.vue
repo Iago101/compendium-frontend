@@ -1,12 +1,15 @@
 
 <template>
   <q-page class=" row bg-purple-2">
-    <div class="row justify-center align-left q-mx-auto col-12 q-mt-sm q-px-sm">
+      <div class="col-2">
+        <navigation-menu />
+      </div>
+    <div class="row justify-center col-10 q-mt-sm">
       <div class="col-12">
         <div class="row q-col-gutter-md" v-if="!isAuthenticated">
-          <div class="col-6 col-sm-2"  v-for="idea in publicList" :key="idea._id">
-            <IdeaCard :idea="idea">
-            </IdeaCard>
+          <div class="col-6 col-sm-3"  v-for="idea in publicList" :key="idea._id">
+            <idea-card :idea="idea">
+            </idea-card>
           </div>
         </div>
 
@@ -51,7 +54,7 @@
                 <q-separator />
 
                 <q-card-section>
-                  <div class="text-subtitle1 line-break:normal"
+                  <div class="text-subtitle1"
                     style="
                       overflow: hidden;
                       text-overflow: ellipsis;
@@ -62,9 +65,10 @@
                 </q-card-section>
               </q-card>
             </div>
-          <div class="col-6 col-sm-2"  v-for="idea in privateList" :key="idea._id">
-            <IdeaCard :idea="idea" >
-            </IdeaCard>
+
+          <div class="col-6 col-sm-3"  v-for="idea in privateList" :key="idea._id">
+            <idea-card :idea="idea" >
+            </idea-card>
           </div>
         </div>
       </div>
@@ -79,7 +83,8 @@ export default {
   name: 'PageIndex',
   components: {
     IdeaCard: () => import('../components/IdeaCard'),
-    IdeaForm: () => import('../components/IdeaForm.vue')
+    IdeaForm: () => import('../components/IdeaForm.vue'),
+    NavigationMenu: () => import('../components/NavigationMenu.vue')
   },
 
   watch: {
@@ -96,18 +101,10 @@ export default {
   },
 
   async created () {
-    // get localhost:3030/ideas-private
-    // this.ip = await feathersClient.service('ideas-public').find()
-    // this.ip = await this.list()
     try {
       await this.authenticate()
     } catch (error) {
     }
-
-    // this.aux = JSON.parse(JSON.stringify(this.ip2))
-    // this.$store.dispatch('ideas-public/get', [this.id])
-    // this.$store.dispatch('guilds-public/find')
-    // this.$store.dispatch('users-public/find')
   },
 
   data () {
@@ -128,25 +125,6 @@ export default {
       privateList: 'list',
       privateGet: 'get'
     })
-    // ip () {
-    //   if (this.isAuthenticated) { return this.list }
-
-    //   return this.privatelist
-    // },
-    // ip2 () {
-    //   return this.$store.getters['ideas-private/list']
-    // },
-    // ip2 () {
-    //   return this.get(this.id)
-    // },
-
-    // gui () {
-    //   return this.$store.getters['guilds-public/list']
-    // },
-
-    // use () {
-    //   return this.$store.getters['users-public/list']
-    // }
   },
 
   methods: {
@@ -154,10 +132,7 @@ export default {
     ...mapActions('ideas-private', ['patch', 'find']),
     ...mapActions('ideas-public', {
       publicFind: 'find'
-    }),
-    submit () {
-      this.patch([this.ip2._id, { title: this.aux.title }])
-    }
+    })
   }
 }
 </script>

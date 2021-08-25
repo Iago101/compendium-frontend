@@ -1,40 +1,40 @@
 <template>
     <q-page>
       <div style="height: 100vh">
-        <idea-detailed :idea="idea" viewmode class="full-height"/>
+        <folder-detailed :folder="folder" viewmode class="full-height"/>
       </div>
     </q-page>
 </template>
 
 <script>
-import IdeaDetailed from 'src/components/IdeaDetailed.vue'
+import FolderDetailed from 'src/components/FolderDetailed.vue'
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'IdeaViewer',
+  name: 'FolderViewer',
   data () {
     return {
-      idea: null
+      folder: null
     }
   },
 
   components: {
-    IdeaDetailed
+    FolderDetailed
   },
 
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
-    ...mapGetters('ideas-public', {
+    ...mapGetters('folders-public', {
       publicGet: 'get'
     }),
-    ...mapGetters('ideas-private', {
+    ...mapGetters('folders-private', {
       privateGet: 'get'
     })
   },
 
   methods: {
     ...mapActions('auth', ['authenticate']),
-    ...mapActions('ideas-private', ['find']),
-    ...mapActions('ideas-public', {
+    ...mapActions('folders-private', ['find']),
+    ...mapActions('folders-public', {
       publicFind: 'find'
     })
   },
@@ -42,10 +42,10 @@ export default {
   async created () {
     try {
       if (this.isAuthenticated) {
-        this.idea = await this.$store.dispatch('ideas-private/get', [this.$route.params.id])
+        this.folder = await this.$store.dispatch('folders-private/get', [this.$route.params.id])
         return
       }
-      this.idea = await this.$store.dispatch('ideas-public/get', [this.$route.params.id])
+      this.folder = await this.$store.dispatch('folders-public/get', [this.$route.params.id])
     } catch {
     }
   }
