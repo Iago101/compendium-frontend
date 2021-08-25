@@ -90,14 +90,16 @@
                   <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
-              <div >
+              <div :key="componentKey">
                 [ {{idea.creationPoints}} ]
                 <q-btn
+                :key="componentKey"
                   round
                   class="right "
                   color="green"
                   v-if="shouldRender && idea.userId !== user._id"
                   icon="navigation"
+                  @click="upvote"
                 />
                 <br>
                 Creation Points
