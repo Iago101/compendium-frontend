@@ -1,20 +1,17 @@
 
 <template>
   <q-page class=" row bg-purple-2">
-      <div class="col-2">
-        menu lateral mto foda incoming
-      </div>
-    <div class="row justify-center col-10 q-mt-sm">
+    <div class="row justify-center align-left q-mx-auto col-12 q-mt-sm q-px-sm">
       <div class="col-12">
         <div class="row q-col-gutter-md" v-if="!isAuthenticated">
-          <div class="col-6 col-sm-3"  v-for="idea in publicList" :key="idea._id">
+          <div class="col-6 col-sm-2"  v-for="idea in publicList" :key="idea._id">
             <IdeaCard :idea="idea">
             </IdeaCard>
           </div>
         </div>
 
         <div class="row q-col-gutter-md" v-if="isAuthenticated">
-          <div class="col-6 col-sm-3">
+          <div class="col-6 col-sm-2">
             <q-card
                 class="cursor-pointer bg-blue"
                 @click="ideasCreateDetails = true"
@@ -43,10 +40,10 @@
 
                 <q-separator />
 
-                <q-card-section class="row justify-center" style="height: 252px">
+                <q-card-section class="row justify-center" style="height: 150px">
                       <q-icon
                       name="add"
-                      size="150px"
+                      size="100px"
                       class="q-my-auto"
                       />
                 </q-card-section>
@@ -65,7 +62,7 @@
                 </q-card-section>
               </q-card>
             </div>
-          <div class="col-6 col-sm-3"  v-for="idea in privateList" :key="idea._id">
+          <div class="col-6 col-sm-2"  v-for="idea in privateList" :key="idea._id">
             <IdeaCard :idea="idea" >
             </IdeaCard>
           </div>

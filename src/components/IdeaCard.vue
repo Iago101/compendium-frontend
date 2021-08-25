@@ -24,9 +24,7 @@
           <h6
             class="q-ma-none"
             style="
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-width: 150px;
+              .text
             ">
             {{idea.title}}
             <q-tooltip>
@@ -40,25 +38,22 @@
       </q-card-section>
 
       <q-separator />
-      <q-card-section  style="height: 252px">
-        <div v-if="idea.type === 'npc'">
+      <q-card-section v-if="!idea.image" style="height: 200px"  class="no-padding">
+      </q-card-section>
 
-        </div>
-        <div v-if="idea.type === 'item'">
-          <!-- <item-sheet :visitor="true" :sheet="idea.item"/> -->
-        </div>
-        <div v-if="idea.type === 'local'">
-          <!-- <CityIdea/> -->
-        </div>
+      <q-card-section v-if="idea.image"  class="no-padding">
+        <q-img
+            :src=idea.image
+            scale-down
+            style="max-height: 200px"
+          />
       </q-card-section>
 
       <q-separator />
       <q-card-section>
         <div class="text-subtitle1 line-break:normal"
           style="
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 90px;
+            .text
           ">
           {{idea.description}}
         </div>
