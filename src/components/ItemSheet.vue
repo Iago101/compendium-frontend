@@ -1,5 +1,5 @@
 <template>
-    <div class="row item-sheet">
+    <div class="row sheet">
         <div class="row col-12 border" v-if="checkIfHave(sheet.doesDamage)">
             <strong class="col-12 text-center">Dano</strong>
             <q-checkbox v-if="!visitor" v-model="sheet.doesDamage" class="col-2" size="xl"/>
@@ -77,20 +77,3 @@ export default {
 
 }
 </script>
-<style lang="sass">
-.item-sheet
-  .border
-    border: 2px solid black
-    border-radius: 10px
-
-  .big-field
-    text-align: center
-    font-size: 40px
-
-  .big-text
-    font-size: 30px
-
-  .minor-text
-    font-size: 20px
-
-</style>

@@ -24,9 +24,7 @@
           <h6
             class="q-ma-none"
             style="
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-width: 150px;
+              .text
             ">
             {{idea.title}}
             <q-tooltip>
@@ -55,9 +53,7 @@
       <q-card-section>
         <div class="text-subtitle1 line-break:normal"
           style="
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 90px;
+            .text
           ">
           {{idea.description}}
         </div>

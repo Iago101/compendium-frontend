@@ -134,9 +134,7 @@
             <h3
               class="text-h5"
               style="
-                overflow: hidden;
-                text-overflow: ellipsis;
-                max-height: 90px;
+                .text
               ">
               {{idea.description}}
             </h3>
@@ -161,7 +159,7 @@ export default {
   components: {
     LocalSheet: () => import('./LocalSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
-    DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
+    DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
     IdeaForm: () => import('./IdeaForm.vue')
   },

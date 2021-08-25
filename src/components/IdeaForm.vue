@@ -189,7 +189,7 @@
 <script>
 export default {
   components: {
-    DndCharacterSheet: () => import('./DndCharacterSheet.vue'),
+    DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
     LocalSheet: () => import('./LocalSheet.vue')
   },
