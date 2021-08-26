@@ -90,10 +90,9 @@
                   <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
-              <div :key="componentKey">
+              <div>
                 [ {{idea.creationPoints}} ]
                 <q-btn
-                :key="componentKey"
                   round
                   class="right "
                   color="green"
@@ -110,36 +109,36 @@
 
         <q-separator />
         <q-card-section class="row">
-           <div  class="col-6">
-          <q-img
-            :src=idea.image
-            style="max-height: 55vh"
-            contain
-          />
+          <div  class="col-6">
+            <q-img
+              :src=idea.image
+              style="max-height: 55vh"
+              contain
+            />
           </div>
           <q-separator vertical />
-          <h3 class="text-h5  q-mx-auto col-5" >
-            <div v-if="idea.type === 'npc'">
-              <dnd-character-sheet :creator="idea.userId" visitor :sheet="idea.character.record"/>
-            </div>
-            <div v-if="idea.type === 'item'">
-              <item-sheet visitor :sheet="idea.item"/>
-            </div>
-            <div v-if="idea.type === 'local'">
-              <local-sheet visitor :sheet="idea.local"/>
-            </div>
-          </h3>
+            <h3 class="text-h5  q-mx-auto col-5" >
+              <div v-if="idea.type === 'npc'">
+                <dnd-character-sheet :creator="idea.userId" visitor :sheet="idea.character.record"/>
+              </div>
+              <div v-if="idea.type === 'item'">
+                <item-sheet visitor :sheet="idea.item"/>
+              </div>
+              <div v-if="idea.type === 'local'">
+                <local-sheet visitor :sheet="idea.local"/>
+              </div>
+              <h3
+                class="text-h5 .text"
+              >
+                {{idea.description}}
+              </h3>
+            </h3>
         </q-card-section>
 
         <q-separator />
-          <q-card-section>
-            <h3
-              class="text-h5"
-              style="
-                .text
-              ">
-              {{idea.description}}
-            </h3>
+
+        <q-card-section>
+          <comments-component :idea="idea._id" />
         </q-card-section>
       </q-card>
 </template>
@@ -163,7 +162,8 @@ export default {
     ItemSheet: () => import('./ItemSheet.vue'),
     DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
-    IdeaForm: () => import('./IdeaForm.vue')
+    IdeaForm: () => import('./IdeaForm.vue'),
+    CommentsComponent: () => import('./CommentsComponent.vue')
   },
 
   props: {
