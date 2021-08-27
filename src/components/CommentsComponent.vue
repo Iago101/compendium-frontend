@@ -11,15 +11,13 @@
 
         <q-separator />
 
-        <q-btn round icon="add_comment" color="green" size="lg" class="q-mx-auto q-mt-md" @click="loadComments"/>
+        <q-btn round icon="add_comment" v-if="loadController!==true" color="green" size="lg" class="q-mx-auto q-mt-md" @click="loadComments"/>
 
-        <div v-if="loadController" >
-             <div class="row q-col-gutter-md" v-if="!isAuthenticated">
-                <div v-for="comment in publicCommentList" :key="comment._id">
-                    <single-comment :comment="comment" />
-                </div>
+        <q-separator />
 
-                <div v-for="comment in privateCommentList" :key="comment._id">
+        <div v-if="loadController===true" class="col-12" >
+             <div class="">
+                <div v-for="comment in comments.data" :key="comment._id">
                     <single-comment :comment="comment" />
                 </div>
              </div>
@@ -35,6 +33,7 @@ export default {
     return {
       loadController: Boolean,
       commentForm: {
+        name: null,
         text: '',
         ideaId: null,
         userId: null
@@ -52,7 +51,7 @@ export default {
 
   methods: {
     loadComments () {
-      this.loadcontroller = true
+      this.loadController = true
     },
 
     async postComment () {
@@ -60,6 +59,7 @@ export default {
         this.$alertDialog('Escreva o comentário antes de postar', this)
         return
       }
+      this.commentForm.name = this.user.name
       this.commentForm.ideaId = this.idea
       this.commentForm.userId = this.user._id
       try {
@@ -79,10 +79,10 @@ export default {
     async load () {
       try {
         if (this.isAuthenticated) {
-          this.privateFindAction({ query: { ideaId: this.idea._id } })
+          this.privateFindAction({ query: { ideaId: this.idea } })
           return
         }
-        this.publicFindAction({ query: { ideaId: this.idea._id } })
+        this.publicFindAction({ query: { ideaId: this.idea } })
       } catch {
       }
     }
@@ -101,9 +101,9 @@ export default {
 
     comments () {
       if (this.isAuthenticated) {
-        return this.privateFind({ query: { ideaId: this.idea._id } })
+        return this.privateFind({ query: { ideaId: this.idea } })
       }
-      return this.publicFind({ query: { ideaId: this.idea._id } })
+      return this.publicFind({ query: { ideaId: this.idea } })
     }
   },
 
