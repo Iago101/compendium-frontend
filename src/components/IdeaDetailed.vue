@@ -213,6 +213,15 @@ export default {
         console.error(error)
         this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
       }
+    },
+    async upvote () {
+      this.error = false
+      try {
+        await this.$store.dispatch('ideas-interaction/patch', [this.idea._id, this.idea, this.params])
+        this.$q.notify({ message: 'Voto quantificado', color: 'green' })
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }

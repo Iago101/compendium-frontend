@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="row col-12 sheet" v-if="isAuthenticated">
-            <q-avatar color="red" class="q-ml-xl q-my-md" text-color="black"> A </q-avatar>
+            <q-avatar color="purple-4" class="q-ml-xl q-my-md" text-color="black"> {{user.name | takeFirstLetter}} </q-avatar>
             <div class="col-7">
                 <div class="minor-text q-ml-md col-7">{{user.name}}</div>
                 <q-input v-model="commentForm.text" borderless dense class="col-5 q-ml-md border minor-text bg-white" />
@@ -9,21 +9,17 @@
                 <q-icon name="send" class="col-1 q-mt-lg q-ml-md cursor-pointer" @click="postComment" size="lg" />
         </div>
 
-        <q-separator />
-
         <q-btn round icon="add_comment" v-if="loadController!==true" color="green" size="lg" class="q-mx-auto q-mt-md" @click="loadComments"/>
 
-        <q-separator />
-
         <div v-if="loadController===true" class="col-12" >
-             <div class="">
+             <div>
                 <div v-for="comment in comments.data" :key="comment._id">
                     <single-comment :comment="comment" />
                 </div>
              </div>
-
-            <single-comment  />
         </div>
+
+        <q-btn round icon="add_comment" v-if="loadController===true" color="red" size="lg" class="q-mx-auto q-mt-md" @click="loadComments"/>
     </div>
 </template>
 <script>
@@ -49,8 +45,26 @@ export default {
     SingleComment: () => import('./SingleComment.vue')
   },
 
+  filters: {
+    takeFirstLetter: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase()
+    }
+  },
+
   methods: {
+
+    takeFirstLetter (value) {
+      value = value.toString()
+      return value.charAt(0).toUpperCase()
+    },
+
     loadComments () {
+      if (this.loadController === true) {
+        this.loadController = false
+        return
+      }
       this.loadController = true
     },
 
