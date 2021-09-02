@@ -24,6 +24,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { commentsMixins } from '../boot/CompendiumMixins.js'
 export default {
   data () {
     return {
@@ -41,24 +42,15 @@ export default {
     idea: null
   },
 
+  mixins: [
+    commentsMixins
+  ],
+
   components: {
     SingleComment: () => import('./SingleComment.vue')
   },
 
-  filters: {
-    takeFirstLetter: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      return value.charAt(0).toUpperCase()
-    }
-  },
-
   methods: {
-
-    takeFirstLetter (value) {
-      value = value.toString()
-      return value.charAt(0).toUpperCase()
-    },
 
     loadComments () {
       if (this.loadController === true) {
@@ -80,16 +72,17 @@ export default {
         await this.$store.dispatch('comments-private/create', [this.commentForm])
         this.$q.notify({ message: 'Comentário postado', color: 'green' })
         this.commentForm.text = ''
-      } catch (error) {
-        console.error(error)
+      } catch {
       }
     },
+
     ...mapActions('comments-public', {
       publicFindAction: 'find'
     }),
     ...mapActions('comments-private', {
       privateFindAction: 'find'
     }),
+
     async load () {
       try {
         if (this.isAuthenticated) {

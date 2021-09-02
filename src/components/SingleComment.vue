@@ -30,7 +30,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-
+import { commentsMixins } from '../boot/CompendiumMixins.js'
 export default {
   data () {
     return {
@@ -41,20 +41,16 @@ export default {
     }
   },
 
+  mixins: [
+    commentsMixins
+  ],
+
   props: {
     comment: null
   },
 
   components: {
     DeleteConfirm: () => import('./DeleteConfirm.vue')
-  },
-
-  filters: {
-    takeFirstLetter: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      return value.charAt(0).toUpperCase()
-    }
   },
 
   methods: {
@@ -87,13 +83,7 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    },
-
-    takeFirstLetter (value) {
-      value = value.toString()
-      return value.charAt(0).toUpperCase()
     }
-
   },
 
   computed: {
