@@ -90,9 +90,9 @@ export default {
 
     ideas () {
       if (this.isAuthenticated) {
-        return this.privateFind({ query: { folderId: this.folder._id } })
+        return this.privateFind({ query: { _id: { $in: this.folder.ideasId } } })
       }
-      return this.publicFind({ query: { folderId: this.folder._id } })
+      return this.publicFind({ query: { _id: { $in: this.folder.ideasId } } })
     }
   },
 
@@ -107,10 +107,10 @@ export default {
     async load () {
       try {
         if (this.isAuthenticated) {
-          this.privateFindAction({ query: { folderId: this.folder._id } })
+          this.privateFindAction({ query: { _id: { $in: this.folder.ideasId } } })
           return
         }
-        this.publicFindAction({ query: { folderId: this.folder._id } })
+        this.publicFindAction({ query: { _id: { $in: this.folder.ideasId } } })
       } catch {
       }
     }
