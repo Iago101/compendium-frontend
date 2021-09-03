@@ -1,5 +1,5 @@
 <template>
-    <div v-if="folder" class="cursor-pointer q-mt-sm" @click="setFolder">
+    <div v-if="folder" class="cursor-pointer q-mt-sm" @click="setFolder(idea._id)">
         {{folder.name}}
     </div>
 </template>
@@ -18,9 +18,15 @@ export default {
   },
 
   methods: {
-    async setFolder () {
+    async setFolder (id) {
+      for (let aux = 0; aux <= this.folder.ideasId.length; aux++) {
+        if (this.folder.ideasId[aux] === id) {
+          this.$q.notify({ message: 'Idéia já está anexada à pasta', color: 'yellow' })
+          return
+        }
+      }
+
       this.arrayCounter = this.folder.ideasId.length
-      this.arrayCounter++
       this.folderData = this.folder
       this.folderData.ideasId[this.arrayCounter] = this.idea._id
       this.error = false

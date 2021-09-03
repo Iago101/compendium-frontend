@@ -49,7 +49,8 @@
 
         <q-card-section class="row justify-around q-mt-md">
             <div class="col-6 col-sm-3" v-for="idea in ideas.data" :key="idea._id">
-                <idea-card :idea="idea" >
+                <q-btn color="red" v-if="isAuthenticated && folder.userId === user._id" round icon="delete" class="q-ml-auto q-mr-none" @click="removeIdea(idea._id)"/>
+                <idea-card :idea="idea">
                 </idea-card>
             </div>
         </q-card-section>
@@ -63,6 +64,7 @@ export default {
   name: 'FolderDetailed',
   data () {
     return {
+      aux: null
     }
   },
 
@@ -112,6 +114,27 @@ export default {
         }
         this.publicFindAction({ query: { _id: { $in: this.folder.ideasId } } })
       } catch {
+      }
+    },
+
+    async removeIdea (id) {
+      for (let aux = 0; aux <= this.folder.ideasId.length; aux++) {
+        if (this.folder.ideasId[aux] === id) {
+          this.folder.ideasId[aux] = null
+
+          this.folder.ideasId = this.folder.ideasId.filter(function (el) {
+            return el != null
+          })
+
+          try {
+            await this.$store.dispatch('folders-private/patch', [this.folder._id, this.folder, this.params])
+            this.$q.notify({ message: 'Idéia removida da pasta', color: 'green' })
+          } catch (error) {
+            console.error(error)
+            this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
+          }
+          return
+        }
       }
     }
   },
