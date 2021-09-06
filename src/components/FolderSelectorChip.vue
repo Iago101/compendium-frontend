@@ -1,5 +1,5 @@
 <template>
-    <div v-if="folder" class="cursor-pointer q-mt-sm" @click="setFolder(idea._id)">
+    <div v-if="folder" class="cursor-pointer" @click="setFolder(idea._id)">
         {{folder.name}}
     </div>
 </template>
@@ -30,11 +30,11 @@ export default {
       this.folderData = this.folder
       this.folderData.ideasId[this.arrayCounter] = this.idea._id
       this.error = false
+
       try {
         await this.$store.dispatch('folders-private/patch', [this.folderData._id, this.folderData, this.params])
         this.$q.notify({ message: 'Idéia anexada a pasta', color: 'green' })
       } catch (error) {
-        console.error(error)
         this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
       }
     }

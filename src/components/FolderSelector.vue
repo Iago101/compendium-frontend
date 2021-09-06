@@ -1,9 +1,15 @@
 <template>
-    <q-card v-if="folderCard">
-        <div v-for="folder in folders.data" :key="folder._id" >
-            <folder-selector-chip :idea="idea" :folder="folder" />
-        </div>
-    </q-card>
+  <q-menu auto-close v-if="folderCard">
+    <q-list dense bordered padding class="bg-red-4">
+      <div v-for="folder in folders.data" :key="folder._id">
+        <q-item clickable dense v-ripple class="bg-white q-mt-xs">
+          <q-item-section>
+            <folder-selector-chip :idea="idea" :folder="folder"/>
+          </q-item-section>
+        </q-item>
+      </div>
+    </q-list>
+  </q-menu>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
@@ -35,7 +41,6 @@ export default {
   },
 
   methods: {
-
     ...mapActions('folders-private', {
       privateFindAction: 'find'
     }),
@@ -43,7 +48,6 @@ export default {
     async load () {
       this.privateFindAction({ query: { userId: this.user._id } })
     }
-
   },
 
   created () {

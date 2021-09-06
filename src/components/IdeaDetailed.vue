@@ -30,16 +30,6 @@
             </h2>
             <div class="text-center q-ml-sm q-my-auto q-mx-auto" v-if="isAuthenticated">
               <div >
-                <!-- {{idea.folderId}}
-                <q-input
-                  v-model="folderId"
-                />
-                <q-btn
-                  round
-                  color="red-4"
-                  label="folder"
-                  @click="setFolder"
-                /> -->
                 <q-btn
                   round
                   color="red-4"
@@ -205,7 +195,6 @@ export default {
         await this.$store.dispatch('ideas-private/remove', [this.idea._id])
         this.$q.notify({ message: 'Idéia arremessada no Abismo', color: 'grey' })
       } catch (error) {
-        console.error(error)
         this.$q.notify({ message: 'Erro ao sacrificar idéia, tente novamente mais tarde', color: 'red' })
       }
     },

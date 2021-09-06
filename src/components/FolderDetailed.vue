@@ -49,9 +49,15 @@
 
         <q-card-section class="row justify-around q-mt-md">
             <div class="col-6 col-sm-3" v-for="idea in ideas.data" :key="idea._id">
-                <q-btn color="red" v-if="isAuthenticated && folder.userId === user._id" round icon="delete" class="q-ml-auto q-mr-none" @click="removeIdea(idea._id)"/>
-                <idea-card :idea="idea">
-                </idea-card>
+                <q-btn
+                  color="red"
+                  v-if="isAuthenticated && folder.userId === user._id"
+                  round
+                  icon="delete"
+                  class="q-ml-auto q-mr-none"
+                  @click="removeIdea(idea._id)"
+                />
+                <idea-card :idea="idea"/>
             </div>
         </q-card-section>
       </q-card>
