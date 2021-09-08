@@ -30,17 +30,14 @@
             </h2>
             <div class="text-center q-ml-sm q-my-auto q-mx-auto" v-if="isAuthenticated">
               <div >
-                {{idea.folderId}}
-                <q-input
-                  v-model="folderId"
-                />
                 <q-btn
                   round
                   color="red-4"
-                  label="folder"
-                  @click="setFolder"
+                  icon="folder"
+                  @click="openFolderSelector"
                 />
               </div>
+                <folder-selector :idea="idea" :folderCard="folderCard" />
             </div>
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <div >
@@ -90,10 +87,9 @@
                   <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
             </h5>
             <h5 class="text-center q-ml-auto q-my-auto">
-              <div :key="componentKey">
+              <div>
                 [ {{idea.creationPoints}} ]
                 <q-btn
-                :key="componentKey"
                   round
                   class="right "
                   color="green"
@@ -154,7 +150,8 @@ export default {
       deleteDialog: false,
       ideasCreateDetails: null,
       ideaData: null,
-      folderId: null
+      folderId: null,
+      folderCard: null
     }
   },
 
@@ -163,7 +160,8 @@ export default {
     ItemSheet: () => import('./ItemSheet.vue'),
     DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
-    IdeaForm: () => import('./IdeaForm.vue')
+    IdeaForm: () => import('./IdeaForm.vue'),
+    FolderSelector: () => import('./FolderSelector.vue')
   },
 
   props: {
@@ -197,22 +195,16 @@ export default {
         await this.$store.dispatch('ideas-private/remove', [this.idea._id])
         this.$q.notify({ message: 'Idéia arremessada no Abismo', color: 'grey' })
       } catch (error) {
-        console.error(error)
         this.$q.notify({ message: 'Erro ao sacrificar idéia, tente novamente mais tarde', color: 'red' })
       }
     },
 
-    async setFolder () {
-      this.ideaData = this.idea
-      this.ideaData.folderId = this.folderId
-      this.error = false
-      try {
-        await this.$store.dispatch('ideas-private/patch', [this.ideaData._id, this.ideaData, this.params])
-        this.$q.notify({ message: 'Idéia anexada a pasta', color: 'green' })
-      } catch (error) {
-        console.error(error)
-        this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
+    openFolderSelector () {
+      if (this.folderCard === true) {
+        this.folderCard = false
+        return
       }
+      this.folderCard = true
     }
   }
 }

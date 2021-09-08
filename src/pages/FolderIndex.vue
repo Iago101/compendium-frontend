@@ -6,14 +6,14 @@
       </div>
     <div class="row justify-center col-10 q-mt-sm">
       <div class="col-12">
-        <div class="row q-col-gutter-md" v-if="!isAuthenticated">
-          <div class="col-6 col-sm-3"  v-for="folder in publicFolderList" :key="folder._id">
-            <folder-card :folder="folder"/>
+        <div class="q-col-gutter-md" v-if="!isAuthenticated">
+          <div class="q-mb-md" v-for="folder in publicFolderList" :key="folder._id">
+            <folder-card class="q-mx-sm" :folder="folder"/>
           </div>
         </div>
 
-        <div class="col-6 col-sm-3"  v-for="folder in privateFolderList" :key="folder._id">
-          <folder-card :folder="folder" />
+        <div class="q-mb-md" v-for="folder in privateFolderList" :key="folder._id">
+          <folder-card class="q-mx-sm" :folder="folder" />
         </div>
       </div>
     </div>
