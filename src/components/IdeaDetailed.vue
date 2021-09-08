@@ -106,36 +106,36 @@
 
         <q-separator />
         <q-card-section class="row">
-           <div  class="col-6">
-          <q-img
-            :src=idea.image
-            style="max-height: 55vh"
-            contain
-          />
+          <div  class="col-6">
+            <q-img
+              :src=idea.image
+              style="max-height: 55vh"
+              contain
+            />
           </div>
           <q-separator vertical />
-          <h3 class="text-h5  q-mx-auto col-5" >
-            <div v-if="idea.type === 'npc'">
-              <dnd-character-sheet :creator="idea.userId" visitor :sheet="idea.character.record"/>
-            </div>
-            <div v-if="idea.type === 'item'">
-              <item-sheet visitor :sheet="idea.item"/>
-            </div>
-            <div v-if="idea.type === 'local'">
-              <local-sheet visitor :sheet="idea.local"/>
-            </div>
-          </h3>
+            <h3 class="text-h5  q-mx-auto col-5" >
+              <div v-if="idea.type === 'npc'">
+                <dnd-character-sheet :creator="idea.userId" visitor :sheet="idea.character.record"/>
+              </div>
+              <div v-if="idea.type === 'item'">
+                <item-sheet visitor :sheet="idea.item"/>
+              </div>
+              <div v-if="idea.type === 'local'">
+                <local-sheet visitor :sheet="idea.local"/>
+              </div>
+              <h3
+                class="text-h5 .text"
+              >
+                {{idea.description}}
+              </h3>
+            </h3>
         </q-card-section>
 
         <q-separator />
-          <q-card-section>
-            <h3
-              class="text-h5"
-              style="
-                .text
-              ">
-              {{idea.description}}
-            </h3>
+
+        <q-card-section>
+          <comments-component :idea="idea._id" />
         </q-card-section>
       </q-card>
 </template>
@@ -161,6 +161,7 @@ export default {
     DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
     IdeaForm: () => import('./IdeaForm.vue'),
+    CommentsComponent: () => import('./CommentsComponent.vue')
     FolderSelector: () => import('./FolderSelector.vue')
   },
 
@@ -205,6 +206,15 @@ export default {
         return
       }
       this.folderCard = true
+    },
+    async upvote () {
+      this.error = false
+      try {
+        await this.$store.dispatch('ideas-interaction/patch', [this.idea._id, this.idea, this.params])
+        this.$q.notify({ message: 'Voto quantificado', color: 'green' })
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }
