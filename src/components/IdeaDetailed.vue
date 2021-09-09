@@ -161,7 +161,7 @@ export default {
     DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
     IdeaForm: () => import('./IdeaForm.vue'),
-    CommentsComponent: () => import('./CommentsComponent.vue')
+    CommentsComponent: () => import('./CommentsComponent.vue'),
     FolderSelector: () => import('./FolderSelector.vue')
   },
 
