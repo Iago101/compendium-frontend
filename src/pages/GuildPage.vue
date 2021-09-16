@@ -1,16 +1,11 @@
 <template>
-    <q-page class=" row bg-purple-2">
+    <q-page class="row bg-purple-2">
         <div class="col-2">
             <navigation-menu />
         </div>
 
-        <div class="col-10 row justify-around" v-if="!isAuthenticated">
-            <q-icon name="account_circle" class="col-12" size="20vw" color="purple" />
-            <h3 class="text-center text-purple-9 q-mt-none" > Logue para continuar </h3>
-        </div>
-
-        <div class="col-10 row justify-around" v-if="isAuthenticated">
-            {{user.guildId}}
+        <div class="col-10 row justify-around">
+           <guild-viewer :guild="guild" />
         </div>
     </q-page>
 </template>
@@ -31,16 +26,12 @@ export default {
     } catch (error) {
     }
 
-    try {
-      if (this.isAuthenticated) {
-        this.guild = await this.$store.dispatch('guilds-private/get', [this.$route.params.id])
-      }
-    } catch {
-    }
+    this.guild = await this.$store.dispatch('guilds-private/get', [this.$route.params.id])
   },
 
   components: {
-    NavigationMenu: () => import('../components/NavigationMenu.vue')
+    NavigationMenu: () => import('../components/NavigationMenu.vue'),
+    GuildViewer: () => import('../components/GuildViewer.vue')
   },
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
