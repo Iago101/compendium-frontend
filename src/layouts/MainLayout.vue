@@ -9,24 +9,6 @@
             </h3>
           </div>
         </q-toolbar-title>
-        <q-separator dark vertical inset />
-        <div class="q-mx-xl">
-          <h4 class="no-margin">
-            Ranking
-          </h4>
-        </div>
-      <q-separator dark vertical inset />
-      <div class="q-mx-xl">
-          <h4 class="no-margin">
-            Mesas
-          </h4>
-        </div>
-      <q-separator dark vertical inset />
-        <div class="q-mx-xl">
-          <h4 class="no-margin">
-          Guildas
-          </h4>
-        </div>
       <q-separator dark vertical inset />
 
         <div v-if="!this.isAuthenticated">

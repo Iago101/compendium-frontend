@@ -45,8 +45,8 @@ export default {
       privateFindAction: 'find'
     }),
 
-    async load () {
-      this.privateFindAction({ query: { userId: this.user._id } })
+    load () {
+      return this.privateFindAction({ query: { userId: this.user._id } })
     }
   },
 

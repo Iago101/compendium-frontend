@@ -25,12 +25,38 @@
             </q-card>
         </q-expansion-item>
 
+        <q-expansion-item
+            expand-separator
+            icon="shield"
+            label="Guilda"
+        >
+            <q-card>
+                <q-card-section v-if="isAuthenticated && user.guildId" @click="$router.push({name: 'guildPage', params: {id: user.guildId}})" class="cursor-pointer bg-purple-2">
+                    Página da Guilda
+                </q-card-section>
+
+                <q-card-section class="cursor-pointer bg-purple-2">
+                    Placeholder guildas
+                </q-card-section>
+
+                <q-card-section v-if="isAuthenticated && !user.guildId" @click="$router.push('/found-guild')" class="cursor-pointer bg-purple-2">
+                    Fundar uma Guilda
+                </q-card-section>
+            </q-card>
+        </q-expansion-item>
+
         </q-list>
   </div>
 </template>
 <script>
-
+import { mapGetters, mapActions } from 'vuex'
 export default {
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated', 'user'])
+  },
+  methods: {
+    ...mapActions('auth', ['authenticate'])
+  },
   data () {
     return {
     }

@@ -124,23 +124,13 @@ export default {
     },
 
     async removeIdea (id) {
-      for (let aux = 0; aux <= this.folder.ideasId.length; aux++) {
-        if (this.folder.ideasId[aux] === id) {
-          this.folder.ideasId[aux] = null
+      this.folder.ideasId = this.folder.ideasId.filter(el => el !== id)
 
-          this.folder.ideasId = this.folder.ideasId.filter(function (el) {
-            return el != null
-          })
-
-          try {
-            await this.$store.dispatch('folders-private/patch', [this.folder._id, this.folder, this.params])
-            this.$q.notify({ message: 'Idéia removida da pasta', color: 'green' })
-          } catch (error) {
-            console.error(error)
-            this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
-          }
-          return
-        }
+      try {
+        await this.$store.dispatch('folders-private/patch', [this.folder._id, this.folder, this.params])
+        this.$q.notify({ message: 'Idéia removida da pasta', color: 'green' })
+      } catch (error) {
+        this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
       }
     }
   },
