@@ -1,18 +1,31 @@
 <template>
     <q-page class="row bg-purple-2">
         <div class="col-2">
-            <navigation-menu />
+          <navigation-menu />
         </div>
 
         <div v-if="userData" class="col-10 row">
             <div class="col-12">
-                {{userData.name}}
+              <q-card >
+
+                <div class="text-h1 text-blue text-center q-my-lg">
+                  Criações de {{userData.name}}
+                </div>
+
+                <div v-if="guild" class="text-h2 text-green text-center q-my-lg">
+                  <div class="text-black">
+                    Membro de
+                  </div>
+                  {{guild.name}}
+                </div>
+
+              </q-card>
             </div>
 
-            <div class="col-12 row">
-                <div class="col-6 col-sm-3 q-ma-sm" v-for="idea in ideas.data" :key="idea._id">
-                    <idea-card :idea="idea"/>
-                </div>
+            <div class="col-12 row justify-around">
+              <div class="col-6 col-sm-3 q-ma-sm" v-for="idea in ideas.data" :key="idea._id">
+                <idea-card :idea="idea"/>
+              </div>
             </div>
 
         </div>
@@ -25,7 +38,8 @@ export default {
 
   data () {
     return {
-      userData: null
+      userData: null,
+      guild: null
     }
   },
 
@@ -37,6 +51,7 @@ export default {
 
     this.userData = await this.$store.dispatch('users/get', [this.$route.params.id])
     this.load()
+    this.guild = await this.$store.dispatch('guilds-private/get', [this.userData.guildId])
   },
 
   components: {
