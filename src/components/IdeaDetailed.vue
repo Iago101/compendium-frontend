@@ -28,64 +28,105 @@
              criador placeholder
              </div>
             </h2>
-            <div class="text-center q-ml-sm q-my-auto q-mx-auto" v-if="isAuthenticated">
-              <div >
-                <q-btn
-                  round
-                  color="red-4"
-                  icon="folder"
-                  @click="openFolderSelector"
-                />
-              </div>
-                <folder-selector :idea="idea" :folderCard="folderCard" />
-            </div>
-            <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
-              <div >
-                <q-btn
-                  v-if="!viewmode"
-                  round
-                  color="red-4"
-                  label="view"
-                  @click="$router.push({name: 'viewer', params: {id: idea._id}})"
-                />
-              </div>
-            </h5>
-            <h5 class="text-center q-my-auto q-mx-auto">
-              <div >
-                <q-btn
-                  round
-                  v-if="shouldRender && idea.userId !== user._id"
-                  color="red-4"
-                  label="save"/>
-              </div>
-            </h5>
-            <h5 class="text-center q-my-auto q-mx-auto">
-              <div >
-                <q-btn
-                  round
-                  v-if="shouldRender && idea.userId === user._id"
-                  color="red-4"
-                  label="editar"
-                  @click="ideasCreateDetails = true"
-                />
-                <idea-form
-                  v-model="ideasCreateDetails"
-                  :ideaEdit="idea"
-                  class="col-6 col-sm-3"
-                />
-              </div>
-            </h5>
-            <h5 class="text-center q-my-auto q-mx-auto">
-              <div >
-                <q-btn
-                  @click="deleteDialog = true"
-                  round
-                  v-if="shouldRender && idea.userId === user._id"
-                  color="red-4"
-                  label="excluir"/>
-              </div>
+
+            <div class="text-center q-ml-auto q-my-auto">
+                <q-fab
+                  color="grey"
+                  class="float-right"
+                  style="height: 50px"
+                  icon="more_vert"
+                  direction="down"
+                  persistent
+                >
+
+                  <q-fab-action
+                    round
+                    color="red-4"
+                    icon="folder"
+                    @click="openFolderSelector"
+                  >
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Salvar em Pasta</strong>
+                      </q-tooltip>
+
+                  </q-fab-action>
+                  <folder-selector :idea="idea" :folderCard="folderCard" />
+
+                  <q-fab-action
+                    v-if="!viewmode"
+                    round
+                    color="red-4"
+                    icon="visibility"
+                    @click="$router.push({name: 'viewer', params: {id: idea._id}})"
+                   >
+
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Isolar</strong>
+                      </q-tooltip>
+
+                  </q-fab-action>
+
+                  <q-fab-action
+                    round
+                    v-if="shouldRender && idea.userId !== user._id"
+                    color="red-4"
+                    label="save">
+
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Salvar</strong>
+                      </q-tooltip>
+
+                  </q-fab-action>
+
+                   <q-fab-action
+                    round
+                    v-if="shouldRender && idea.userId === user._id"
+                    color="red-4"
+                    icon="edit"
+                    @click="ideasCreateDetails = true"
+                   >
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Editar</strong>
+                      </q-tooltip>
+
+                   </q-fab-action>
+                   <idea-form
+                      v-model="ideasCreateDetails"
+                      :ideaEdit="idea"
+                      class="col-6 col-sm-3"
+                    />
+
+                  <q-fab-action
+                    @click="deleteDialog = true"
+                    round
+                    v-if="shouldRender && idea.userId === user._id"
+                    color="red-4"
+                    icon="delete"
+                   >
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Deletar</strong>
+                      </q-tooltip>
+
+                  </q-fab-action>
                   <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
-            </h5>
+
+                   <q-fab-action
+                    round
+                    v-if="isAuthenticated"
+                    color="yellow-7"
+                    icon="report_problem"
+                    class="text-black"
+                    @click="report"
+                  >
+
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Reportar</strong>
+                      </q-tooltip>
+
+                   </q-fab-action>
+                </q-fab>
+            </div>
+
             <h5 class="text-center q-ml-auto q-my-auto">
               <div>
                 [ {{idea.creationPoints}} ]
@@ -190,6 +231,24 @@ export default {
   },
 
   methods: {
+    async report () {
+      this.ideaData = this.idea
+
+      if (this.ideaData.reported && this.ideaData.reported === true) {
+        this.$q.notify({ message: 'Idéia já foi reportada e será revista em breve, agradecemos a sinalização', color: 'orange' })
+        return
+      }
+
+      this.ideaData.reported = true
+
+      try {
+        await this.$store.dispatch('ideas-private/patch', [this.ideaData._id, this.ideaData, this.params])
+        this.$q.notify({ message: 'Idéia foi reportada e será revista em breve, agradecemos a sinalização', color: 'orange' })
+      } catch (error) {
+        this.$q.notify({ message: 'Erro ao reportar idéia, tente novamente mais tarde', color: 'red' })
+      }
+    },
+
     async deleteIdea () {
       this.error = false
       try {
@@ -201,12 +260,9 @@ export default {
     },
 
     openFolderSelector () {
-      if (this.folderCard === true) {
-        this.folderCard = false
-        return
-      }
       this.folderCard = true
     },
+
     async upvote () {
       this.error = false
       try {
