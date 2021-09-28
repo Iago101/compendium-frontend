@@ -110,20 +110,7 @@
                   </q-fab-action>
                   <delete-confirm :dialog="deleteDialog" @confirmed="deleteIdea"/>
 
-                   <q-fab-action
-                    round
-                    v-if="isAuthenticated"
-                    color="yellow-7"
-                    icon="report_problem"
-                    class="text-black"
-                    @click="report"
-                  >
-
-                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
-                        <strong>Reportar</strong>
-                      </q-tooltip>
-
-                   </q-fab-action>
+                   <report-component :type="'idea'" :thing="idea" />
                 </q-fab>
             </div>
 
@@ -203,7 +190,8 @@ export default {
     DeleteConfirm: () => import('./DeleteConfirm.vue'),
     IdeaForm: () => import('./IdeaForm.vue'),
     CommentsComponent: () => import('./CommentsComponent.vue'),
-    FolderSelector: () => import('./FolderSelector.vue')
+    FolderSelector: () => import('./FolderSelector.vue'),
+    ReportComponent: () => import('./ReportComponent.vue')
   },
 
   props: {

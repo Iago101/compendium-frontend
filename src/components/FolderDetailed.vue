@@ -22,16 +22,29 @@
              criador placeholder
              </div>
             </h2>
-            <h5 v-if="!viewmode" class="text-center q-ml-sm q-my-auto q-mx-auto">
-              <div>
-                <q-btn
-                  round
-                  color="red-4"
-                  label="view"
-                  @click="$router.push({name: 'folderViewer', params: {id: folder._id}})"
-                />
-              </div>
-            </h5>
+
+            <div class="text-center q-ml-auto q-my-auto">
+              <q-fab
+                color="grey"
+                class="float-right"
+                style="height: 50px"
+                icon="more_vert"
+                direction="down"
+                persistent
+              >
+
+              <report-component :type="'folder'" :thing="folder" />
+
+              <q-fab-action
+                v-if="viewmode===false"
+                round
+                color="red-4"
+                icon="visibility"
+                @click="$router.push({name: 'folderViewer', params: {id: folder._id}})"
+              />
+
+              </q-fab>
+            </div>
           </div>
         </q-card-section>
 
@@ -82,7 +95,8 @@ export default {
   },
 
   components: {
-    IdeaCard: () => import('../components/IdeaCard')
+    IdeaCard: () => import('../components/IdeaCard'),
+    ReportComponent: () => import('../components/ReportComponent')
   },
 
   computed: {

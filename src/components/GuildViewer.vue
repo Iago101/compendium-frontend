@@ -57,6 +57,8 @@
                    />
 
                   <delete-confirm :dialog="deleteDialog" @confirmed="deleteGuild" @canceled="deleteDialog = false"/>
+
+                  <report-component :type="'guild'" :thing="guild"/>
                 </q-fab>
 
                 <q-btn
@@ -116,7 +118,8 @@ export default {
   },
 
   components: {
-    DeleteConfirm: () => import('./DeleteConfirm.vue')
+    DeleteConfirm: () => import('./DeleteConfirm.vue'),
+    ReportComponent: () => import('./ReportComponent.vue')
   },
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user'])
