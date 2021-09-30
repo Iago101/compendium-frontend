@@ -46,7 +46,7 @@
         </q-expansion-item>
 
         <q-expansion-item
-            v-if="isAuthenticated && user.roles === 'CDadmin'"
+            v-if="isAuthenticated && user.permissions.includes('super_admin')"
             expand-separator
             icon="admin_panel_settings"
             label="Admin"

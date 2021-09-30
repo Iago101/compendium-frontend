@@ -1,6 +1,6 @@
 <template>
     <q-page
-        v-if="isAuthenticated && user.roles === 'CDadmin'"
+        v-if="isAuthenticated && user.permissions.includes('super_admin')"
         class="row bg-purple-2"
     >
 
@@ -22,14 +22,14 @@
                         icon="delete"
                         @click="deleteDialog = true"
                     />
-                    <delete-confirm :dialog="deleteDialog" @canceled="deleteDialog=false" @confirmed="deleteIdea(idea._id)"/>
+                    <delete-confirm :dialog="deleteDialog" @canceled="deleteDialog=false" @confirmed="purge(idea._id, 'idea')"/>
 
                     <q-btn
                         color="green"
                         round
                         size="lg"
                         icon="check"
-                        @click="purifyIdea(idea)"
+                        @click="purify(idea, 'idea')"
                     />
                 </div>
               </div>
@@ -42,6 +42,29 @@
             label="Pastas"
             class="bg-white"
         >
+          <q-card class="row bg-purple-2">
+              <div class="col-6 col-sm-3 q-mx-auto q-mt-lg" v-for="folder in folders.data" :key="folder._id">
+                <folder-card :folder="folder"/>
+                <div class="row justify-around q-mt-sm" >
+                    <q-btn
+                        color="red"
+                        round
+                        size="lg"
+                        icon="delete"
+                        @click="deleteDialog = true"
+                    />
+                    <delete-confirm :dialog="deleteDialog" @canceled="deleteDialog=false" @confirmed="purge(folder._id, 'folder')"/>
+
+                    <q-btn
+                        color="green"
+                        round
+                        size="lg"
+                        icon="check"
+                        @click="purify(folder, 'folder')"
+                    />
+                </div>
+              </div>
+            </q-card>
         </q-expansion-item>
 
         <q-expansion-item
@@ -50,6 +73,29 @@
             label="Guildas"
             class="bg-white"
         >
+          <q-card class="row bg-purple-2">
+              <div class="col-6 col-sm-3 q-mx-auto q-mt-lg" v-for="guild in guilds.data" :key="guild._id">
+                <guild-card :guild="guild"/>
+                <div class="row justify-around q-mt-sm" >
+                    <q-btn
+                        color="red"
+                        round
+                        size="lg"
+                        icon="delete"
+                        @click="deleteDialog = true"
+                    />
+                    <delete-confirm :dialog="deleteDialog" @canceled="deleteDialog=false" @confirmed="purge(guild._id, 'guild')"/>
+
+                    <q-btn
+                        color="green"
+                        round
+                        size="lg"
+                        icon="check"
+                        @click="purify(guild, 'guild')"
+                    />
+                </div>
+              </div>
+            </q-card>
         </q-expansion-item>
     </q-list>
 
@@ -69,26 +115,26 @@ export default {
   },
 
   props: {
-    idea: null
   },
 
   components: {
     IdeaCard: () => import('../components/IdeaCard'),
-    // FolderCard: () => import('../components/FolderCard'),
+    FolderCard: () => import('../components/FolderCard'),
+    GuildCard: () => import('../components/GuildCard'),
     DeleteConfirm: () => import('../components/DeleteConfirm.vue')
   },
 
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
-    ...mapGetters('ideas', {
+    ...mapGetters('ideas-private', {
       ideasFind: 'find',
       ideasGet: 'get'
     }),
-    ...mapGetters('folders', {
+    ...mapGetters('folders-private', {
       foldersFind: 'find',
       foldersGet: 'get'
     }),
-    ...mapGetters('guilds', {
+    ...mapGetters('guilds-private', {
       guildsFind: 'find',
       guildsGet: 'get'
     }),
@@ -106,34 +152,39 @@ export default {
 
   methods: {
     ...mapActions('auth', ['authenticate']),
-    ...mapActions('ideas', {
+    ...mapActions('ideas-private', {
       IdeasFindAction: 'find'
     }),
-    ...mapActions('folders', {
+    ...mapActions('folders-private', {
       FoldersFindAction: 'find'
     }),
-    ...mapActions('guilds', {
+    ...mapActions('guilds-private', {
       GuildsFindAction: 'find'
     }),
 
     async loadIdeas () {
-      return this.IdeasFindAction({ query: { reported: true } })
+      return this.IdeasFindAction({ query: { reported: true, asSuperAdmin: true } })
     },
     async loadFolders () {
-      return this.FoldersFindAction({ query: { reported: true } })
+      return this.FoldersFindAction({ query: { reported: true, asSuperAdmin: true } })
     },
     async loadGuilds () {
-      return this.GuildsFindAction({ query: { reported: true } })
+      return this.GuildsFindAction({ query: { reported: true, asSuperAdmin: true } })
     },
 
-    async deleteIdea (id) {
-      await this.$store.dispatch('ideas/remove', [id])
+    async purge (id, type) {
+      if (type === 'idea') { await this.$store.dispatch('ideas-private/remove', [id]) }
+      if (type === 'folder') { await this.$store.dispatch('folders-private/remove', [id]) }
+      if (type === 'guild') { await this.$store.dispatch('guilds-private/remove', [id]) }
     },
 
-    async purifyIdea (idea) {
-      this.ideaData = idea
-      this.ideaData.reported = false
-      await this.$store.dispatch('ideas/patch', [this.ideaData._id, this.ideaData, this.params])
+    async purify (thing, type) {
+      this.data = thing
+      this.data.reported = false
+
+      if (type === 'idea') { await this.$store.dispatch('ideas-private/patch', [this.data._id, this.data, this.params]) }
+      if (type === 'folder') { await this.$store.dispatch('folders-private/patch', [this.data._id, this.data, this.params]) }
+      if (type === 'guild') { await this.$store.dispatch('guilds-private/patch', [this.data._id, this.data, this.params]) }
     }
   },
 

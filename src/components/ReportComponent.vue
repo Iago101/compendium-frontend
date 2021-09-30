@@ -44,6 +44,8 @@ export default {
 
       try {
         if (this.type === 'idea') {
+          this.params = { query: { asReport: true } }
+          console.log(this.params.query)
           await this.$store.dispatch('ideas-private/patch', [this.data._id, this.data, this.params])
         }
         if (this.type === 'folder') {
