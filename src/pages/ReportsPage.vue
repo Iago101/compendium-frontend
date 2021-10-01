@@ -173,15 +173,17 @@ export default {
     },
 
     async purge (id, type) {
-      if (type === 'idea') { await this.$store.dispatch('ideas-private/remove', [id]) }
-      if (type === 'folder') { await this.$store.dispatch('folders-private/remove', [id]) }
-      if (type === 'guild') { await this.$store.dispatch('guilds-private/remove', [id]) }
+      this.params = { query: { asReport: true } }
+      if (type === 'idea') { await this.$store.dispatch('ideas-private/remove', [id, this.params]) }
+      if (type === 'folder') { await this.$store.dispatch('folders-private/remove', [id, this.params]) }
+      if (type === 'guild') { await this.$store.dispatch('guilds-private/remove', [id, this.params]) }
     },
 
     async purify (thing, type) {
       this.data = thing
       this.data.reported = false
 
+      this.params = { query: { asReport: true } }
       if (type === 'idea') { await this.$store.dispatch('ideas-private/patch', [this.data._id, this.data, this.params]) }
       if (type === 'folder') { await this.$store.dispatch('folders-private/patch', [this.data._id, this.data, this.params]) }
       if (type === 'guild') { await this.$store.dispatch('guilds-private/patch', [this.data._id, this.data, this.params]) }

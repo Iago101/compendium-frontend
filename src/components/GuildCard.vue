@@ -60,6 +60,18 @@
                   <report-component :type="'guild'" :thing="guild"/>
                 </q-fab>
 
+                <q-fab
+                 color="accent"
+                  v-if="(user.guildId !== guild._id)"
+                  class="float-right"
+                  glossy
+                  icon="keyboard_arrow_down"
+                  direction="down"
+                >
+                  <report-component :type="'guild'" :thing="guild"/>
+
+                </q-fab>
+
                 <q-btn
                  color="green"
                  size="lg"

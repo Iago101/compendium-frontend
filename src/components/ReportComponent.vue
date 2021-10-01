@@ -41,17 +41,17 @@ export default {
       }
 
       this.data.reported = true
+      this.params = { query: { asReport: true } }
 
       try {
         if (this.type === 'idea') {
-          this.params = { query: { asReport: true } }
-          console.log(this.params.query)
           await this.$store.dispatch('ideas-private/patch', [this.data._id, this.data, this.params])
         }
         if (this.type === 'folder') {
           await this.$store.dispatch('folders-private/patch', [this.data._id, this.data, this.params])
         }
         if (this.type === 'guild') {
+          console.log(this.params)
           await this.$store.dispatch('guilds-private/patch', [this.data._id, this.data, this.params])
         }
 
