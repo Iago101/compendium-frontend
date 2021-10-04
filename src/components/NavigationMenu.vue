@@ -45,6 +45,19 @@
             </q-card>
         </q-expansion-item>
 
+        <q-expansion-item
+            v-if="isAuthenticated && user.permissions.includes('super_admin')"
+            expand-separator
+            icon="admin_panel_settings"
+            label="Admin"
+        >
+            <q-card>
+                <q-card-section @click="$router.push({name: 'reportsPage'})" class="cursor-pointer bg-purple-2">
+                    Reports
+                </q-card-section>
+            </q-card>
+        </q-expansion-item>
+
         </q-list>
   </div>
 </template>
