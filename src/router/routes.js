@@ -10,7 +10,9 @@ const routes = [
       { path: '/folders', name: 'foldersIndex', component: () => import('pages/FolderIndex.vue') },
       { path: '/guild/:id', name: 'guildPage', component: () => import('pages/GuildPage.vue') },
       { path: '/found-guild', name: 'foundGuild', component: () => import('pages/FoundGuild.vue') },
+<<<<<<<<< Temporary merge branch 1
       { path: '/creator/:id', name: 'creatorViewer', component: () => import('pages/CreatorViewer.vue') }
+=========
       { path: '/reports', name: 'reportsPage', component: () => import('pages/ReportsPage.vue') }
     ]
   },
