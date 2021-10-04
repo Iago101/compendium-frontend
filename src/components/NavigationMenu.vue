@@ -27,6 +27,18 @@
 
         <q-expansion-item
             expand-separator
+            icon="favorite"
+            label="Idéias Favoritas"
+        >
+            <q-card>
+                <q-card-section @click="$router.push('/favorites')" class="cursor-pointer bg-purple-2">
+                    Ver Idéias Favoritas
+                </q-card-section>
+            </q-card>
+        </q-expansion-item>
+
+        <q-expansion-item
+            expand-separator
             icon="shield"
             label="Guilda"
         >
