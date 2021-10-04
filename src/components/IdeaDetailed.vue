@@ -24,9 +24,13 @@
              <div class="text-h4">
                {{ idea.type | capitalize }}
              </div>
-             <div class="text-h5">
-             criador placeholder
-             </div>
+
+              <div v-if="creator" class="text-h5">
+                Criado por:
+              </div>
+              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-blue cursor-pointer">
+                {{creator.name}}
+              </div>
             </h2>
 
             <div class="text-center q-ml-auto q-my-auto">
@@ -179,7 +183,8 @@ export default {
       ideasCreateDetails: null,
       ideaData: null,
       folderId: null,
-      folderCard: null
+      folderCard: null,
+      creator: null
     }
   },
 
@@ -216,6 +221,10 @@ export default {
       }
       return false
     }
+  },
+
+  async created () {
+    this.creator = await this.$store.dispatch('users/get', [this.idea.userId])
   },
 
   methods: {
