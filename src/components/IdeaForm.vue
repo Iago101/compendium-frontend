@@ -87,6 +87,21 @@
         </q-card-section>
 
         <q-separator />
+        <q-card-section class="row text-h6">
+          <div class="col-12 row justify-around">
+          tags atuais
+          </div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section class="row text-h6">
+          <div class="col-12 row justify-around">
+            <div v-for="tag in tags.data" :key="tag._id">
+                <tags-chip :tag="tag" />
+            </div>
+          </div>
+        </q-card-section>
+
+        <q-separator />
         <q-card-section style="height: auto" class="row">
            <div class="col-6">
              <h3 class="q-ma-none"> Imagem </h3>
@@ -186,11 +201,14 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   components: {
     DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
-    LocalSheet: () => import('./LocalSheet.vue')
+    LocalSheet: () => import('./LocalSheet.vue'),
+    TagsChip: () => import('./TagsChip.vue')
   },
   name: 'IdeaForm',
   props: {
@@ -216,7 +234,30 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters('tags', {
+      privateFind: 'find'
+    }),
+    tags () {
+      return this.privateFind()
+    }
+  },
+
+  created () {
+    this.load()
+  },
+
   methods: {
+    ...mapActions('tags', {
+      privateFindAction: 'find'
+    }),
+    async load () {
+      try {
+        this.privateFindAction()
+      } catch {
+      }
+    },
+
     async submit () {
       this.error = false
       if (this.ideaData.title === '') {
