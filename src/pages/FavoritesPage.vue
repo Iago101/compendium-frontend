@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <h2 v-if="!user.favoriteIdeas.length" class="col-10 q-ma-auto text-purple text-center col-10">
+        <h2 v-if="!user.favoriteIdeas.length" class="col-10 q-ma-auto text-purple text-center">
             Nenhuma idéia favoritada, experimente favoritar algumas!
         </h2>
     </q-page>

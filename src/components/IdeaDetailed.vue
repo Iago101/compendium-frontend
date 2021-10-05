@@ -256,7 +256,6 @@ export default {
 
     async removeFavorite  (id) {
       this.user.favoriteIdeas = this.user.favoriteIdeas.filter(el => el !== id)
-      console.log(1)
       try {
         await this.$store.dispatch('users-private/patch', [this.user._id, this.user, this.params])
         this.$q.notify({ message: 'Idéia desfavoritada', color: 'grey' })
