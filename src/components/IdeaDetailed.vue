@@ -136,7 +136,18 @@
           </div>
         </q-card-section>
 
+        <q-separator v-if="idea.tags.length" />
+
+        <q-card-section v-if="idea.tags.length" class="row text-h6">
+          <div class="col-12 row justify-around">
+            <div v-for="tag in idea.tags" :key="tag._id">
+              <tags-chip :tag="tag" :status="'display'"/>
+            </div>
+          </div>
+        </q-card-section>
+
         <q-separator />
+
         <q-card-section class="row">
           <div  class="col-6">
             <q-img
@@ -196,7 +207,8 @@ export default {
     IdeaForm: () => import('./IdeaForm.vue'),
     CommentsComponent: () => import('./CommentsComponent.vue'),
     FolderSelector: () => import('./FolderSelector.vue'),
-    ReportComponent: () => import('./ReportComponent.vue')
+    ReportComponent: () => import('./ReportComponent.vue'),
+    TagsChip: () => import('./TagsChip.vue')
   },
 
   props: {

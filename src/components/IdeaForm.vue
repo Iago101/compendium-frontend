@@ -87,16 +87,21 @@
         </q-card-section>
 
         <q-separator />
+
         <q-card-section class="row text-h6">
           <div class="col-12 row justify-around">
-          tags atuais
+            <div v-for="tag in ideaData.tags" :key="tag._id">
+              <tags-chip :tag="tag" :status="'tagged'" @removetag="removeTag(tag._id)"/>
+            </div>
           </div>
         </q-card-section>
+
         <q-separator />
+
         <q-card-section class="row text-h6">
           <div class="col-12 row justify-around">
-            <div v-for="tag in tags.data" :key="tag._id">
-                <tags-chip :tag="tag" />
+            <div  v-for="tag in tags.data" :key="tag._id">
+                <tags-chip v-if="!ideaData.tags.includes(tag)" :tag="tag" :status="null" @addtag="addTag(tag)" />
             </div>
           </div>
         </q-card-section>
@@ -229,7 +234,8 @@ export default {
         },
         item: null,
         local: null,
-        image: null
+        image: null,
+        tags: []
       }
     }
   },
@@ -256,6 +262,15 @@ export default {
         this.privateFindAction()
       } catch {
       }
+    },
+
+    addTag (tag) {
+      const aux = this.ideaData.tags.length
+      this.$set(this.ideaData.tags, aux, tag)
+    },
+
+    removeTag (tag) {
+      this.ideaData.tags = this.ideaData.tags.filter(el => el._id !== tag)
     },
 
     async submit () {
