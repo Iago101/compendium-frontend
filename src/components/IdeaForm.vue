@@ -87,6 +87,26 @@
         </q-card-section>
 
         <q-separator />
+
+        <q-card-section class="row text-h6">
+          <div class="col-12 row justify-around">
+            <div v-for="tag in ideaData.tags" :key="tag._id">
+              <tags-chip :tag="tag" :status="'tagged'" @removetag="removeTag(tag._id)"/>
+            </div>
+          </div>
+        </q-card-section>
+
+        <q-separator />
+
+        <q-card-section class="row text-h6">
+          <div class="col-12 row justify-around">
+            <div  v-for="tag in tags.data" :key="tag._id">
+                <tags-chip v-if="!ideaData.tags.includes(tag)" :tag="tag" :status="null" @addtag="addTag(tag)" />
+            </div>
+          </div>
+        </q-card-section>
+
+        <q-separator />
         <q-card-section style="height: auto" class="row">
            <div class="col-6">
              <h3 class="q-ma-none"> Imagem </h3>
@@ -186,11 +206,14 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   components: {
     DndCharacterSheet: () => import('./Dnd/DndCharacterSheet.vue'),
     ItemSheet: () => import('./ItemSheet.vue'),
-    LocalSheet: () => import('./LocalSheet.vue')
+    LocalSheet: () => import('./LocalSheet.vue'),
+    TagsChip: () => import('./TagsChip.vue')
   },
   name: 'IdeaForm',
   props: {
@@ -211,12 +234,45 @@ export default {
         },
         item: null,
         local: null,
-        image: null
+        image: null,
+        tags: []
       }
     }
   },
 
+  computed: {
+    ...mapGetters('tags', {
+      privateFind: 'find'
+    }),
+    tags () {
+      return this.privateFind()
+    }
+  },
+
+  created () {
+    this.load()
+  },
+
   methods: {
+    ...mapActions('tags', {
+      privateFindAction: 'find'
+    }),
+    async load () {
+      try {
+        this.privateFindAction()
+      } catch {
+      }
+    },
+
+    addTag (tag) {
+      const aux = this.ideaData.tags.length
+      this.$set(this.ideaData.tags, aux, tag)
+    },
+
+    removeTag (tag) {
+      this.ideaData.tags = this.ideaData.tags.filter(el => el._id !== tag)
+    },
+
     async submit () {
       this.error = false
       if (this.ideaData.title === '') {
