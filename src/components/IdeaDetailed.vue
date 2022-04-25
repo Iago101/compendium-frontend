@@ -1,7 +1,7 @@
 <template>
     <q-card
       :class="{
-        'bg-purple-2': idea.type==='local',
+        'bg-indigo-2': idea.type==='local',
         'bg-yellow-2': idea.type==='item',
         'bg-grey-2': idea.type==='npc'
       }"
@@ -47,7 +47,7 @@
                     color="red-4"
                     icon="favorite"
                     @click="saveFavorite"
-                    v-if="isAuthenticated && !user.favoriteIdeas.includes(idea._id)"
+                    v-if="isAuthenticated && user.favoriteIdeas && !user.favoriteIdeas.includes(idea._id)"
                   >
                       <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                         <strong>Favoritar</strong>
@@ -59,7 +59,7 @@
                     color="red-4"
                     icon="thumb_down"
                     @click="removeFavorite(idea._id)"
-                    v-if="isAuthenticated && user.favoriteIdeas.includes(idea._id)"
+                    v-if="isAuthenticated && user.favoriteIdeas && user.favoriteIdeas.includes(idea._id)"
                   >
                       <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                         <strong>Desfavoritar</strong>

@@ -3,7 +3,7 @@
     <q-card v-if="idea"
       class="cursor-pointer"
       :class="{
-        'bg-purple': idea.type==='local',
+        'bg-indigo': idea.type==='local',
         'bg-yellow': idea.type==='item',
         'bg-grey': idea.type==='npc'
       }"

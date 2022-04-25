@@ -1,5 +1,5 @@
 <template>
-    <q-page class="bg-yellow-2">
+    <q-page class="bg-amber-3">
         <div class="row justify-center">
             <q-card class="col-8 text-center">
                 <q-form @submit="submit">
@@ -13,8 +13,8 @@
                         Para começar, basta criar a sua conta abaixo:
                     </div>
 
-                    <q-card class="bg-yellow-2 text-h6 q-pa-sm q-mx-auto q-my-xl" style="width:400px">
-                        <div class="">
+                    <q-card class="bg-amber-3 text-h6 q-pa-sm q-mx-auto q-my-xl" style="width:400px">
+                        <div>
                             Insira o seu e-mail:
                             <q-input
                                 ref="email"
@@ -78,7 +78,7 @@
                           <q-checkbox v-model="politics"/>Eu concordo com as
 
                           <div
-                           class="text-purple cursor-pointer"
+                           class="text-indigo cursor-pointer"
                            @click="terms=true">
                            Políticas do site
                           </div>
@@ -87,14 +87,14 @@
                           <q-checkbox v-model="useTerms"/>Eu concordo com os
 
                           <div
-                           class="text-purple cursor-pointer"
+                           class="text-indigo cursor-pointer"
                            @click="terms=true">
                            Termos de uso
                           </div>
                         </div>
 
                         <q-btn
-                            color="purple"
+                            color="indigo"
                             class="q-mt-lg"
                             type="submit"
 
@@ -184,17 +184,27 @@ export default {
         return
       }
       try {
-        await feathersClient.service('users-public').create(this.form)
-        const authForm = {
-          strategy: 'local',
-          email: this.form.email,
-          password: this.form.password
-        }
-        await this.authenticate(authForm)
+        const aux = await feathersClient.service('users-public').find({
+          query: {
+            email: this.form.email
+          }
+        })
+        if (aux.data.length > 0) {
+          this.alertEmail = true
+          this.alert = true
+          return
+        } else {
+          await feathersClient.service('users-public').create(this.form)
+          const authForm = {
+            strategy: 'local',
+            email: this.form.email,
+            password: this.form.password
+          }
+          await this.authenticate(authForm)
 
-        this.alertCreate = true
+          this.alertCreate = true
+        }
       } catch (error) {
-        console.error(error)
         if (error.message === 'email: value already exists.') {
           this.alertEmail = true
           this.alert = true

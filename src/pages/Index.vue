@@ -1,31 +1,31 @@
 
 <template>
-  <q-page class=" row bg-purple-2">
+  <q-page class=" row bg-amber-3">
       <div class="col-2">
         <navigation-menu />
       </div>
-    <div class="row justify-center col-10" style="height: 36px">
-      <div class="col-12 bg-purple-4">
-            <div v-for="tag in tags.data" :key="tag._id">
-              <tags-chip :tag="tag" :status="'display'"/>
-            </div>
 
+    <div class="row justify-center col-10" style="height: 36px">
+      <div class="col-12 bg-indigo-4">
+        <div v-for="tag in tags.data" :key="tag._id">
+          <tags-chip :tag="tag" :status="'display'"/>
+        </div>
       </div>
 
       <div class="col-12">
         <div class="row q-col-gutter-md" v-if="!isAuthenticated">
-          <div class="col-6 col-sm-3"  v-for="idea in publicList" :key="idea._id">
+          <div class="col-6 col-sm-2"  v-for="idea in publicList" :key="idea._id">
             <idea-card :idea="idea">
             </idea-card>
           </div>
         </div>
 
         <div class="row q-col-gutter-md" v-if="isAuthenticated">
-          <div class="col-6 col-sm-2">
+          <div class="col-6 col-sm-2 q-ml-md q-mt-md">
             <q-card
-                class="cursor-pointer bg-blue"
-                @click="ideasCreateDetails = true"
-              >
+              class="cursor-pointer bg-blue"
+              @click="ideasCreateDetails = true"
+            >
               <IdeaForm v-model="ideasCreateDetails"/>
 
                 <q-card-section>
@@ -73,7 +73,7 @@
               </q-card>
             </div>
 
-          <div class="col-6 col-sm-3"  v-for="idea in privateList" :key="idea._id">
+          <div class="col-6 col-sm-2 q-mt-md"  v-for="idea in privateList" :key="idea._id">
             <idea-card :idea="idea" >
             </idea-card>
           </div>

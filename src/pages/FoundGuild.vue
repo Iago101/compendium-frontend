@@ -1,12 +1,12 @@
 <template>
-    <q-page class="row bg-purple-2 sheet guild">
+    <q-page class="row bg-indigo-2 sheet guild">
         <div class="col-2">
           <navigation-menu />
         </div>
 
         <div class="col-10 row justify-around" v-if="!isAuthenticated">
-            <q-icon name="account_circle" class="col-12" size="20vw" color="purple" />
-            <h3 class="text-center text-purple-9 q-mt-none" > Logue para continuar </h3>
+            <q-icon name="account_circle" class="col-12" size="20vw" color="indigo" />
+            <h3 class="text-center text-indigo-9 q-mt-none" > Logue para continuar </h3>
         </div>
 
         <div class="col-10 row" v-if="isAuthenticated && !user.guildId">
