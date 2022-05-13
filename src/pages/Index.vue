@@ -4,7 +4,14 @@
       <div class="col-2">
         <navigation-menu />
       </div>
-    <div class="row justify-center col-10 q-mt-sm">
+    <div class="row justify-center col-10" style="height: 36px">
+      <div class="col-12 bg-purple-4">
+            <div v-for="tag in tags.data" :key="tag._id">
+              <tags-chip :tag="tag" :status="'display'" @filter="filterIdeas(tag)"/>
+            </div>
+
+      </div>
+
       <div class="col-12">
         <div class="row q-col-gutter-md" v-if="!isAuthenticated">
           <div class="col-6 col-sm-3"  v-for="idea in publicList" :key="idea._id">
@@ -84,7 +91,8 @@ export default {
   components: {
     IdeaCard: () => import('../components/IdeaCard'),
     IdeaForm: () => import('../components/IdeaForm.vue'),
-    NavigationMenu: () => import('../components/NavigationMenu.vue')
+    NavigationMenu: () => import('../components/NavigationMenu.vue'),
+    TagsChip: () => import('../components/TagsChip.vue')
   },
 
   watch: {
@@ -105,6 +113,7 @@ export default {
       await this.authenticate()
     } catch (error) {
     }
+    this.load()
   },
 
   data () {
@@ -124,7 +133,13 @@ export default {
     ...mapGetters('ideas-private', {
       privateList: 'list',
       privateGet: 'get'
-    })
+    }),
+    ...mapGetters('tags', {
+      publicFindTags: 'find'
+    }),
+    tags () {
+      return this.publicFindTags()
+    }
   },
 
   methods: {
@@ -132,7 +147,26 @@ export default {
     ...mapActions('ideas-private', ['patch', 'find']),
     ...mapActions('ideas-public', {
       publicFind: 'find'
-    })
+    }),
+    ...mapActions('tags', {
+      publicFindAction: 'find'
+    }),
+
+    async load () {
+      try {
+        this.publicFindAction()
+      } catch {
+      }
+    },
+
+    filterIdeas (tag) {
+      console.log(tag)
+      if (this.isAuthenticated) {
+        this.find({ query: { tags: tag } })
+      } else {
+        this.publicFind({ query: { tags: tag } })
+      }
+    }
   }
 }
 </script>
