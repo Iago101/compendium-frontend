@@ -14,7 +14,7 @@
 
       <div class="col-12">
         <div class="row q-col-gutter-md" v-if="!isAuthenticated">
-          <div class="col-6 col-sm-2"  v-for="idea in publicList" :key="idea._id">
+          <div class="col-6 col-sm-2 q-ml-md q-mt-md"  v-for="idea in publicList" :key="idea._id">
             <idea-card :idea="idea">
             </idea-card>
           </div>

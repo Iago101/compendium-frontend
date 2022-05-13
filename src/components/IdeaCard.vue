@@ -49,7 +49,6 @@
           />
       </q-card-section>
 
-      <q-separator />
       <q-card-section>
         <div class="text-subtitle1"
           style="
@@ -58,6 +57,8 @@
           {{idea.description}}
         </div>
       </q-card-section>
+
+      <q-separator />
     </q-card>
 
   </div>

@@ -8,12 +8,12 @@
       <div class="col-12">
         <div class="q-col-gutter-md" v-if="!isAuthenticated">
           <div class="q-mb-md" v-for="folder in publicFolderList" :key="folder._id">
-            <folder-card class="q-mx-sm" :folder="folder"/>
+            <folder-card v-if="folder.ideasId.length > 0" class="q-mx-sm" :folder="folder"/>
           </div>
         </div>
 
         <div class="q-mb-md" v-for="folder in privateFolderList" :key="folder._id">
-          <folder-card class="q-mx-sm" :folder="folder" />
+          <folder-card v-if="folder.ideasId.length > 0"  class="q-mx-sm" :folder="folder" />
         </div>
       </div>
     </div>

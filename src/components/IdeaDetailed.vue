@@ -133,7 +133,7 @@
 
             <h5 class="text-center q-ml-auto q-my-auto">
               <div>
-                [ {{idea.creationPoints}} ]
+                 {{idea.creationPoints}}
                 <q-btn
                   round
                   class="right "
@@ -168,6 +168,13 @@
               style="max-height: 55vh"
               contain
             />
+
+            <h3
+              class="text-h5 .text"
+            >
+              {{idea.description}}
+            </h3>
+
           </div>
           <q-separator vertical />
             <h3 class="text-h5  q-mx-auto col-5" >
@@ -180,11 +187,7 @@
               <div v-if="idea.type === 'local'">
                 <local-sheet visitor :sheet="idea.local"/>
               </div>
-              <h3
-                class="text-h5 .text"
-              >
-                {{idea.description}}
-              </h3>
+
             </h3>
         </q-card-section>
 
