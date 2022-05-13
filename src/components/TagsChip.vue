@@ -10,8 +10,8 @@
           {{tag.name}}
       </q-chip>
   </div>
-  <div v-if="status==='display'">
-      <q-chip icon="local_offer" text-color="black">
+  <div v-if="status==='display'" @click="onFilter">
+      <q-chip class="cursor-pointer" icon="search" text-color="blue">
           {{tag.name}}
       </q-chip>
   </div>
@@ -30,6 +30,9 @@ export default {
     },
     onRemove (event) {
       this.$emit('removetag')
+    },
+    onFilter (event) {
+      this.$emit('filter')
     }
   }
 }

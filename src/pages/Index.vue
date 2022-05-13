@@ -7,7 +7,7 @@
     <div class="row justify-center col-10" style="height: 36px">
       <div class="col-12 bg-purple-4">
             <div v-for="tag in tags.data" :key="tag._id">
-              <tags-chip :tag="tag" :status="'display'"/>
+              <tags-chip :tag="tag" :status="'display'" @filter="filterIdeas(tag)"/>
             </div>
 
       </div>
@@ -135,10 +135,10 @@ export default {
       privateGet: 'get'
     }),
     ...mapGetters('tags', {
-      privateFind: 'find'
+      publicFindTags: 'find'
     }),
     tags () {
-      return this.privateFind()
+      return this.publicFindTags()
     }
   },
 
@@ -149,13 +149,22 @@ export default {
       publicFind: 'find'
     }),
     ...mapActions('tags', {
-      privateFindAction: 'find'
+      publicFindAction: 'find'
     }),
 
     async load () {
       try {
-        this.privateFindAction()
+        this.publicFindAction()
       } catch {
+      }
+    },
+
+    filterIdeas (tag) {
+      console.log(tag)
+      if (this.isAuthenticated) {
+        this.find({ query: { tags: tag } })
+      } else {
+        this.publicFind({ query: { tags: tag } })
       }
     }
   }
