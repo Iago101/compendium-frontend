@@ -1,6 +1,6 @@
 
 <template>
-  <q-page class=" row bg-indigo-2">
+  <q-page class="texbg row">
       <div class="col-2">
         <navigation-menu />
       </div>
@@ -78,3 +78,9 @@ export default {
   }
 }
 </script>
+<style >
+.texbg {
+    background-image: url("../img/marbletex.jpg");
+    background-repeat: repeat-y;
+}
+</style>

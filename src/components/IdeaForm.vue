@@ -8,10 +8,11 @@
       transition-hide="slide-down"
     >
       <q-card>
-        <q-card-section>
+        <q-card-section class="bg-indigo-10">
           <div class="row">
             <div class="row col-1">
               <q-icon
+                color="white"
                 class="fit"
                 size="70px"
                 name="arrow_back"
@@ -19,6 +20,7 @@
                 v-if="!ideaEdit"
               />
               <q-icon
+                color="white"
                 class="fit"
                 size="70px"
                 name="cancel"
@@ -26,15 +28,22 @@
                 v-if="ideaEdit"
               />
             </div>
-            <h2 class="q-ma-none col-8">
+            <h2 class="q-ma-none col-8 guild">
               <q-input
-              v-model="ideaData.title"
-              class="full-height"
-              label="Nomeie a sua criação aqui"
+              borderless
+                class="q-ml-md"
+                label-color='white'
+                :input-style="{ fontSize: '50px', height: '70px'}"
+                input-class="text-white"
+                v-model="ideaData.title"
+                label="Nomeie a sua criação aqui"
+
               />
             </h2>
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <q-btn-dropdown
+              color="white"
+              text-color="black"
               :label="ideaData.privacy"
               icon="public"
               >
@@ -51,23 +60,27 @@
                     </q-item-section>
                   </q-item>
 
-                  <q-item clickable v-close-popup @click="ideaData.privacy='guild'">
+                  <!-- <q-item clickable v-close-popup @click="ideaData.privacy='guild'">
                     <q-item-section>
                       <q-item-label>Guilda apenas</q-item-label>
                     </q-item-section>
-                  </q-item>
+                  </q-item> -->
                 </q-list>
               </q-btn-dropdown>
             </h5>
             <h5 class="text-center q-ml-sm q-my-auto q-mx-auto">
               <q-btn v-if="!ideaEdit" @click="submit">
                 <q-icon
+                    color="white"
+                    text-color="black"
                     name="save"
                     size="70px"
                 />
               </q-btn>
                 <q-btn v-if="ideaEdit" @click="update()">
                 <q-icon
+                    color="white"
+                    text-color="black"
                     name="update"
                     size="70px"
                 />
@@ -85,9 +98,7 @@
           <q-radio v-model="ideaData.type" val='simple' label="Simples" />
           </div>
         </q-card-section>
-
         <q-separator />
-
         <q-card-section class="row text-h6">
           <div class="col-12 row justify-around">
             <div v-for="tag in ideaData.tags" :key="tag._id">
@@ -126,9 +137,9 @@
           <q-separator vertical />
           <div v-if="ideaData.type==='npc'" class="col-5 text-h5 row  q-mx-auto">
             <div class="col-12 row justify-around">
-              <q-radio v-model="ideaData.character.system" val='dnd' label="DnD 5ed." />
-              <q-radio v-model="ideaData.character.system" val='sistema2' label="sistema2" />
-              <q-radio v-model="ideaData.character.system" val='sistema3' label="sistema3" />
+              <q-radio v-model="ideaData.character.system" val='dnd' label="D&D 5ed." />
+              <!-- <q-radio v-model="ideaData.character.system" val='sistema2' label="sistema2" />
+              <q-radio v-model="ideaData.character.system" val='sistema3' label="sistema3" /> -->
             </div>
             <div class="col-12 fit">
               <div v-if="ideaData.character.system === 'dnd'">
@@ -179,27 +190,44 @@
               @destroy-local-sheet="ideaData.local = null"
             />
           </div>
-          <div v-if="ideaData.type==='simple'" class="text-h5 col-5" >
-            simples component
+          <div v-if="ideaData.type==='simple'" class="text-h5 col-5 q-ml-md" >
+            <!-- <q-card-section class="no-padding">
+              <h3 class="q-ma-none">Descrição: </h3>
+              <h3
+                class="text-h5"
+                style="
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  max-height: 90px;
+                ">
+                <q-input
+                  type="textarea"
+                  v-model="ideaData.description"
+                  label="Qual é a sua idéia?"
+                  class="no-padding q-pt-none text-h5"
+                />
+              </h3>
+            </q-card-section> -->
           </div>
         </q-card-section>
 
         <q-separator />
-        <q-card-section class="no-padding">
-          <h3
-            class="text-h5"
-            style="
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-height: 90px;
-          ">
-            <q-input
-              type="textarea"
-              v-model="ideaData.description"
-              label="Descrição:"
-              class="no-padding q-pt-none text-h5"
-            />
-          </h3>
+        <q-card-section  class="no-padding q-ml-md">
+          <h3 class="q-ma-none">Descrição: </h3>
+              <h3
+                class="text-h5"
+                style="
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                ">
+                <q-input
+                  type="textarea"
+                  v-model="ideaData.description"
+                  label="Qual é a sua idéia?"
+                  class="no-padding q-pt-none text-h5"
+                  autogrow
+                />
+              </h3>
         </q-card-section>
       </q-card>
     </q-dialog>

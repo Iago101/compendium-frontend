@@ -10,11 +10,11 @@
                 <q-card-section @click="$router.push('/folders')" class="cursor-pointer bg-indigo-2">
                     Ver Pastas
                 </q-card-section>
-
+                <q-separator/>
                 <q-card-section v-if="isAuthenticated" @click="$router.push('/folders')" class="cursor-pointer bg-indigo-2">
                     Ver Minhas Pastas
                 </q-card-section>
-
+                <q-separator/>
                 <q-card-section v-if="isAuthenticated" @click="createFolder" class="cursor-pointer bg-indigo-2">
                     Criar uma pasta
                 </q-card-section>
@@ -48,7 +48,7 @@
                 <q-card-section @click="$router.push('/')" class="cursor-pointer bg-indigo-2">
                     Ver Idéias
                 </q-card-section>
-
+                <q-separator/>
                 <q-card-section v-if="isAuthenticated" @click="$router.push('/')" class="cursor-pointer bg-indigo-2">
                     Ver Minhas Idéias
                 </q-card-section>

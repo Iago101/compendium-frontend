@@ -22,10 +22,8 @@
       <q-card-section>
         <div class="row">
           <h6
-            class="q-ma-none"
-            style="
-              .text
-            ">
+            class="q-ma-none clamp"
+            >
             {{idea.title}}
             <q-tooltip>
               {{idea.title}}
@@ -48,12 +46,9 @@
             style="max-height: 200px"
           />
       </q-card-section>
-
+      <q-separator/>
       <q-card-section>
-        <div class="text-subtitle1"
-          style="
-            .text
-          ">
+        <div class="text-subtitle1 clamp">
           {{idea.description}}
         </div>
       </q-card-section>

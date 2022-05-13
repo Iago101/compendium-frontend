@@ -19,16 +19,15 @@
                 icon="arrow_back"
               />
             </div>
-            <h2 class="q-ma-none col-10 col-sm-7">
+            <h2 class="q-ma-none col-10 col-sm-7 text">
               {{idea.title}} <br>
              <div class="text-h4">
                {{ idea.type | capitalize }}
              </div>
-
-              <div v-if="creator" class="text-h5">
+              <div v-if="creator" class="text-h5 q-mt-md">
                 Criado por:
               </div>
-              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-blue cursor-pointer">
+              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-blue cursor-pointer q-mt-none" style="display: inline-block">
                 {{creator.name}}
               </div>
             </h2>
@@ -170,7 +169,7 @@
             />
 
             <h3
-              class="text-h5 .text"
+              class="text-h5 fulltext"
             >
               {{idea.description}}
             </h3>

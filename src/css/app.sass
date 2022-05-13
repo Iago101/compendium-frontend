@@ -1,8 +1,32 @@
 // app global css in Sass form
 .text
+  max-height: 3.6em
+  line-height: 1.1em
   overflow: hidden
-  text-overflow: ellipsis 
-  max-height: 90px
+  word-wrap: break-word
+  text-overflow: ellipsis
+
+.clamp
+  overflow: hidden
+  word-wrap: break-word
+  display: -webkit-box
+  -webkit-line-clamp: 2
+  -webkit-box-orient: vertical
+
+.conttext
+  height: auto
+  width: auto
+  overflow: hidden
+  position: relative
+  display: inline-block
+  margin: 0 0 0 0
+  text-align: left
+  text-decoration: none
+  text-overflow: ellipsis
+  white-space: nowrap
+  
+.fulltext
+  word-wrap: break-word
 
 .sheet
   .border
@@ -21,4 +45,4 @@
 
 .guild
   .title
-    font-size: 70px
+    font-size: 65px
