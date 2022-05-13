@@ -1,5 +1,5 @@
 <template>
-    <q-page class=" row bg-purple-2">
+    <q-page class=" row bg-indigo-2">
 
         <div class="col-2">
             <navigation-menu />
@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <h2 v-if="!user.favoriteIdeas.length" class="col-10 q-ma-auto text-purple text-center">
+        <h2 v-if="!user.favoriteIdeas.length" class="col-10 q-ma-auto text-indigo text-center">
             Nenhuma idéia favoritada, experimente favoritar algumas!
         </h2>
     </q-page>

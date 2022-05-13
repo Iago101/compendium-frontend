@@ -1,7 +1,7 @@
 <template>
     <div class="row" v-if="comment">
         <div class="row col-12 sheet q-mt-lg q-mx-auto">
-            <q-avatar color="purple-3" class="q-ml-xl q-my-md" text-color="black"> {{comment.name | takeFirstLetter}} </q-avatar>
+            <q-avatar color="indigo-3" class="q-ml-xl q-my-md" text-color="black"> {{comment.name | takeFirstLetter}} </q-avatar>
             <div class="col-7">
                 <div class="minor-text q-ml-md col-7">{{comment.name}}</div>
 

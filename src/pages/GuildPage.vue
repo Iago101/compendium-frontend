@@ -1,5 +1,5 @@
 <template>
-    <q-page class="row bg-purple-2">
+    <q-page class="row bg-indigo-2">
         <div class="col-2">
             <navigation-menu />
         </div>

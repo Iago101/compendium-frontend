@@ -38,7 +38,7 @@
             </div>
             <q-btn
          size="lg"
-         color="purple"
+         color="indigo"
          label="voltar"
          v-close-popup
          class="fixed-bottom col-12"

@@ -1,5 +1,5 @@
 <template>
-    <div class="row bg-purple-2 sheet guild" v-if="guild">
+    <div class="row bg-indigo-2 sheet guild" v-if="guild">
         <guild-card :guild="guild" />
       </div>
 </template>
