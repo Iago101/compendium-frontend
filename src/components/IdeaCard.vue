@@ -3,7 +3,7 @@
     <q-card v-if="idea"
       class="cursor-pointer"
       :class="{
-        'bg-purple': idea.type==='local',
+        'bg-indigo': idea.type==='local',
         'bg-yellow': idea.type==='item',
         'bg-grey': idea.type==='npc'
       }"
@@ -49,7 +49,6 @@
           />
       </q-card-section>
 
-      <q-separator />
       <q-card-section>
         <div class="text-subtitle1"
           style="
@@ -58,6 +57,8 @@
           {{idea.description}}
         </div>
       </q-card-section>
+
+      <q-separator />
     </q-card>
 
   </div>

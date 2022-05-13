@@ -1,7 +1,9 @@
 <template>
+  <div >
     <div v-if="folder" class="cursor-pointer" @click="setFolder(idea._id)">
         {{folder.name}}
     </div>
+  </div>
 </template>
 <script>
 export default {

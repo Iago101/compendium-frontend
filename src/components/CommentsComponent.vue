@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="row col-12 sheet" v-if="isAuthenticated">
-            <q-avatar color="purple-4" class="q-ml-xl q-my-md" text-color="black"> {{user.name | takeFirstLetter}} </q-avatar>
+            <q-avatar color="indigo-4" class="q-ml-xl q-my-md" text-color="black"> {{user.name | takeFirstLetter}} </q-avatar>
             <div class="col-7">
                 <div class="minor-text q-ml-md col-7">{{user.name}}</div>
                 <q-input v-model="commentForm.text" borderless dense class="col-5 q-ml-md border minor-text bg-white" />

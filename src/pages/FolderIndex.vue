@@ -1,6 +1,6 @@
 
 <template>
-  <q-page class=" row bg-purple-2">
+  <q-page class=" row bg-indigo-2">
       <div class="col-2">
         <navigation-menu />
       </div>
@@ -8,12 +8,12 @@
       <div class="col-12">
         <div class="q-col-gutter-md" v-if="!isAuthenticated">
           <div class="q-mb-md" v-for="folder in publicFolderList" :key="folder._id">
-            <folder-card class="q-mx-sm" :folder="folder"/>
+            <folder-card v-if="folder.ideasId.length > 0" class="q-mx-sm" :folder="folder"/>
           </div>
         </div>
 
         <div class="q-mb-md" v-for="folder in privateFolderList" :key="folder._id">
-          <folder-card class="q-mx-sm" :folder="folder" />
+          <folder-card v-if="folder.ideasId.length > 0"  class="q-mx-sm" :folder="folder" />
         </div>
       </div>
     </div>

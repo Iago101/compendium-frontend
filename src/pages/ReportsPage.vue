@@ -1,7 +1,7 @@
 <template>
     <q-page
         v-if="isAuthenticated && user.permissions.includes('super_admin')"
-        class="row bg-purple-2"
+        class="row bg-indigo-2"
     >
 
     <q-list class="col-12">
@@ -11,7 +11,7 @@
             label="Idéias"
             class="bg-white"
         >
-            <q-card class="row bg-purple-2">
+            <q-card class="row bg-indigo-2">
               <div class="col-6 col-sm-3 q-mx-auto q-mt-lg" v-for="idea in ideas.data" :key="idea._id">
                 <idea-card :idea="idea"/>
                 <div class="row justify-around q-mt-sm" >
@@ -42,7 +42,7 @@
             label="Pastas"
             class="bg-white"
         >
-          <q-card class="row bg-purple-2">
+          <q-card class="row bg-indigo-2">
               <div class="col-6 col-sm-3 q-mx-auto q-mt-lg" v-for="folder in folders.data" :key="folder._id">
                 <folder-card :folder="folder"/>
                 <div class="row justify-around q-mt-sm" >
@@ -73,7 +73,7 @@
             label="Guildas"
             class="bg-white"
         >
-          <q-card class="row bg-purple-2">
+          <q-card class="row bg-indigo-2">
               <div class="col-6 col-sm-3 q-mx-auto q-mt-lg" v-for="guild in guilds.data" :key="guild._id">
                 <guild-card :guild="guild"/>
                 <div class="row justify-around q-mt-sm" >

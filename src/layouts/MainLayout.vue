@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated >
-      <q-toolbar class="bg-purple" style="height:70px">
+      <q-toolbar class="bg-indigo-10" style="height:70px">
         <q-toolbar-title>
           <div class="q-ml-xl cursor-pointer" @click="$router.push('/')">
             <h3 class="no-margin">
@@ -17,19 +17,19 @@
               stretch flat
               icon="perm_identity"
               text-color="white"
-              color="purple"
+              color="indigo"
               label="login"
               class="fit text-capitalize"
               size="18px"
             >
 
-            <q-card class="q-pa-sm bg-yellow">
-              <q-input square outlined dense label="E-mail" v-model="email" class="bg-purple-2 "/>
+            <q-card class="q-pa-sm bg-indigo">
+              <q-input square outlined dense label="E-mail" v-model="email" class="bg-indigo-2 "/>
 
-              <q-input square outlined dense label="Senha" type="password" v-model="password" class="bg-purple-2 q-mt-md"/>
+              <q-input square outlined dense label="Senha" type="password" v-model="password" class="bg-indigo-2 q-mt-md"/>
 
-              <q-btn @click="login()" color="yellow-9" class="q-mx-auto q-mt-md fit"> logar </q-btn>
-              <q-btn @click="$router.push('/registration')" color="yellow-10" class="q-mx-auto q-mt-md fit"> Criar Conta </q-btn>
+              <q-btn @click="login()" color="amber-7" class="q-mx-auto q-mt-md fit"> logar </q-btn>
+              <q-btn @click="$router.push('/registration')" color="amber-9" class="q-mx-auto q-mt-md fit"> Criar Conta </q-btn>
             </q-card>
 
           </q-btn-dropdown>
@@ -41,11 +41,11 @@
               text-color="white"
               icon="perm_identity"
               class="text-capitalize"
-              color="purple"
+              color="indigo"
               :label="user.name"
               size="18px"
             >
-            <q-list class="bg-purple-2">
+            <q-list class="bg-indigo-2">
               <q-item clickable v-close-popup>
                 <q-item-section>
                   <q-item-label>Meu Perfil</q-item-label>
