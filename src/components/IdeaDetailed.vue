@@ -42,12 +42,37 @@
                   direction="down"
                   persistent
                 >
+                  <q-fab-action
+                    round
+                    color="red-4"
+                    icon="favorite"
+                    @click="saveFavorite"
+                    v-if="isAuthenticated && !user.favoriteIdeas.includes(idea._id)"
+                  >
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Favoritar</strong>
+                      </q-tooltip>
+
+                  </q-fab-action>
+                  <q-fab-action
+                    round
+                    color="red-4"
+                    icon="thumb_down"
+                    @click="removeFavorite(idea._id)"
+                    v-if="isAuthenticated && user.favoriteIdeas.includes(idea._id)"
+                  >
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Desfavoritar</strong>
+                      </q-tooltip>
+
+                  </q-fab-action>
 
                   <q-fab-action
                     round
                     color="red-4"
                     icon="folder"
                     @click="openFolderSelector"
+                    v-if="isAuthenticated"
                   >
                       <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                         <strong>Salvar em Pasta</strong>
@@ -66,18 +91,6 @@
 
                       <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                         <strong>Isolar</strong>
-                      </q-tooltip>
-
-                  </q-fab-action>
-
-                  <q-fab-action
-                    round
-                    v-if="shouldRender && idea.userId !== user._id"
-                    color="red-4"
-                    label="save">
-
-                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
-                        <strong>Salvar</strong>
                       </q-tooltip>
 
                   </q-fab-action>
@@ -228,6 +241,29 @@ export default {
   },
 
   methods: {
+    async saveFavorite  () {
+      const data = this.user
+      const favorites = data.favoriteIdeas.length
+      data.favoriteIdeas[favorites] = this.idea._id
+
+      try {
+        await this.$store.dispatch('users-private/patch', [this.user._id, data, this.params])
+        this.$q.notify({ message: 'Idéia favoritada', color: 'green' })
+      } catch (error) {
+        this.$q.notify({ message: 'Erro ao favoritar idéia, tente novamente mais tarde', color: 'red' })
+      }
+    },
+
+    async removeFavorite  (id) {
+      this.user.favoriteIdeas = this.user.favoriteIdeas.filter(el => el !== id)
+      try {
+        await this.$store.dispatch('users-private/patch', [this.user._id, this.user, this.params])
+        this.$q.notify({ message: 'Idéia desfavoritada', color: 'grey' })
+      } catch (error) {
+        this.$q.notify({ message: 'Erro ao desfavoritar idéia, tente novamente mais tarde', color: 'red' })
+      }
+    },
+
     async report () {
       this.ideaData = this.idea
 
