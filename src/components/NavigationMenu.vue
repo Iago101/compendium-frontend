@@ -11,7 +11,7 @@
                     Ver Pastas
                 </q-card-section>
                 <q-separator/>
-                <q-card-section v-if="isAuthenticated" @click="$router.push('/folders')" class="cursor-pointer bg-indigo-2">
+                <q-card-section v-if="isAuthenticated" @click="$router.push('/my-folders')" class="cursor-pointer bg-indigo-2">
                     Ver Minhas Pastas
                 </q-card-section>
                 <q-separator/>

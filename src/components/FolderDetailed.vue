@@ -18,9 +18,14 @@
             </div>
             <h2 class="q-ma-none col-8">
               {{folder.name}}
-             <div class="text-h5">
-             criador placeholder
-             </div>
+
+             <div v-if="creator" class="text-h5 q-mt-md">
+                Criado por:
+              </div>
+              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-blue cursor-pointer q-mt-none" style="display: inline-block">
+                {{creator.name}}
+              </div>
+
             </h2>
 
             <div class="text-center q-ml-auto q-my-auto">
@@ -91,7 +96,8 @@ export default {
     value: Boolean,
     folder: null,
     idea: null,
-    viewmode: Boolean
+    viewmode: Boolean,
+    creator: null
   },
 
   components: {
@@ -149,8 +155,9 @@ export default {
     }
   },
 
-  created () {
+  async created () {
     this.load()
+    this.creator = await this.$store.dispatch('users/get', [this.folder.userId])
   }
 }
 </script>

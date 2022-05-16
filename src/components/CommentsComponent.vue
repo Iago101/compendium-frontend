@@ -4,12 +4,14 @@
             <q-avatar color="indigo-4" class="q-ml-xl q-my-md" text-color="black"> {{user.name | takeFirstLetter}} </q-avatar>
             <div class="col-7">
                 <div class="minor-text q-ml-md col-7">{{user.name}}</div>
-                <q-input v-model="commentForm.text" borderless dense class="col-5 q-ml-md border minor-text bg-white" />
+                <q-input v-model="commentForm.text" borderless dense class="col-5 q-ml-md border minor-text bg-white" label="Escrever Comentário" />
             </div>
                 <q-icon name="send" class="col-1 q-mt-lg q-ml-md cursor-pointer" @click="postComment" size="lg" />
         </div>
 
-        <q-btn round icon="add_comment" v-if="loadController!==true" color="green" size="lg" class="q-mx-auto q-mt-md" @click="loadComments"/>
+        <q-btn round  icon="add_comment" v-if="loadController!==true" color="green" size="lg" class="q-mx-auto q-mt-md" @click="loadComments">
+          <q-tooltip>Carregar Comentários</q-tooltip>
+        </q-btn>
 
         <div v-if="loadController===true" class="col-12" >
              <div>
