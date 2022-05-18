@@ -15,6 +15,10 @@
         <div class="q-mb-md" v-for="folder in folders.data" :key="folder._id">
           <folder-card class="q-mx-sm" :folder="folder" />
         </div>
+
+        <h2 v-if="!folders.data.length" class="col-10 q-ma-auto text-indigo text-center">
+            Nenhuma pasta criada, <br> experimente criar uma!
+        </h2>
       </div>
     </div>
 

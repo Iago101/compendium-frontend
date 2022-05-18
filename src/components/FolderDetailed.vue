@@ -43,10 +43,24 @@
               <q-fab-action
                 v-if="viewmode===false"
                 round
-                color="red-4"
+                color="red-8"
                 icon="visibility"
                 @click="$router.push({name: 'folderViewer', params: {id: folder._id}})"
               />
+
+              <q-fab-action
+                    @click="deleteDialog = true"
+                    round
+                    v-if="folder.userId === user._id"
+                    color="red-8"
+                    icon="delete"
+                   >
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Deletar</strong>
+                      </q-tooltip>
+
+                  </q-fab-action>
+                  <delete-confirm :dialog="deleteDialog" @confirmed="deleteFolder"/>
 
               </q-fab>
             </div>
@@ -88,7 +102,10 @@ export default {
   name: 'FolderDetailed',
   data () {
     return {
-      aux: null
+      aux: null,
+      deleteDialog: false,
+      creator: null
+
     }
   },
 
@@ -96,13 +113,14 @@ export default {
     value: Boolean,
     folder: null,
     idea: null,
-    viewmode: Boolean,
-    creator: null
+    viewmode: Boolean
   },
 
   components: {
     IdeaCard: () => import('../components/IdeaCard'),
-    ReportComponent: () => import('../components/ReportComponent')
+    ReportComponent: () => import('../components/ReportComponent'),
+    DeleteConfirm: () => import('./DeleteConfirm.vue')
+
   },
 
   computed: {
@@ -151,6 +169,16 @@ export default {
         this.$q.notify({ message: 'Idéia removida da pasta', color: 'green' })
       } catch (error) {
         this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
+      }
+    },
+
+    async deleteFolder () {
+      this.error = false
+      try {
+        await this.$store.dispatch('folders-private/remove', [this.folder._id])
+        this.$q.notify({ message: 'Pasta arremessada no Abismo', color: 'grey' })
+      } catch (error) {
+        this.$q.notify({ message: 'Erro ao sacrificar pasta, tente novamente mais tarde', color: 'red' })
       }
     }
   },

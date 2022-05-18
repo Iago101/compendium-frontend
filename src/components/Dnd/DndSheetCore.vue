@@ -20,7 +20,7 @@
 
         <div class="col-12 col-sm-4 row justify-around">
           <div class="col-5 row bg-grey-6">
-            <dnd-sheet-attributes :sheet="sheet" :creator="creator" visitor />
+            <dnd-sheet-attributes :sheet="sheet" :creator="creator" :visitor="visitor" />
           </div>
 
           <div class="col-7 justify-center row">
@@ -43,7 +43,7 @@
               </div>
             </div>
 
-            <dnd-sheet-skills :sheet="sheet" :creator="creator" visitor />
+            <dnd-sheet-skills :sheet="sheet" :creator="creator" :visitor="visitor" />
           </div>
 
             <div class="border col-11 q-mt-md row" style="height:60px">
@@ -159,7 +159,7 @@
 
           </div>
 
-            <dnd-sheet-equipment :sheet="sheet" :creator="creator" visitor/>
+            <dnd-sheet-equipment :sheet="sheet" :creator="creator" :visitor="visitor"/>
         </div>
 
         <div class="col-12 col-sm-4 row justify-around">
@@ -212,11 +212,11 @@ export default {
   components: { DndSheetAttributes, DndSheetSkills, DndSheetEquipment },
 
   methods: {
-    onShow () {
-      if (this.creator === this.user._id) {
-        this.visitor = false
-      }
-    }
+    // onShow () {
+    //   if (this.creator && this.creator === this.user._id) {
+    //     this.visitor = false
+    //   }
+    // }
   },
 
   props: {

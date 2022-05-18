@@ -1,6 +1,35 @@
 <template>
-    <div class="bg-white" style="height: 100%">
+    <div class="bg-white menu" style="height: 100%">
         <q-list padding bordered class="rounded-borders">
+
+        <q-expansion-item
+            expand-separator
+            icon="emoji_objects"
+            label="Idéias"
+        >
+            <q-card>
+                <q-card-section @click="$router.push('/')" class="cursor-pointer bg-indigo-2">
+                    Ver Idéias
+                </q-card-section>
+                <q-separator/>
+                <q-card-section v-if="isAuthenticated" @click="$router.push('/')" class="cursor-pointer bg-indigo-2">
+                    Ver Minhas Idéias
+                </q-card-section>
+            </q-card>
+        </q-expansion-item>
+
+        <q-expansion-item
+            v-if="isAuthenticated"
+            expand-separator
+            icon="favorite"
+            label="Idéias Favoritas"
+        >
+            <q-card>
+                <q-card-section @click="$router.push('/favorites')" class="cursor-pointer bg-indigo-2">
+                    Ver Idéias Favoritas
+                </q-card-section>
+            </q-card>
+        </q-expansion-item>
         <q-expansion-item
             expand-separator
             icon="folder"
@@ -40,43 +69,15 @@
         </q-expansion-item>
 
         <q-expansion-item
-            expand-separator
-            icon="emoji_objects"
-            label="Idéias"
-        >
-            <q-card>
-                <q-card-section @click="$router.push('/')" class="cursor-pointer bg-indigo-2">
-                    Ver Idéias
-                </q-card-section>
-                <q-separator/>
-                <q-card-section v-if="isAuthenticated" @click="$router.push('/')" class="cursor-pointer bg-indigo-2">
-                    Ver Minhas Idéias
-                </q-card-section>
-            </q-card>
-        </q-expansion-item>
-
-        <q-expansion-item
-            v-if="isAuthenticated"
-            expand-separator
-            icon="favorite"
-            label="Idéias Favoritas"
-        >
-            <q-card>
-                <q-card-section @click="$router.push('/favorites')" class="cursor-pointer bg-indigo-2">
-                    Ver Idéias Favoritas
-                </q-card-section>
-            </q-card>
-        </q-expansion-item>
-
-        <q-expansion-item
+            disabled
             expand-separator
             icon="shield"
             label="Guilda"
         >
-            <q-card>
-                <q-card-section v-if="isAuthenticated && user.guildId" @click="$router.push({name: 'guildPage', params: {id: user.guildId}})" class="cursor-pointer bg-indigo-2">
-                    Página da Guilda
+                <q-card-section class="cursor-pointer bg-indigo-2">
+                    Mais novidades em breve!
                 </q-card-section>
+            <!-- <q-card>
 
                 <q-card-section class="cursor-pointer bg-indigo-2">
                     Placeholder guildas
@@ -85,7 +86,7 @@
                 <q-card-section v-if="isAuthenticated && !user.guildId" @click="$router.push('/found-guild')" class="cursor-pointer bg-indigo-2">
                     Fundar uma Guilda
                 </q-card-section>
-            </q-card>
+            </q-card> -->
         </q-expansion-item>
 
         <q-expansion-item
@@ -145,3 +146,11 @@ export default {
 }
 
 </script>
+
+<style >
+
+.menu {
+    top:70px;
+    position: fixed;
+}
+</style>

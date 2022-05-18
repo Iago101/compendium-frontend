@@ -174,5 +174,13 @@ export default {
 .texbgm {
     background-image: url("../img/woodtex.jpg");
     background-repeat: repeat-y;
+
+    position: fixed;
+    top: 70px;
+
+    width: 100vw; /* viewport width */
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
+
 </style>
