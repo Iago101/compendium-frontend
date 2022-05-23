@@ -1,6 +1,6 @@
 <template>
     <div>
-    <q-btn label="Ver Ficha" @click="seeSheet=true"  class="fit"/>
+    <q-btn label="Ver Ficha" @click="seeSheet=true" color="indigo" class="fit"/>
 
     <q-dialog v-model="seeSheet" @show="onShow" full-height>
       <q-card v-if="sheet" class="sheet row " style="width: 1300px; max-width: 90vw;">

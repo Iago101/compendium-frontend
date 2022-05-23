@@ -16,7 +16,7 @@
           <folder-card class="q-mx-sm" :folder="folder" />
         </div>
 
-        <h2 v-if="!folders.data.length" class="col-10 q-ma-auto text-indigo text-center">
+        <h2 v-if="!folders.data.length" class="col-10 q-ma-auto text-white text-center">
             Nenhuma pasta criada, <br> experimente criar uma!
         </h2>
       </div>
@@ -85,7 +85,7 @@ export default {
 </script>
 <style >
 .texbg {
-    background-image: url("../img/marbletex.jpg");
+    background-image: url("../img/woodtex.jpg");
     background-repeat: repeat-y;
 }
 </style>

@@ -51,7 +51,7 @@
               <q-fab-action
                     @click="deleteDialog = true"
                     round
-                    v-if="folder.userId === user._id"
+                    v-if="isAuthenticated && folder.userId === user._id"
                     color="red-8"
                     icon="delete"
                    >

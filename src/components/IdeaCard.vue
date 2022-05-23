@@ -36,7 +36,10 @@
       </q-card-section>
 
       <q-separator />
-      <q-card-section v-if="!idea.image" style="height: 200px"  class="no-padding">
+      <q-card-section v-if="!idea.image" style="height: 200px" >
+        <div class="text-subtitle1 desc">
+          {{idea.description}}
+        </div>
       </q-card-section>
 
       <q-card-section v-if="idea.image"  class="no-padding">
@@ -47,7 +50,7 @@
           />
       </q-card-section>
       <q-separator/>
-      <q-card-section>
+      <q-card-section v-if="idea.image">
         <div class="text-subtitle1 clamp">
           {{idea.description}}
         </div>

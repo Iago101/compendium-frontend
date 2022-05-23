@@ -80,7 +80,7 @@ export default {
 </script>
 <style >
 .texbg {
-    background-image: url("../img/marbletex.jpg");
+    background-image: url("../img/woodtex.jpg");
     background-repeat: repeat-y;
 }
 </style>
