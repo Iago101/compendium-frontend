@@ -3,9 +3,9 @@
     <q-card v-if="idea"
       class="cursor-pointer"
       :class="{
-        'bg-indigo': idea.type==='local',
-        'bg-yellow': idea.type==='item',
-        'bg-grey': idea.type==='npc'
+        'bg-indigo-4': idea.type==='local',
+        'bg-yellow-4': idea.type==='item',
+        'bg-grey-5': idea.type==='npc'
       }"
       @click="ideasDetails = true"
     >
@@ -19,7 +19,7 @@
         />
     </q-dialog>
 
-      <q-card-section>
+      <q-card-section class="bg-indigo-9 text-white">
         <div class="row">
           <h6
             class="q-ma-none clamp"

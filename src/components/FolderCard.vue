@@ -14,7 +14,7 @@
         />
     </q-dialog>
 
-      <q-card-section>
+      <q-card-section class="bg-blue-9 text-white">
         <div>
           <h4
             class="q-ma-none text-center"

@@ -6,13 +6,14 @@
             expand-separator
             icon="emoji_objects"
             label="Idéias"
+            class="highlightLight"
         >
             <q-card>
-                <q-card-section @click="$router.push('/')" class="cursor-pointer bg-indigo-2">
+                <q-card-section @click="$router.push('/')" class="cursor-pointer highlight">
                     Ver Idéias
                 </q-card-section>
                 <q-separator/>
-                <q-card-section v-if="isAuthenticated" @click="$router.push('/')" class="cursor-pointer bg-indigo-2">
+                <q-card-section v-if="isAuthenticated" @click="$router.push('/my-ideas')" class="cursor-pointer highlight">
                     Ver Minhas Idéias
                 </q-card-section>
             </q-card>
@@ -23,9 +24,10 @@
             expand-separator
             icon="favorite"
             label="Idéias Favoritas"
+            class="highlightLight"
         >
             <q-card>
-                <q-card-section @click="$router.push('/favorites')" class="cursor-pointer bg-indigo-2">
+                <q-card-section @click="$router.push('/favorites')" class="cursor-pointer highlight">
                     Ver Idéias Favoritas
                 </q-card-section>
             </q-card>
@@ -34,17 +36,18 @@
             expand-separator
             icon="folder"
             label="Pastas"
+            class="highlightLight"
         >
             <q-card>
-                <q-card-section @click="$router.push('/folders')" class="cursor-pointer bg-indigo-2">
+                <q-card-section @click="$router.push('/folders')" class="cursor-pointer highlight">
                     Ver Pastas
                 </q-card-section>
                 <q-separator/>
-                <q-card-section v-if="isAuthenticated" @click="$router.push('/my-folders')" class="cursor-pointer bg-indigo-2">
+                <q-card-section v-if="isAuthenticated" @click="$router.push('/my-folders')" class="cursor-pointer highlight">
                     Ver Minhas Pastas
                 </q-card-section>
                 <q-separator/>
-                <q-card-section v-if="isAuthenticated" @click="createFolder" class="cursor-pointer bg-indigo-2">
+                <q-card-section v-if="isAuthenticated" @click="createFolder" class="cursor-pointer highlight">
                     Criar uma pasta
                 </q-card-section>
 
@@ -55,7 +58,7 @@
                         </q-card-section>
 
                         <q-card-section class="q-pt-none">
-                        <q-input dense v-model="folderData.name" autofocus @keyup.enter="prompt = false" />
+                        <q-input dense v-model="folderData.name" autofocus @keyup.enter="prompt = true" />
                         </q-card-section>
 
                         <q-card-actions align="right" class="text-primary">
@@ -73,17 +76,18 @@
             expand-separator
             icon="shield"
             label="Guilda"
+            class="highlightLight"
         >
-                <q-card-section class="cursor-pointer bg-indigo-2">
+                <q-card-section class="cursor-pointer highlight">
                     Mais novidades em breve!
                 </q-card-section>
             <!-- <q-card>
 
-                <q-card-section class="cursor-pointer bg-indigo-2">
+                <q-card-section class="cursor-pointer highlight">
                     Placeholder guildas
                 </q-card-section>
 
-                <q-card-section v-if="isAuthenticated && !user.guildId" @click="$router.push('/found-guild')" class="cursor-pointer bg-indigo-2">
+                <q-card-section v-if="isAuthenticated && !user.guildId" @click="$router.push('/found-guild')" class="cursor-pointer highlight">
                     Fundar uma Guilda
                 </q-card-section>
             </q-card> -->
@@ -96,7 +100,7 @@
             label="Admin"
         >
             <q-card>
-                <q-card-section @click="$router.push({name: 'reportsPage'})" class="cursor-pointer bg-indigo-2">
+                <q-card-section @click="$router.push({name: 'reportsPage'})" class="cursor-pointer highlight">
                     Reports
                 </q-card-section>
             </q-card>

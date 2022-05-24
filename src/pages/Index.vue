@@ -23,7 +23,7 @@
         <div class="row q-col-gutter-md" v-if="isAuthenticated">
           <div class="col-6 col-sm-2 q-ml-md q-mt-md">
             <q-card
-              class="cursor-pointer bg-blue"
+              class="cursor-pointer bg-indigo-9 text-white"
               @click="ideasCreateDetails = true"
             >
               <IdeaForm v-model="ideasCreateDetails"/>
@@ -50,7 +50,7 @@
 
                 <q-separator />
 
-                <q-card-section class="row justify-center" style="height: 150px">
+                <q-card-section class="row justify-center bg-indigo-6" style="height: 150px">
                       <q-icon
                       name="add"
                       size="100px"

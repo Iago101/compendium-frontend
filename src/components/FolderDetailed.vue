@@ -4,7 +4,7 @@
       @input="$emit('input', $event)"
       v-if="folder"
       >
-        <q-card-section>
+        <q-card-section class="bg-blue-9 text-white">
           <div class="row">
             <div class="row col-1" v-if="!viewmode">
               <q-btn
@@ -22,7 +22,7 @@
              <div v-if="creator" class="text-h5 q-mt-md">
                 Criado por:
               </div>
-              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-blue cursor-pointer q-mt-none" style="display: inline-block">
+              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-yellow cursor-pointer q-mt-none" style="display: inline-block">
                 {{creator.name}}
               </div>
 

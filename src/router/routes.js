@@ -9,6 +9,7 @@ const routes = [
       { path: '/folder/:id', name: 'folderViewer', component: () => import('pages/FolderViewer.vue') },
       { path: '/folders', name: 'foldersIndex', component: () => import('pages/FolderIndex.vue') },
       { path: '/my-folders', name: 'myFoldersIndex', component: () => import('pages/MyFolderIndex.vue') },
+      { path: '/my-ideas', name: 'myIdeasPage', component: () => import('pages/MyIdeasPage.vue') },
       { path: '/guild/:id', name: 'guildPage', component: () => import('pages/GuildPage.vue') },
       { path: '/found-guild', name: 'foundGuild', component: () => import('pages/FoundGuild.vue') },
       { path: '/creator/:id', name: 'creatorViewer', component: () => import('pages/CreatorViewer.vue') },
