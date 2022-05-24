@@ -46,19 +46,11 @@
               size="18px"
             >
             <q-list class="bg-indigo-2">
-              <q-item clickable v-close-popup>
+              <!-- <q-item clickable v-close-popup>
                 <q-item-section>
                   <q-item-label>Meu Perfil</q-item-label>
                 </q-item-section>
-              </q-item>
-
-                <q-separator />
-
-              <q-item clickable v-close-popup>
-                <q-item-section>
-                  <q-item-label>Minhas Pastas</q-item-label>
-                </q-item-section>
-              </q-item>
+              </q-item> -->
 
                 <q-separator />
 

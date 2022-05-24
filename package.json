@@ -2,7 +2,7 @@
   "name": "compendium-frontend",
   "version": "0.0.1",
   "description": "Social media network for tabletop rpgs",
-  "productName": "Compendium Frontend",
+  "productName": "Compendium",
   "author": "iago <iagolol@outlook.com>",
   "private": true,
   "scripts": {
