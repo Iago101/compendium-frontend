@@ -7,7 +7,9 @@
       transition-show="slide-up"
       transition-hide="slide-down"
     >
-      <q-card>
+      <q-card
+        class="bg-indigo-1">
+
         <q-card-section class="bg-indigo-10">
           <div class="row">
             <div class="row col-1">

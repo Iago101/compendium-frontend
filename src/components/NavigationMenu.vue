@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white menu" style="height: 100%">
+    <div class="bg-indigo-9 menu" style="height: 100%">
         <q-list padding bordered class="rounded-borders">
 
         <q-expansion-item
