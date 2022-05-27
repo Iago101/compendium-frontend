@@ -2,12 +2,12 @@
     <q-card
       :class="{
         'bg-indigo-2': idea.type==='local',
-        'bg-yellow-2': idea.type==='item',
+        'bg-yellow-3': idea.type==='item',
         'bg-grey-2': idea.type==='npc'
       }"
       @input="$emit('input', $event)"
       >
-        <q-card-section>
+        <q-card-section class="bg-indigo-10 text-white">
           <div class="row">
             <div class="row col-1"  v-if="!viewmode">
               <q-btn
@@ -19,23 +19,22 @@
                 icon="arrow_back"
               />
             </div>
-            <h2 class="q-ma-none col-10 col-sm-7">
+            <h2 class="q-ma-none col-10 col-sm-7 text">
               {{idea.title}} <br>
              <div class="text-h4">
                {{ idea.type | capitalize }}
              </div>
-
-              <div v-if="creator" class="text-h5">
+              <div v-if="creator" class="text-h5 q-mt-md">
                 Criado por:
               </div>
-              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-blue cursor-pointer">
+              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-yellow cursor-pointer q-mt-none" style="display: inline-block">
                 {{creator.name}}
               </div>
             </h2>
 
             <div class="text-center q-ml-auto q-my-auto">
                 <q-fab
-                  color="grey"
+                  color="red-8"
                   class="float-right"
                   style="height: 50px"
                   icon="more_vert"
@@ -44,7 +43,7 @@
                 >
                   <q-fab-action
                     round
-                    color="red-4"
+                    color="red-8"
                     icon="favorite"
                     @click="saveFavorite"
                     v-if="isAuthenticated && user.favoriteIdeas && !user.favoriteIdeas.includes(idea._id)"
@@ -56,7 +55,7 @@
                   </q-fab-action>
                   <q-fab-action
                     round
-                    color="red-4"
+                    color="red-8"
                     icon="thumb_down"
                     @click="removeFavorite(idea._id)"
                     v-if="isAuthenticated && user.favoriteIdeas && user.favoriteIdeas.includes(idea._id)"
@@ -69,7 +68,7 @@
 
                   <q-fab-action
                     round
-                    color="red-4"
+                    color="red-8"
                     icon="folder"
                     @click="openFolderSelector"
                     v-if="isAuthenticated"
@@ -84,7 +83,7 @@
                   <q-fab-action
                     v-if="!viewmode"
                     round
-                    color="red-4"
+                    color="red-8"
                     icon="visibility"
                     @click="$router.push({name: 'viewer', params: {id: idea._id}})"
                    >
@@ -98,7 +97,7 @@
                    <q-fab-action
                     round
                     v-if="shouldRender && idea.userId === user._id"
-                    color="red-4"
+                    color="red-8"
                     icon="edit"
                     @click="ideasCreateDetails = true"
                    >
@@ -117,7 +116,7 @@
                     @click="deleteDialog = true"
                     round
                     v-if="shouldRender && idea.userId === user._id"
-                    color="red-4"
+                    color="red-8"
                     icon="delete"
                    >
                       <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
@@ -170,7 +169,7 @@
             />
 
             <h3
-              class="text-h5 .text"
+              class="text-h5 fulltext"
             >
               {{idea.description}}
             </h3>

@@ -3,8 +3,10 @@
         v-if="isAuthenticated && user.permissions.includes('super_admin')"
         class="row bg-indigo-2"
     >
-
-    <q-list class="col-12">
+      <div class="col-2">
+        <navigation-menu />
+      </div>
+    <q-list class="col-10">
        <q-expansion-item
             expand-separator
             icon="emoji_objects"
@@ -121,7 +123,9 @@ export default {
     IdeaCard: () => import('../components/IdeaCard'),
     FolderCard: () => import('../components/FolderCard'),
     GuildCard: () => import('../components/GuildCard'),
-    DeleteConfirm: () => import('../components/DeleteConfirm.vue')
+    DeleteConfirm: () => import('../components/DeleteConfirm.vue'),
+    NavigationMenu: () => import('../components/NavigationMenu.vue')
+
   },
 
   computed: {

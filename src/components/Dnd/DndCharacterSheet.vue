@@ -1,5 +1,5 @@
 <template>
-  <dnd-sheet-core :creator="creator" visitor :sheet="sheet"/>
+  <dnd-sheet-core :creator="creator" :visitor="visitor" :sheet="sheet"/>
 </template>
 
 <script>

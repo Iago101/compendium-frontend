@@ -3,9 +3,9 @@
     <q-card v-if="idea"
       class="cursor-pointer"
       :class="{
-        'bg-indigo': idea.type==='local',
-        'bg-yellow': idea.type==='item',
-        'bg-grey': idea.type==='npc'
+        'bg-indigo-4': idea.type==='local',
+        'bg-yellow-4': idea.type==='item',
+        'bg-grey-5': idea.type==='npc'
       }"
       @click="ideasDetails = true"
     >
@@ -19,13 +19,11 @@
         />
     </q-dialog>
 
-      <q-card-section>
+      <q-card-section class="bg-indigo-9 text-white">
         <div class="row">
           <h6
-            class="q-ma-none"
-            style="
-              .text
-            ">
+            class="q-ma-none clamp"
+            >
             {{idea.title}}
             <q-tooltip>
               {{idea.title}}
@@ -38,7 +36,10 @@
       </q-card-section>
 
       <q-separator />
-      <q-card-section v-if="!idea.image" style="height: 200px"  class="no-padding">
+      <q-card-section v-if="!idea.image" style="height: 200px" >
+        <div class="text-subtitle1 desc">
+          {{idea.description}}
+        </div>
       </q-card-section>
 
       <q-card-section v-if="idea.image"  class="no-padding">
@@ -48,12 +49,9 @@
             style="max-height: 200px"
           />
       </q-card-section>
-
-      <q-card-section>
-        <div class="text-subtitle1"
-          style="
-            .text
-          ">
+      <q-separator/>
+      <q-card-section v-if="idea.image">
+        <div class="text-subtitle1 clamp">
           {{idea.description}}
         </div>
       </q-card-section>

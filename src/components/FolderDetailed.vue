@@ -4,7 +4,7 @@
       @input="$emit('input', $event)"
       v-if="folder"
       >
-        <q-card-section>
+        <q-card-section class="bg-blue-9 text-white">
           <div class="row">
             <div class="row col-1" v-if="!viewmode">
               <q-btn
@@ -18,9 +18,14 @@
             </div>
             <h2 class="q-ma-none col-8">
               {{folder.name}}
-             <div class="text-h5">
-             criador placeholder
-             </div>
+
+             <div v-if="creator" class="text-h5 q-mt-md">
+                Criado por:
+              </div>
+              <div v-if="creator" @click="$router.push({name: 'creatorViewer', params: {id: creator._id}})" class="text-h5 text-yellow cursor-pointer q-mt-none" style="display: inline-block">
+                {{creator.name}}
+              </div>
+
             </h2>
 
             <div class="text-center q-ml-auto q-my-auto">
@@ -38,10 +43,24 @@
               <q-fab-action
                 v-if="viewmode===false"
                 round
-                color="red-4"
+                color="red-8"
                 icon="visibility"
                 @click="$router.push({name: 'folderViewer', params: {id: folder._id}})"
               />
+
+              <q-fab-action
+                    @click="deleteDialog = true"
+                    round
+                    v-if="isAuthenticated && folder.userId === user._id"
+                    color="red-8"
+                    icon="delete"
+                   >
+                      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                        <strong>Deletar</strong>
+                      </q-tooltip>
+
+                  </q-fab-action>
+                  <delete-confirm :dialog="deleteDialog" @confirmed="deleteFolder"/>
 
               </q-fab>
             </div>
@@ -83,7 +102,10 @@ export default {
   name: 'FolderDetailed',
   data () {
     return {
-      aux: null
+      aux: null,
+      deleteDialog: false,
+      creator: null
+
     }
   },
 
@@ -96,7 +118,9 @@ export default {
 
   components: {
     IdeaCard: () => import('../components/IdeaCard'),
-    ReportComponent: () => import('../components/ReportComponent')
+    ReportComponent: () => import('../components/ReportComponent'),
+    DeleteConfirm: () => import('./DeleteConfirm.vue')
+
   },
 
   computed: {
@@ -146,11 +170,22 @@ export default {
       } catch (error) {
         this.$q.notify({ message: 'Erro ao anexar idéia, id inválido', color: 'red' })
       }
+    },
+
+    async deleteFolder () {
+      this.error = false
+      try {
+        await this.$store.dispatch('folders-private/remove', [this.folder._id])
+        this.$q.notify({ message: 'Pasta arremessada no Abismo', color: 'grey' })
+      } catch (error) {
+        this.$q.notify({ message: 'Erro ao sacrificar pasta, tente novamente mais tarde', color: 'red' })
+      }
     }
   },
 
-  created () {
+  async created () {
     this.load()
+    this.creator = await this.$store.dispatch('users/get', [this.folder.userId])
   }
 }
 </script>

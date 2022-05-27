@@ -1,6 +1,6 @@
 <template>
   <q-menu auto-close v-if="folderCard">
-    <q-list dense bordered padding class="bg-red-4">
+    <q-list dense bordered padding class="bg-red-8">
       <div v-for="folder in folders.data" :key="folder._id">
         <q-item clickable dense v-ripple class="bg-white q-mt-xs">
           <q-item-section>

@@ -1,6 +1,6 @@
 <template>
     <div>
-    <q-btn label="Ver Ficha" @click="seeSheet=true"  class="fit"/>
+    <q-btn label="Ver Ficha" @click="seeSheet=true" color="indigo" class="fit"/>
 
     <q-dialog v-model="seeSheet" @show="onShow" full-height>
       <q-card v-if="sheet" class="sheet row " style="width: 1300px; max-width: 90vw;">
@@ -20,7 +20,7 @@
 
         <div class="col-12 col-sm-4 row justify-around">
           <div class="col-5 row bg-grey-6">
-            <dnd-sheet-attributes :sheet="sheet" :creator="creator" visitor />
+            <dnd-sheet-attributes :sheet="sheet" :creator="creator" :visitor="visitor" />
           </div>
 
           <div class="col-7 justify-center row">
@@ -43,7 +43,7 @@
               </div>
             </div>
 
-            <dnd-sheet-skills :sheet="sheet" :creator="creator" visitor />
+            <dnd-sheet-skills :sheet="sheet" :creator="creator" :visitor="visitor" />
           </div>
 
             <div class="border col-11 q-mt-md row" style="height:60px">
@@ -159,7 +159,7 @@
 
           </div>
 
-            <dnd-sheet-equipment :sheet="sheet" :creator="creator" visitor/>
+            <dnd-sheet-equipment :sheet="sheet" :creator="creator" :visitor="visitor"/>
         </div>
 
         <div class="col-12 col-sm-4 row justify-around">
@@ -212,11 +212,11 @@ export default {
   components: { DndSheetAttributes, DndSheetSkills, DndSheetEquipment },
 
   methods: {
-    onShow () {
-      if (this.creator === this.user._id) {
-        this.visitor = false
-      }
-    }
+    // onShow () {
+    //   if (this.creator && this.creator === this.user._id) {
+    //     this.visitor = false
+    //   }
+    // }
   },
 
   props: {

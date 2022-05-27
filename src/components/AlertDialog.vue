@@ -2,7 +2,7 @@
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card>
 
-      <q-card-section class="q-pt-lg text-h5">
+      <q-card-section class="q-pt-lg text-h5 bg-indigo-9 text-white">
         Aviso
       </q-card-section>
 
