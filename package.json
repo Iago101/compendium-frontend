@@ -17,6 +17,7 @@
     "@quasar/extras": "^1.0.0",
     "@vue/composition-api": "^1.0.0-rc.8",
     "core-js": "^3.6.5",
+    "dotenv": "^16.0.1",
     "feathers-hooks-common": "^5.0.5",
     "feathers-vuex": "^3.16.0",
     "quasar": "^1.0.0",
