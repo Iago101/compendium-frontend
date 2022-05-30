@@ -4,7 +4,7 @@ import auth from '@feathersjs/authentication-client'
 import io from 'socket.io-client'
 import { iff, discard } from 'feathers-hooks-common'
 import feathersVuex from 'feathers-vuex'
-const url = process.env.API_URL
+const url = process.env.API_URL || 'https://compendium-backend.arcode.online.com'
 const socket = io(url, { transports: ['websocket'] })
 
 const feathersClient = feathers()
