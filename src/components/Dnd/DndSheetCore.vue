@@ -2,8 +2,20 @@
     <div>
     <q-btn label="Ver Ficha" @click="seeSheet=true" color="indigo" class="fit"/>
 
-    <q-dialog v-model="seeSheet" @show="onShow" full-height>
-      <q-card v-if="sheet" class="sheet row " style="width: 1300px; max-width: 90vw;">
+    <q-dialog v-model="seeSheet" @show="onShow">
+
+      <q-card v-if="sheet" class="sheet row " style="width: 1300px; max-width: 90vw">
+      <q-btn
+        size="lg"
+        class="fixed-top-left q-mt-xs"
+        style="left: 10vw; z-index:1"
+        v-if="!visitor"
+        color="green-9"
+        icon="save"
+        label="Salvar Ficha"
+        @click="seeSheet=false"
+      />
+
         <div class="col-12 row q-mt-md q-mb-xl">
           <div class="col-5 row justify-around">
             <q-input :readonly="visitor" hint="Nome do Personagem" class="col-10 q-my-auto" v-model="sheet.name"/>

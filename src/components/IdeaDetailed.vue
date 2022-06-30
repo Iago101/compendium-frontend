@@ -137,12 +137,20 @@
                   round
                   class="right "
                   color="green"
-                  v-if="shouldRender && idea.userId !== user._id"
-                  icon="navigation"
+                  v-if="shouldRender && idea.userId !== user._id && isLiked === true"
+                  icon='thumb_up'
+                  @click="upvote"
+                />
+                <q-btn
+                  round
+                  class="right "
+                  color="green"
+                  v-else
+                  icon='save'
                   @click="upvote"
                 />
                 <br>
-                Creation Points
+                Pontos
               </div>
             </h5>
           </div>
@@ -247,7 +255,15 @@ export default {
         return true
       }
       return false
+    },
+
+    isLiked: function () {
+      if (this.getLiked() === true) {
+        return true
+      }
+      return false
     }
+
   },
 
   async created () {
@@ -255,6 +271,16 @@ export default {
   },
 
   methods: {
+    async getLiked () {
+      const teste = await this.$store.dispatch('likes/find', { query: { userId: this.user._id, ideaId: this.idea._id } })
+      console.log(teste.data)
+      if (teste.data) {
+        return true
+      } else {
+        return false
+      }
+    },
+
     async saveFavorite  () {
       const data = this.user
       const favorites = data.favoriteIdeas.length

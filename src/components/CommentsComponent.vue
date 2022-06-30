@@ -9,7 +9,7 @@
                 <q-icon name="send" class="col-1 q-mt-lg q-ml-md cursor-pointer" @click="postComment" size="lg" />
         </div>
 
-        <q-btn round  icon="add_comment" v-if="loadController!==true" color="green" size="lg" class="q-mx-auto q-mt-md" @click="loadComments">
+        <q-btn round icon="add_comment" v-if="loadController!==true" color="green" size="lg" class="q-mx-auto q-mt-md" @click="loadComments">
           <q-tooltip>Carregar Comentários</q-tooltip>
         </q-btn>
 
@@ -21,7 +21,9 @@
              </div>
         </div>
 
-        <q-btn round icon="add_comment" v-if="loadController===true" color="red" size="lg" class="q-mx-auto q-mt-md" @click="loadComments"/>
+        <q-btn round icon="add_comment" v-if="loadController===true" color="red" size="lg" class="q-mx-auto q-mt-md" @click="loadComments">
+          <q-tooltip>Esconder Comentários</q-tooltip>
+        </q-btn>
     </div>
 </template>
 <script>
@@ -118,6 +120,7 @@ export default {
 
   created () {
     this.load()
+    this.loadComments()
   }
 }
 </script>
